@@ -1,0 +1,36 @@
+openapi: "3.0.0"
+info:
+  title: ec-site API Document
+  version: "0.0.1"
+  description: "ec-site API のドキュメントです"
+tags:
+  - name: items
+    description: 商品関連のAPI
+paths:
+  /items/1:
+    get:
+      tags:
+        - items
+      operationId: showItems
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemDTO"
+components:
+  schemas:
+    ItemDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "商品ID"
+        itemName:
+          type: string
+          description: "商品名"
+      required:
+        - id
+        - itemName

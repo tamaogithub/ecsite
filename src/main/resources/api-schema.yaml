@@ -7,11 +7,19 @@ tags:
   - name: items
     description: 商品関連のAPI
 paths:
-  /items/1:
+  /items/{itemId}:
     get:
       tags:
         - items
       operationId: showItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: "詳細を取得する商品のID"
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: OK

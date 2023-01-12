@@ -15,9 +15,9 @@ public class ItemController implements ItemsApi {
 
     private final ItemService itemService;
     @Override
-    public ResponseEntity<ItemDTO> showItem() {
+    public ResponseEntity<ItemDTO> showItem(Long itemId) {
 
-        var entity = itemService.find();
+        var entity = itemService.find(itemId);
 
         var dto = new ItemDTO();
         //EntityをDTOに詰めかえる

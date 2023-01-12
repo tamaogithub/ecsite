@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    public ItemEntity find() {
+    public ItemEntity find(Long itemId) {
         // レコードが1件も取得できない事も考慮にいれて Optional を返すようにする
-        return itemRepository.select()
+        return itemRepository.select(itemId)
                 .map(record -> new ItemEntity(record.getId(), record.getTitle()))
                 .orElseThrow(() -> new IllegalArgumentException("TODO")); //TODO
 //        return new ItemEntity(2, "from Service");

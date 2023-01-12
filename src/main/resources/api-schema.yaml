@@ -27,6 +27,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ItemDTO"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceNotFoundError"
 components:
   schemas:
     ItemDTO:
@@ -42,3 +48,17 @@ components:
       required:
         - id
         - itemName
+    ResourceNotFoundError:
+      description: "指定したリソースが存在しない"
+      type: object
+      properties:
+        title:
+          type: string
+          description: "エラーのタイトル"
+          default: "Resouce Not Found"
+        detail:
+          type: string
+          description: "エラーの詳細"
+      required:
+        - title
+        - detail

@@ -13,7 +13,6 @@ public class ItemService {
         // レコードが1件も取得できない事も考慮にいれて Optional を返すようにする
         return itemRepository.select(itemId)
                 .map(record -> new ItemEntity(record.getId(), record.getTitle()))
-                .orElseThrow(() -> new IllegalArgumentException("TODO")); //TODO
-//        return new ItemEntity(2, "from Service");
+                .orElseThrow(() -> new ItemEntityNotFoundException(itemId));
     }
 }

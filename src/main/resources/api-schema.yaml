@@ -11,7 +11,7 @@ paths:
     get:
       tags:
         - items
-      operationId: showItems
+      operationId: showItem
       responses:
         '200':
           description: OK

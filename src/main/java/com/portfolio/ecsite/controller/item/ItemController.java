@@ -15,7 +15,7 @@ public class ItemController implements ItemsApi {
 
     private final ItemService itemService;
     @Override
-    public ResponseEntity<ItemDTO> showItems() {
+    public ResponseEntity<ItemDTO> showItem() {
 
         var entity = itemService.find();
 

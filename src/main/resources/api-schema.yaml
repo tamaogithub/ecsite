@@ -7,8 +7,20 @@ tags:
   - name: items
     description: 商品関連のAPI
 paths:
+  /items/:
+    post:
+      summary: "商品作成"
+      description: "商品を新規作成します。"
+      operationId: "createItem"
+      tags:
+        - items
+      responses:
+        201:
+          description: "Created"
   /items/{itemId}:
     get:
+      summary: "商品取得"
+      description: "指定されたIDの商品を１件取得します。"
       tags:
         - items
       operationId: showItem
@@ -55,7 +67,7 @@ components:
         title:
           type: string
           description: "エラーのタイトル"
-          default: "Resouce Not Found"
+          default: "Resource Not Found"
         detail:
           type: string
           description: "エラーの詳細"

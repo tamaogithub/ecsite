@@ -4,6 +4,7 @@ import com.portfolio.ecsite.controller.ItemsApi;
 import com.portfolio.ecsite.model.ItemDTO;
 import com.portfolio.ecsite.service.item.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,15 @@ public class ItemController implements ItemsApi {
         dto.setId(entity.getItemId());
         dto.setItemName(entity.getItemName());
         return ResponseEntity.ok(dto);
+    }
+
+    @Override
+    public ResponseEntity<ItemDTO> createItem() {
+        var dto = new ItemDTO();
+        dto.setId(99L);
+        dto.setItemName("歯ブラシ");
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(dto);
     }
 }

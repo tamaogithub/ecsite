@@ -2,6 +2,7 @@ package com.portfolio.ecsite.controller.item;
 
 import com.portfolio.ecsite.controller.ItemsApi;
 import com.portfolio.ecsite.model.ItemDTO;
+import com.portfolio.ecsite.model.ItemForm;
 import com.portfolio.ecsite.service.item.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,10 +29,10 @@ public class ItemController implements ItemsApi {
     }
 
     @Override
-    public ResponseEntity<ItemDTO> createItem() {
+    public ResponseEntity<ItemDTO> createItem(ItemForm itemForm) {
         var dto = new ItemDTO();
         dto.setId(99L);
-        dto.setItemName("歯ブラシ");
+        dto.setItemName(itemForm.getItemName());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(dto);

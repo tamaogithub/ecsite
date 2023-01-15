@@ -6,5 +6,5 @@ import lombok.Value;
 public class ItemRecode {
 
     long id;
-    String title;
+    String itemName;
 }

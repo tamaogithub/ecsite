@@ -9,8 +9,8 @@ tags:
 paths:
   /items/:
     post:
-      summary: "商品作成"
-      description: "商品を新規作成します。"
+      summary: "商品の作成"
+      description: "商品を新規作成します"
       operationId: "createItem"
       tags:
         - items
@@ -23,13 +23,18 @@ paths:
       responses:
         201:
           description: "Created"
+          headers:
+            location:
+              description: "作成したリソースのURI"
+              schema:
+                type: string
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ItemDTO"
   /items/{itemId}:
     get:
-      summary: "商品取得"
+      summary: "商品の取得"
       description: "指定されたIDの商品を１件取得します。"
       tags:
         - items

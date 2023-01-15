@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.text.html.parser.Entity;
+import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,8 +36,9 @@ public class ItemController implements ItemsApi {
         var dto = new ItemDTO();
         dto.setId(entity.getItemId());
         dto.setItemName(entity.getItemName());
+
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .created(URI.create("/items/" + dto.getId()))
                 .body(dto);
     }
 }

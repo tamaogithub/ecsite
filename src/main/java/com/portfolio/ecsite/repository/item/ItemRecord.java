@@ -3,8 +3,8 @@ package com.portfolio.ecsite.repository.item;
 import lombok.Value;
 
 @Value
-public class ItemRecode {
+public class ItemRecord {
 
-    long id;
+    Long id;
     String itemName;
 }

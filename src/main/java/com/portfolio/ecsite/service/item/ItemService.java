@@ -1,5 +1,6 @@
 package com.portfolio.ecsite.service.item;
 
+import com.portfolio.ecsite.repository.item.ItemRecord;
 import com.portfolio.ecsite.repository.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,8 @@ public class ItemService {
     }
 
     public ItemEntity create(String itemName) {
-        return new ItemEntity(999L,itemName);
-//        var record = new ItemRecord(null,itemName);
-//        itemRepository.insert(record);
-//        return new ItemEntity(record.getId(), record.getItemName());
+        var record = new ItemRecord(null,itemName);
+        itemRepository.insert(record);
+        return new ItemEntity(record.getId(), record.getItemName());
     }
 }

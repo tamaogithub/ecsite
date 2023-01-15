@@ -29,10 +29,12 @@ public class ItemController implements ItemsApi {
     }
 
     @Override
-    public ResponseEntity<ItemDTO> createItem(ItemForm itemForm) {
+    public ResponseEntity<ItemDTO> createItem(ItemForm form) {
+        var entity = itemService.create(form.getItemName());
+
         var dto = new ItemDTO();
-        dto.setId(99L);
-        dto.setItemName(itemForm.getItemName());
+        dto.setId(entity.getItemId());
+        dto.setItemName(entity.getItemName());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(dto);

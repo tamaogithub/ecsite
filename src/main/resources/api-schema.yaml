@@ -74,6 +74,8 @@ components:
         itemName:
           type: string
           description: "作成される商品の名前"
+          maxLength: 256
+          minLength: 1
       required:
         - itemName
     ItemDTO:

@@ -7,7 +7,40 @@ tags:
   - name: items
     description: 商品関連のAPI
 paths:
-  /items/:
+  /items:
+    get:
+      summary: "商品一覧の取得"
+      description: "商品の一覧を取得できます"
+      operationId: "listItems"
+      tags:
+        - items
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          description: "リソースに含まれるリソースの最大値"
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
+        - name: offset
+          in: query
+          required: ture
+          description: "オフセット"
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemListDTO"
     post:
       summary: "商品の作成"
       description: "商品を新規作成します"
@@ -76,6 +109,11 @@ components:
           description: "作成される商品の名前"
           maxLength: 256
           minLength: 1
+        description:
+          type: string
+          description: "作成される商品の詳細"
+          maxLength: 256
+          minLength: 1
       required:
         - itemName
     ItemDTO:
@@ -91,6 +129,34 @@ components:
       required:
         - id
         - itemName
+    PageDTO:
+      description: "ページング情報"
+      type: object
+      properties:
+        limit:
+          description: "リクエストされた limit"
+          type: integer
+          format: int32
+        offset:
+          description: "リクエストされた offset"
+          type: integer
+          format: int64
+        size:
+          description: "取得できた件数"
+          type: integer
+          format: int32
+    ItemListDTO:
+      description: "タスクのリスト"
+      type: object
+      properties:
+        page:
+          $ref: "#/components/schemas/PageDTO"
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ItemDTO"
+      required:
+        - results
     ResourceNotFoundError:
       description: "指定したリソースが存在しない"
       type: object

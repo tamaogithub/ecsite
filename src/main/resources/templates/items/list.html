@@ -19,6 +19,7 @@
   <tbody>
   <tr th:each="item : ${itemList}">
     <th th:text="${item.id}">(id)</th>
+
     <td>
       <a href="./updateForm.html" th:href="@{/items/{itemId}(itemId=${item.id})}" th:text="${item.itemName}">
         (itemName)
@@ -39,5 +40,6 @@
   </tr>
   </tbody>
 </table>
+<!-- 以降がページネーション部分 -->
 </body>
 </html>

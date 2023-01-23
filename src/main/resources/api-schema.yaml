@@ -41,6 +41,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ItemListDTO"
+        '400':
+          description: "Bad Resuest"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+
     post:
       summary: "商品の作成"
       description: "商品を新規作成します"
@@ -99,6 +106,46 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResourceNotFoundError"
+    put:
+      summary: "商品変更"
+      description: "指定された商品をリクエストボディの内容で上書きします"
+      operationId: "editItem"
+      tags:
+        - items
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: "更新する商品のID"
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemForm"
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemDTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
 components:
   schemas:
     ItemForm:
@@ -107,15 +154,34 @@ components:
         itemName:
           type: string
           description: "作成される商品の名前"
-          maxLength: 256
+          maxLength: 20
           minLength: 1
         description:
           type: string
           description: "作成される商品の詳細"
-          maxLength: 256
+          maxLength: 100
+          minLength: 1
+        company:
+          type: string
+          description: "作成される販売会社"
+          maxLength: 20
+          minLength: 1
+        price:
+          type: int
+          description: "作成される商品価格（円）"
+          maxLength: 10
+          minLength: 1
+        stock:
+          type: int
+          description: "作成される在庫数（個）"
+          maxLength: 10
           minLength: 1
       required:
         - itemName
+        - description
+        - company
+        - price
+        - stock
     ItemDTO:
       type: object
       properties:
@@ -126,9 +192,27 @@ components:
         itemName:
           type: string
           description: "商品名"
+        description:
+          type: string
+          description: "商品概要"
+        company:
+          type: string
+          description: "販売会社"
+        price:
+          type: integer
+          format: int32
+          description: "販売価格（円）"
+        stock:
+          type: integer
+          format: int32
+          description: "在庫数（個）"
       required:
         - id
         - itemName
+        - description
+        - company
+        - price
+        - stock
     PageDTO:
       description: "ページング情報"
       type: object
@@ -146,7 +230,7 @@ components:
           type: integer
           format: int32
     ItemListDTO:
-      description: "タスクのリスト"
+      description: "商品のリスト"
       type: object
       properties:
         page:

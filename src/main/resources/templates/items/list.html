@@ -47,7 +47,7 @@
         <a class="page-link" th:href="@{'/items?limit=10&offset=0'}"　tabindex="-2">最初</a>
       </li>
       <li th:if="${page} > 1" class="page-item ">
-        <a class="page-link" th:href="@{'/items?page=' + ${page-1}}"　tabindex="-1">前へ</a>
+        <a class="page-link" th:href="@{'/items?limit=10&offset=' + ${preOffset} }"　tabindex="-1">前へ</a>
       </li>
       <th:block th:if="${endPage}<=0">
         <li class="page-item " th:classappend="${i == page} ? active" th:each="i : ${startPage}">
@@ -57,7 +57,6 @@
       <!-- StartPageからEndPageまでのページ数を表示する -->
       <th:block th:if="${endPage}>0">
         <li class="page-item " th:classappend="${i == page} ? active" th:each="i : ${#numbers.sequence(startPage, endPage)}">
-<!--          <a class="page-link" th:href="@{'/items?page=' + ${i}}" th:text="${i}"></a>-->
           <a class="page-link" th:href="@{'/items?limit=10&offset=' + ${i-1} +'0'}" th:text="${i}"></a>
         </li>
       </th:block>
@@ -65,7 +64,7 @@
         <a class="page-link" th:href="@{'/items?limit=10&offset=' + ${endPage} + '0'}">次へ</a>
       </li>
       <li th:if="${endPage} < ${totalPage}" class="page-item ">
-        <a class="page-link" th:href="@{'/items?limit=10&offset=' + ${totalPage}}">最後</a>
+        <a class="page-link" th:href="@{'/items?limit=10&offset=' + ${totalPage-1} + '0'}">最後</a>
       </li>
     </ul>
   </nav>

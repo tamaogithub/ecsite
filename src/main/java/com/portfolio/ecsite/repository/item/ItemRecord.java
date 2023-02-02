@@ -7,4 +7,9 @@ public class ItemRecord {
 
     Long id;
     String itemName;
+    String description;
+    byte[] itemImage;
+    String company;
+    int price;
+    int stock;
 }

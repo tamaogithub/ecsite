@@ -4,7 +4,6 @@
 <head>
     <title>課題一覧 | 課題管理アプリケーション</title>
 </head>
-<div th:replace="~{fragments/layout :: header}"></div>
 <body>
   <h1 class="mt-3">商品一覧</h1>
   <a href="../index.html" th:href="@{/}">トップページ</a>
@@ -12,12 +11,19 @@
   <table class="table">
     <thead>
     <tr>
-      <th>#</th><th>商品名</th><th>商品概要</th><th>販売会社</th><th>販売価格（円）</th><th>在庫数（個）</th>
+      <th>#</th><th>商品画像</th><th>商品名</th><th>商品概要</th><th>販売会社</th><th>販売価格（円）</th><th>在庫数（個）</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="item : ${itemList}">
       <th th:text="${item.id}">(id)</th>
+      <td>
+        <a href="./updateForm.html"
+           th:href="@{/items/{itemId}(itemId=${item.id})}">
+          <img th:if="!${item.itemImage}" th:src="${base64Data}" style="width: 50px;height: 50px;">
+          <img th:if="${item.itemImage}" th:src="${'data:image/png;base64',item.itemImage}" style="width: 50px;height: 50px;">
+        </a>
+      </td>
       <td>
         <a href="./updateForm.html"
            th:href="@{/items/{itemId}(itemId=${item.id})}"
@@ -56,7 +62,7 @@
       </th:block>
       <!-- StartPageからEndPageまでのページ数を表示する -->
       <th:block th:if="${endPage}>0">
-        <li class="page-item " th:classappend="${i == page} ? active" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+        <li class="page-item " th:classappend="${i == page} ? active" th:each="i : ${#numbers.sequence(startPage , endPage)}">
           <a class="page-link" th:href="@{'/items?limit=10&offset=' + ${i-1} +'0'}" th:text="${i}"></a>
         </li>
       </th:block>
@@ -69,5 +75,4 @@
     </ul>
   </nav>
 </body>
-<div th:replace="~{fragments/layout :: footer}"></div>
 </html>

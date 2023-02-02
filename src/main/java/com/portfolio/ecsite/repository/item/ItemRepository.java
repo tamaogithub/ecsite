@@ -1,19 +1,36 @@
 package com.portfolio.ecsite.repository.item;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import com.portfolio.ecsite.service.item.ItemEntity;
+import org.apache.ibatis.annotations.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mapper
 public interface ItemRepository {
 
-    @Select("SELECT id , itemname FROM items WHERE id = #{itemId}")
+    @Select("SELECT id, itemname, description, " +
+            "CAST(itemimage AS CHAR(10000) CHARACTER SET utf8) as itemimage, " +
+            "company, price, stock FROM items LIMIT #{limit} OFFSET #{offset}")
+    List<ItemRecord> selectList(int limit, long offset);
+
+    @Select("SELECT count(*) FROM items")
+    int selectListCount();
+
+    @Select("select id, itemname, description," +
+            "CAST(itemimage AS CHAR(10000) CHARACTER SET utf8) as itemimage, " +
+            "company, price, stock from items WHERE id = #{itemId}")
     Optional<ItemRecord> select(Long itemId);
 
+    @Select("select * from items where id = #{itemId}")
+    ItemEntity findById(Long itemId);
+
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("INSERT INTO items (itemname) VALUES (#{itemName})")
+    @Insert("insert into items (itemname, description, itemimage, company, price, stock) values " +
+            "(#{itemName}, #{description}, #{itemImage}, #{company}, #{price}, #{stock})")
     void insert(ItemRecord record);
+
+    @Update("update items set itemname = #{itemName}, description = #{description}, " +
+            "itemimage = #{itemImage}, company = #{company}, price = #{price}, stock = #{stock} where id = #{itemId}")
+    void update(Long itemId, String itemName, String description, byte[] itemImage ,String company, int price, int stock);
 }

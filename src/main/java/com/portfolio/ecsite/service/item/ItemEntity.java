@@ -8,7 +8,7 @@ public class ItemEntity {
     Long id;
     String itemName;
     String description;
-    byte[] itemImage;
+    String itemImage;
     String company;
     int price;
     int stock;

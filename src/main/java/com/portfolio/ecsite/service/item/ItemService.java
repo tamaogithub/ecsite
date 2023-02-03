@@ -50,7 +50,7 @@ public class ItemService {
 
 
     @Transactional
-    public ItemEntity create(String itemName, String  description, byte[] itemImage, String company, int price, int stock) {
+    public ItemEntity create(String itemName, String  description, String itemImage, String company, int price, int stock) {
         var record = new ItemRecord(null,itemName, description, itemImage ,company, price, stock);
         itemRepository.insert(record);
 
@@ -65,7 +65,7 @@ public class ItemService {
     }
 
     @Transactional
-    public void update(Long itemId, String itemName, String description, byte[] itemImage, String company, int price, int stock) {
+    public void update(Long itemId, String itemName, String description, String itemImage, String company, int price, int stock) {
         itemRepository.update(itemId, itemName, description, itemImage, company, price, stock);
     }
 

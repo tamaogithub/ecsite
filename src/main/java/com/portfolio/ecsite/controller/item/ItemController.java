@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -96,7 +95,7 @@ public class ItemController implements ItemsApi {
 
     //商品登録画面に遷移
     @GetMapping("/creationForm")
-    public String showCreationForm(@ModelAttribute ItemForms itemForms){
+    public String showCreationForm(@ModelAttribute ItemForms itemForms) {
         return "items/creationForm";
     }
 
@@ -104,7 +103,6 @@ public class ItemController implements ItemsApi {
     @PostMapping
 //    public ResponseEntity<ItemDTO> createItem(@Validated ItemForm form, BindingResult bindingResult) {
     public String createItem(@Validated ItemForms itemForms, BindingResult bindingResult) throws IOException {
-
 
         if (bindingResult.hasErrors()) {
             return showCreationForm(itemForms);
@@ -122,9 +120,10 @@ public class ItemController implements ItemsApi {
         //アップロード実行処理メソッド呼び出し
 //        OutputStream outputStream  = uploadAction(image);
         byte[] bytes  = uploadAction(image);
+        String base64Data = Base64.getEncoder().encodeToString(bytes);
 
         var entity = itemService.create(
-                itemForms.getItemName(), itemForms.getDescription(), bytes,
+                itemForms.getItemName(), itemForms.getDescription(), base64Data,
                 itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
 
         return "redirect:/items?limit=10&offset=0";
@@ -134,30 +133,21 @@ public class ItemController implements ItemsApi {
      * アップロード実行処理
      * @param multipartFile
      */
-//    private OutputStream uploadAction(MultipartFile multipartFile) {
     public byte[] uploadAction(MultipartFile multipartFile) throws IOException {
         //ファイル名取得
         String fileName = multipartFile.getOriginalFilename();
-
         //格納先のフルパス ※事前に格納先フォルダ「UploadTest」をCドライブ直下に作成しておく
         Path filePath = Paths.get("C:/tmp/" + fileName);
+        //アップロードファイルをバイト値に変換
+        byte[] bytes = multipartFile.getBytes();
 
-        OutputStream stream = null;
-//        try {
-            //アップロードファイルをバイト値に変換
-            byte[] bytes = multipartFile.getBytes();
-
+//        OutputStream stream = null;
             //バイト値を書き込む為のファイルを作成して指定したパスに格納
 //            stream = Files.newOutputStream(filePath);
 //
 //            //ファイルに書き込み
 //            stream.write(bytes);
 
-//            return bytes;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return stream;
         return bytes;
     }
 
@@ -186,9 +176,10 @@ public class ItemController implements ItemsApi {
         MultipartFile image = form.getItemImage();
 
         byte[] bytes  = uploadAction(image);
+        String base64Data = Base64.getEncoder().encodeToString(bytes);
 
         itemService.update(itemId, form.getItemName(), form.getDescription(),
-                bytes, form.getCompany(), form.getPrice(), form.getStock());
+                base64Data, form.getCompany(), form.getPrice(), form.getStock());
         return "redirect:/items?limit=10&offset=0";
     }
 

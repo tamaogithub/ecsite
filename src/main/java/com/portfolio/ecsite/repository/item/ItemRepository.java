@@ -9,17 +9,13 @@ import java.util.Optional;
 @Mapper
 public interface ItemRepository {
 
-    @Select("SELECT id, itemname, description, " +
-            "CAST(itemimage AS CHAR(10000) CHARACTER SET utf8) as itemimage, " +
-            "company, price, stock FROM items LIMIT #{limit} OFFSET #{offset}")
+    @Select("SELECT * FROM items LIMIT #{limit} OFFSET #{offset}")
     List<ItemRecord> selectList(int limit, long offset);
 
     @Select("SELECT count(*) FROM items")
     int selectListCount();
 
-    @Select("select id, itemname, description," +
-            "CAST(itemimage AS CHAR(10000) CHARACTER SET utf8) as itemimage, " +
-            "company, price, stock from items WHERE id = #{itemId}")
+    @Select("select * from items WHERE id = #{itemId}")
     Optional<ItemRecord> select(Long itemId);
 
     @Select("select * from items where id = #{itemId}")
@@ -32,5 +28,5 @@ public interface ItemRepository {
 
     @Update("update items set itemname = #{itemName}, description = #{description}, " +
             "itemimage = #{itemImage}, company = #{company}, price = #{price}, stock = #{stock} where id = #{itemId}")
-    void update(Long itemId, String itemName, String description, byte[] itemImage ,String company, int price, int stock);
+    void update(Long itemId, String itemName, String description, String itemImage ,String company, int price, int stock);
 }

@@ -8,6 +8,7 @@ public class ItemEntity {
     Long id;
     String itemName;
     String description;
+    String fileName;
     String itemImage;
     String company;
     int price;

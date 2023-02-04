@@ -22,11 +22,11 @@ public interface ItemRepository {
     ItemEntity findById(Long itemId);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into items (itemname, description, itemimage, company, price, stock) values " +
-            "(#{itemName}, #{description}, #{itemImage}, #{company}, #{price}, #{stock})")
+    @Insert("insert into items (itemname, description, filename, itemimage, company, price, stock) values " +
+            "(#{itemName}, #{description}, #{fileName}, #{itemImage}, #{company}, #{price}, #{stock})")
     void insert(ItemRecord record);
 
-    @Update("update items set itemname = #{itemName}, description = #{description}, " +
+    @Update("update items set itemname = #{itemName}, description = #{description}, filename = #{fileName}, " +
             "itemimage = #{itemImage}, company = #{company}, price = #{price}, stock = #{stock} where id = #{itemId}")
-    void update(Long itemId, String itemName, String description, String itemImage ,String company, int price, int stock);
+    void update(Long itemId, String itemName, String description, String fileName, String itemImage ,String company, int price, int stock);
 }

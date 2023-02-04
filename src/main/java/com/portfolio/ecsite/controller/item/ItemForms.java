@@ -19,12 +19,10 @@ public class ItemForms {
     @Size(max=100)
     private String description;
 
-    // 添付ファイル
-//    @ContentType(allowed = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE })
-    private MultipartFile itemImage; // serializableではないのでtransientにする
-//    @Lob
-//    @Type(type="org.hibernate.type.ImageType")
-//    private byte[] itemImage;
+    @Size(max=255)
+    private String fileName;
+
+    private MultipartFile itemImage;
 
     @NotBlank
     @Size(max=20)

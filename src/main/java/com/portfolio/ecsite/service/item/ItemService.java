@@ -21,6 +21,7 @@ public class ItemService {
                         record.getId(),
                         record.getItemName(),
                         record.getDescription(),
+                        record.getFileName(),
                         record.getItemImage(),
                         record.getCompany(),
                         record.getPrice(),
@@ -37,10 +38,11 @@ public class ItemService {
                         record.getId(),
                         record.getItemName(),
                         record.getDescription(),
+                        record.getFileName(),
                         record.getItemImage(),
                         record.getCompany(),
                         record.getPrice(),
-                        record.getPrice()))
+                        record.getStock()))
                 .collect(Collectors.toList());
     }
 
@@ -50,14 +52,15 @@ public class ItemService {
 
 
     @Transactional
-    public ItemEntity create(String itemName, String  description, String itemImage, String company, int price, int stock) {
-        var record = new ItemRecord(null,itemName, description, itemImage ,company, price, stock);
+    public ItemEntity create(String itemName, String  description, String fileName, String itemImage, String company, int price, int stock) {
+        var record = new ItemRecord(null,itemName, description, fileName, itemImage ,company, price, stock);
         itemRepository.insert(record);
 
         return new ItemEntity(
                 record.getId(),
                 record.getItemName(),
                 record.getDescription(),
+                record.getFileName(),
                 record.getItemImage(),
                 record.getCompany(),
                 record.getPrice(),
@@ -65,8 +68,8 @@ public class ItemService {
     }
 
     @Transactional
-    public void update(Long itemId, String itemName, String description, String itemImage, String company, int price, int stock) {
-        itemRepository.update(itemId, itemName, description, itemImage, company, price, stock);
+    public void update(Long itemId, String itemName, String description, String fileName,String itemImage, String company, int price, int stock) {
+        itemRepository.update(itemId, itemName, description, fileName, itemImage, company, price, stock);
     }
 
 }

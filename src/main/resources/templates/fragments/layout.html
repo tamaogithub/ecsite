@@ -31,7 +31,7 @@
     <div class="btn-submit"></div>
     <div class="container" th:insert="${content}"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script th:src="@{/css/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <script>
         $(document).on('change', ':file', function() {
             var input = $(this),
@@ -45,11 +45,12 @@
                 var reader = new FileReader(); // instance of the FileReader
                 reader.readAsDataURL(files[0]); // read the local file
                 reader.onloadend = function(){ // set image data as background of div
+                    input.parent().parent().parent().prev('.imagePreview').children('img').css('display','none')
                     input.parent().parent().parent().prev('.imagePreview').css("background-image", "url("+this.result+")");
                 }
             }
         });
-        </script>
+    </script>
 </body>
 <div>　</div><div>　</div>
 <footer th:fragment="footer">

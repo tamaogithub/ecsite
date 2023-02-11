@@ -30,9 +30,6 @@ public class MediaTypeImageValidator implements ConstraintValidator<MediaTypeIma
         List<String> extList = Arrays.asList("jpg", "jpeg", "png", "gif");
 
         // メディアタイプと拡張子をチェック
-        boolean a = mediaTypeList.stream().anyMatch((mType) -> mediaType.includes(mType));
-        boolean b = extList.stream().anyMatch((v) -> ext.toLowerCase().equals(v));
-
         return mediaTypeList.stream().anyMatch((mType) -> mediaType.includes(mType))
                 && extList.stream().anyMatch((v) -> ext.toLowerCase().equals(v));
     }

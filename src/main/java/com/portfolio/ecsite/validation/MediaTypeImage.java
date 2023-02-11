@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MediaTypeImage {
-    String message() default "画像ファイルを指定してください";
+    String message() default "画像ファイル（*.jpg, *.jpeg, *.png, *.gif）を選択してください";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

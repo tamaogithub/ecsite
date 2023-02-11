@@ -1,5 +1,6 @@
 package com.portfolio.ecsite.controller.item;
 
+import com.portfolio.ecsite.validation.MediaTypeImage;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ public class ItemForms {
     @Size(max=255)
     private String fileName;
 
+    @MediaTypeImage
     private MultipartFile itemImage;
 
     @NotBlank

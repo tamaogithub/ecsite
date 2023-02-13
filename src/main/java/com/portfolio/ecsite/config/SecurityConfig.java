@@ -1,6 +1,7 @@
 package com.portfolio.ecsite.config;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,9 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
     @Bean
-    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    protected SecurityFilterChain configure(@NotNull HttpSecurity http) throws Exception {
         // for h2 console ※本番環境にDEPLOYするときは削除すること
         http
                 .authorizeRequests().antMatchers("/h2-console/**").permitAll()
@@ -24,6 +24,7 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .mvcMatchers("/users/**").hasAuthority("ADMIN")
+                .mvcMatchers("/css/**", "/imges/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

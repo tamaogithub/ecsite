@@ -1,9 +1,7 @@
-package com.portfolio.ecsite.web.validation;
+package com.portfolio.ecsite.validation;
 
-import com.portfolio.ecsite.domain.auth.UserRepository;
+import com.portfolio.ecsite.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.internal.constraintvalidators.hv.UniqueElementsValidator;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

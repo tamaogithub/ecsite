@@ -1,4 +1,4 @@
-package com.portfolio.ecsite.web.validation;
+package com.portfolio.ecsite.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 // RUNTIME つまり、実行時までアノテーションを残す
 @Retention(RetentionPolicy.RUNTIME)
 //バリデーションを実行するクラスを指定する
-@Constraint(validatedBy = com.portfolio.ecsite.web.validation.UniqueUsernameValidator.class)
+@Constraint(validatedBy = UniqueUsernameValidator.class)
 public @interface UniqueUsername {
     //バリデーションが発生したときのエラーメッセージ
     String message() default "入力されたユーザー名はすでに登録されています。別のユーザー名を入力してください";

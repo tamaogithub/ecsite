@@ -1,5 +1,6 @@
 package com.portfolio.ecsite.controller.user;
 
+import com.portfolio.ecsite.validation.UniqueUsername;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +13,7 @@ public class UserForms {
 
     @NotBlank
     @Size(min = 1, max=20)
+    @UniqueUsername
     private String userName;
 
     @NotBlank

@@ -14,13 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     protected SecurityFilterChain configure(@NotNull HttpSecurity http) throws Exception {
-        // for h2 console ※本番環境にDEPLOYするときは削除すること
-        http
-                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
-                .and()
-                .csrf().ignoringAntMatchers("/h2-console/**")
-                .and()
-                .headers().frameOptions().disable();
         http
                 .authorizeRequests()
                 .mvcMatchers("/users/**").hasAuthority("ADMIN")

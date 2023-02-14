@@ -97,7 +97,7 @@ public class UserController {
         return "redirect:/users?limit=10&offset=0";
     }
 
-    //商品編集画面に遷移
+    //ユーザー編集画面に遷移
     @GetMapping("/{userId}")
     public String showUpdateFrom(@PathVariable("userId") Long userId, Model model) {
         var entity = userService.find(userId);

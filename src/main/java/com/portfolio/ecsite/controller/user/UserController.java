@@ -8,12 +8,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
+
+    private final UserService userService;
 
     /** １ページの表示数 */
     private final String limits = "10";
@@ -23,8 +26,6 @@ public class UserController {
 
     String currentPage = null;
     String preOffset = "0";
-
-    private final UserService userService;
 
     //ユーザー一覧画面に遷移
     @GetMapping
@@ -74,6 +75,7 @@ public class UserController {
         model.addAttribute("offset", currentOffset);
         model.addAttribute("preOffset", preOffset);
         model.addAttribute("userList", entityList);
+
         return "users/List";
     }
 
@@ -85,7 +87,9 @@ public class UserController {
 
     //ユーザーの登録ボタン押下
     @PostMapping
-    public String create(@Validated UserForms form, BindingResult bindingResult){
+    public String createUser(@ModelAttribute @Validated UserForms form,
+                         BindingResult bindingResult) throws IOException {
+
         if(bindingResult.hasFieldErrors()){
             return showCreationForm(form);
         }
@@ -101,7 +105,6 @@ public class UserController {
     @GetMapping("/{userId}")
     public String showUpdateFrom(@PathVariable("userId") Long userId, Model model) {
         var entity = userService.find(userId);
-//        var dto = toUserDTO(entity);
         model.addAttribute("user", entity);
 
         return "users/updateForm";

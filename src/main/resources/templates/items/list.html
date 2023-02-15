@@ -2,53 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
 <head>
-    <title>課題一覧 | 課題管理アプリケーション</title>
+    <title>商品一覧 | ECサイトアプリケーション</title>
 </head>
 <body>
-  <h1 class="mt-3">商品一覧</h1>
+  <h5 class="mt-2">商品一覧</h5>
   <a href="../index.html" th:href="@{/}">トップページ</a>
   <a href="./creationForm.html" th:href="@{/items/creationForm}">作成</a>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>#</th><th>商品画像</th><th>商品名</th><th>商品概要</th><th>販売会社</th><th>販売価格（円）</th><th>在庫数（個）</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item : ${itemList}">
-      <th th:text="${item.id}">(id)</th>
-      <td>
-        <a href="./updateForm.html"
-           th:href="@{/items/{itemId}(itemId=${item.id})}">
-          <img th:if="!${item.itemImage}" th:src="${base64Data}" style="width: 100px;height: 100px;">
-          <img th:if="${item.itemImage}" th:src=@{'data:image/png;base64,'+${item.itemImage}} style="width: 100px;height: 100px;">
-        </a>
-      </td>
-      <td>
-        <a href="./updateForm.html"
-           th:href="@{/items/{itemId}(itemId=${item.id})}"
-           th:text="${item.itemName}">
-          (itemName)
-        </a>
-      </td>
-      <td th:text="${item.description}">
-        (description)
-      </td>
-      <td th:text="${item.company}">
-        (company)
-      </td>
-      <td th:text="${item.price}">
-        (price)
-      </td>
-      <td th:text="${item.stock}">
-        (stock)
-      </td>
-    </tr>
-    </tbody>
-  </table>
+      <div>
+          <div class="container text-center">
+              <div class="row">
+                  <div class="col-sm-15 col-6" th:each="item : ${itemList}">
+                      <div class="card">
+                          <a href="./updateForm.html"
+                             th:href="@{/items/{itemId}(itemId=${item.id})}">
+                              <img th:if="!${item.itemImage}" th:src="${base64Data}" class="card-img-top">
+                              <img th:if="${item.itemImage}" th:src=@{'data:image/png;base64,'+${item.itemImage}} class="card-img-top">
+                          </a>
+                          <div class="card-body">
+                              <a href="./updateForm.html"
+                                 th:href="@{/items/{itemId}(itemId=${item.id})}"
+                                 th:text="${item.itemName}">(itemName)</a>
+                              <p class="card-text" th:text="${item.price} + 円">(price)</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  <div class="mt-2"></div>
   <!-- ここからページング処理 -->
   <nav>
-    <ul class="pagination pg-blue justify-content-center">
+    <ul class="pagination justify-content-center">
       <li th:if="${startPage} > 1" class="page-item ">
         <a class="page-link" th:href="@{'/items?limit=10&offset=0'}"　tabindex="-2">最初</a>
       </li>

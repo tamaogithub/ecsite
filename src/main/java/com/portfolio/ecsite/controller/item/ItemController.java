@@ -11,9 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Base64;
 import java.util.HashMap;
 
@@ -32,6 +30,8 @@ public class ItemController implements ItemsApi {
 
     String currentPage = null;
     String preOffset = "0";
+    // NoImage画像の取得
+    String base64Data = FileOpeUtil.noImageFileToBase64Data();
 
     //商品一覧画面に遷移
     @GetMapping
@@ -78,16 +78,7 @@ public class ItemController implements ItemsApi {
         model.addAttribute("offset", currentOffset);
         model.addAttribute("preOffset", preOffset);
         model.addAttribute("itemList", entityList);
-
-        //画像ファイルの指定
-        File fileImg = new File("c:\\tmp\\noImage.png");
-        try {
-            byte[] byteImg = Files.readAllBytes(fileImg.toPath());
-            String base64Data = Base64.getEncoder().encodeToString(byteImg);
-            model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
-        }catch(IOException e) {
-            return null;
-        }
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
 
         return  "items/list";
     }
@@ -100,88 +91,87 @@ public class ItemController implements ItemsApi {
 
     //商品の登録ボタン押下
     @PostMapping
-    public String createItem(@Validated ItemForms itemForms, BindingResult bindingResult, Model model) throws IOException {
+    public String createItem(@ModelAttribute @Validated ItemForms itemForms, BindingResult bindingResult) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return showCreationForm(itemForms);
         }
 
-        //フォームで渡されてきたアップロードファイルを取得
+        // フォームで渡されてきたアップロードファイルを取得
         MultipartFile image = itemForms.getItemImage();
 
-        //ファイルが空でなく、画像形式ファイルでない場合
-        if (!image.isEmpty() && !FileOpeUtil.isImageFileByImageIO(image)) {
-            //エラーメッセージと共にリダイレクトする
-            model.addAttribute("errorMsg", "追加されたファイルは画像ではありません");
-            return "redirect:/items/creationForm";
+        //画像ファイル名取得
+        String fileName = image.getOriginalFilename();
+        byte[] bytes = FileOpeUtil.uploadAction(image);
+        String base64Data = Base64.getEncoder().encodeToString(bytes);
+        if(base64Data.isEmpty()){
+            base64Data = null;
         }
 
-        //ファイル名取得
-        String fileName = image.getOriginalFilename();
-        byte[] bytes  = FileOpeUtil.uploadAction(image);
-        String base64Data = Base64.getEncoder().encodeToString(bytes);
-
         var entity = itemService.create(
-                itemForms.getItemName(), itemForms.getDescription(), fileName
-                ,base64Data, itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
+                itemForms.getItemName(), itemForms.getDescription(), fileName,
+                base64Data, itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
 
         return "redirect:/items?limit=10&offset=0";
     }
 
     //商品編集画面に遷移
-    @GetMapping("/{itemId}")
-    public String showUpdateFrom(@PathVariable("itemId") Long itemId, Model model) {
+    @GetMapping("/update/{itemId}")
+    public String showUpdateFrom(@PathVariable("itemId") Long itemId,
+                                 @ModelAttribute ItemForms itemForms, Model model) {
+
         var entity = itemService.find(itemId);
-//        var dto = toItemDTO(entity);
         model.addAttribute("item", entity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
 
         return "items/updateForm";
     }
 
     //商品の編集ボタン押下
-    @PutMapping("/{itemId}")
-    public String update(@PathVariable("itemId") Long itemId,
-                         @ModelAttribute @Validated ItemForms form,
-                         BindingResult bindingResult,
-                         Model model) throws IOException {
+//    @PreAuthorize("hasAuthority('MAKER')")
+    @PutMapping("/update/{itemId}")
+    public String updateItem(@PathVariable("itemId") Long itemId,
+                             @ModelAttribute @Validated ItemForms itemForms,
+                             BindingResult bindingResult, Model model) throws IOException {
+
         if (bindingResult.hasErrors()) {
-            return showCreationForm(form);
+//            return "items/updateForm";
+//            return showUpdateFrom(itemId, itemForms ,bindingResult, model); //商品編集画面に遷移
+            return showCreationForm(itemForms); //商品登録画面に遷移
         }
 
         //フォームで渡されてきたアップロードファイルを取得
-        MultipartFile image = form.getItemImage();
+        MultipartFile image = itemForms.getItemImage();
 
-        byte[] bytes  = FileOpeUtil.uploadAction(image);
+        String fileName = image.getOriginalFilename();
+        byte[] bytes = FileOpeUtil.uploadAction(image);
         String base64Data = Base64.getEncoder().encodeToString(bytes);
+        if(base64Data.isEmpty()){
+            base64Data = null;
+        }
 
-        itemService.update(itemId, form.getItemName(), form.getDescription(), form.getFileName(),
-                base64Data, form.getCompany(), form.getPrice(), form.getStock());
+        itemService.update(itemId, itemForms.getItemName(), itemForms.getDescription(), fileName,
+                base64Data, itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
         return "redirect:/items?limit=10&offset=0";
     }
 
-//    @Override
-//    public ResponseEntity<ItemDTO> createItem(ItemForm form) {
-//        var entity = itemService.create(form.getItemName(), form.getDescription(),
-//                form.getCompany(), form.getPrice(), form.getStock());
-//        var dto = toItemDTO(entity);
-//
-//        return ResponseEntity
-//                .created(URI.create("/items/" + dto.getId()))
-//                .body(dto);
-//    }
+    //商品購入画面に遷移
+    @GetMapping("/buy/{itemId}")
+    public String showBuyFrom(@PathVariable("itemId") Long itemId,
+                              @ModelAttribute ItemForms itemForms, Model model) {
 
+        var entity = itemService.find(itemId);
+        model.addAttribute("item", entity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
 
+        return "items/itemBuyForm";
+    }
 
-//    @NotNull
-//    private ItemDTO toItemDTO(ItemEntity itemEntity) {
-//        var itemDTO = new ItemDTO();
-//        itemDTO.setId(itemEntity.getId());
-//        itemDTO.setItemName(itemEntity.getItemName());
-//        itemDTO.setDescription(itemEntity.getDescription());
-//        itemDTO.setDescription(itemEntity.getDescription());
-//        itemDTO.setCompany(itemEntity.getCompany());
-//        itemDTO.setPrice(itemEntity.getPrice());
-//        itemDTO.setStock(itemEntity.getStock());
-//        return itemDTO;
+    //商品の購入ボタン押下
+//    @PreAuthorize("hasAuthority('SHOP')")
+//    @PutMapping("/{itemId}")
+//    public String buyItem(@PathVariable("itemId") Long itemId,
+//                          @ModelAttribute @Validated ItemForms itemForms) throws IOException {
+//        return "redirect:/items?limit=10&offset=0";
 //    }
 }

@@ -15,9 +15,9 @@ public class MediaTypeImageValidator implements ConstraintValidator<MediaTypeIma
     public boolean isValid(MultipartFile image, ConstraintValidatorContext context) {
 
         // Emptyなら通す。他のバリデーターで検証する
-//        if (image.isEmpty()) {
-//            return true;
-//        }
+        if (image.isEmpty()) {
+            return true;
+        }
 
         // メディアタイプ
         MediaType mediaType = MediaType.parseMediaType(image.getContentType());

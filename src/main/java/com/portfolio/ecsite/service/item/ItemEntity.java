@@ -13,4 +13,5 @@ public class ItemEntity {
     String company;
     int price;
     int stock;
+    String payment;
 }

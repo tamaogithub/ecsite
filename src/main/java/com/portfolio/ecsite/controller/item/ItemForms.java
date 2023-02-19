@@ -33,4 +33,7 @@ public class ItemForms {
     private int price;
 
     private int stock;
+
+    @NotBlank
+    private int payment;
 }

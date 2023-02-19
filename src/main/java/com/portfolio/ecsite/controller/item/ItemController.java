@@ -3,6 +3,7 @@ package com.portfolio.ecsite.controller.item;
 import com.portfolio.ecsite.common.FileOpeUtil;
 import com.portfolio.ecsite.controller.ItemsApi;
 import com.portfolio.ecsite.service.item.ItemService;
+import com.portfolio.ecsite.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class ItemController implements ItemsApi {
 
     private final ItemService itemService;
 
+    private final UserService userService;
     /** １ページの表示数 */
     private final String limits = "10";
 
@@ -91,7 +93,8 @@ public class ItemController implements ItemsApi {
 
     //商品の登録ボタン押下
     @PostMapping
-    public String createItem(@ModelAttribute @Validated ItemForms itemForms, BindingResult bindingResult) throws IOException {
+    public String createItem(@ModelAttribute @Validated ItemForms itemForms,
+                             BindingResult bindingResult) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return showCreationForm(itemForms);
@@ -99,7 +102,6 @@ public class ItemController implements ItemsApi {
 
         // フォームで渡されてきたアップロードファイルを取得
         MultipartFile image = itemForms.getItemImage();
-
         //画像ファイル名取得
         String fileName = image.getOriginalFilename();
         byte[] bytes = FileOpeUtil.uploadAction(image);
@@ -143,35 +145,92 @@ public class ItemController implements ItemsApi {
         //フォームで渡されてきたアップロードファイルを取得
         MultipartFile image = itemForms.getItemImage();
 
-        String fileName = image.getOriginalFilename();
+        String fileName = itemForms.getFileName();
         byte[] bytes = FileOpeUtil.uploadAction(image);
         String base64Data = Base64.getEncoder().encodeToString(bytes);
         if(base64Data.isEmpty()){
-            base64Data = null;
+            itemService.updateExpectItemImage(itemId, itemForms.getItemName(), itemForms.getDescription(), fileName,
+                    itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
+        } else {
+            itemService.update(itemId, itemForms.getItemName(), itemForms.getDescription(), fileName,
+                    base64Data, itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
         }
-
-        itemService.update(itemId, itemForms.getItemName(), itemForms.getDescription(), fileName,
-                base64Data, itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
         return "redirect:/items?limit=10&offset=0";
     }
 
     //商品購入画面に遷移
     @GetMapping("/buy/{itemId}")
     public String showBuyFrom(@PathVariable("itemId") Long itemId,
-                              @ModelAttribute ItemForms itemForms, Model model) {
+                              @ModelAttribute ItemBuyForms itemBuyForms, Model model) {
 
         var entity = itemService.find(itemId);
-        model.addAttribute("item", entity);
-        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+        var userEntity = userService.find(itemId);
 
+        model.addAttribute("itemBuy", entity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+        model.addAttribute("userItem", userEntity);
         return "items/itemBuyForm";
     }
 
-    //商品の購入ボタン押下
-//    @PreAuthorize("hasAuthority('SHOP')")
-//    @PutMapping("/{itemId}")
-//    public String buyItem(@PathVariable("itemId") Long itemId,
-//                          @ModelAttribute @Validated ItemForms itemForms) throws IOException {
-//        return "redirect:/items?limit=10&offset=0";
-//    }
+    //商品の購入ボタン押下し、商品の確認画面に遷移
+    @PutMapping("/buy/{itemId}")
+    public String buyItem(@PathVariable("itemId") Long itemId,
+                          @ModelAttribute @Validated ItemBuyForms itemBuyForms,BindingResult bindingResult) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+//            return showCreationForm(itemForms);
+        }
+
+        return "redirect:/items/confirm/{itemId}";
+    }
+
+    //商品の確認画面に遷移
+    @GetMapping("/confirm/{itemId}")
+    public String showConfirmFrom(@PathVariable("itemId") Long itemId, Model model) {
+
+        var entity = itemService.find(itemId);
+        var userEntity = userService.find(itemId);
+
+        model.addAttribute("itemBuyConfirm", entity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+        model.addAttribute("userItemConfirm", userEntity);
+
+        return "items/itemBuyConfirm";
+    }
+
+    //購入確定ボタン押下し、購入完了画面に遷移
+    @PutMapping("/confirm/{itemId}")
+    public String buyItemComplete(@PathVariable("itemId") Long itemId,
+                          @ModelAttribute @Validated ItemBuyForms itemBuyForms,BindingResult bindingResult) throws IOException {
+
+        itemService.itemBuy(itemId, itemBuyForms.getStock());
+        int stock = itemService.getStock(itemId);
+        if (stock == 0) {
+            itemService.delete(itemId);
+        }
+
+        return "redirect:/items/complete/{itemId}";
+    }
+
+    //購入完了画面に遷移
+    @GetMapping("/complete/{itemId}")
+    public String showItemComplete(@PathVariable("itemId") Long itemId, Model model) {
+
+        return "items/itemBuyComplete";
+    }
+
+
+   //商品詳細画面に遷移
+    @GetMapping("/discription/{itemId}")
+    public String showDiscriptionFrom(@PathVariable("itemId") Long itemId, Model model) {
+
+        var entity = itemService.find(itemId);
+        var userEntity = userService.find(itemId);
+        model.addAttribute("item", entity);
+        model.addAttribute("userItem", userEntity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+
+        return "items/discriptionForm";
+    }
+
 }

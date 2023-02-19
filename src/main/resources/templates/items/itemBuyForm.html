@@ -22,7 +22,6 @@
                             <div th:text="${itemBuy.itemName}"></div>
                         </div>
                         <div class="mt-3">
-                            <div class="form-label">商品概要</div>
                             <div class="form-label" th:text="${itemBuy.description}"></div>
                             <div>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</div>
                         </div>
@@ -30,17 +29,43 @@
                             <label class="form-label">販売価格</label>
                             <label class="form-label" th:text="${itemBuy.price} + 円"></label>
                         </div>
-                        <div class="mt-3" >
+                        <div class="mt-3 input-group" >
                             <label for="stockInput" class="form-label">在庫数（個）</label>
                             <input type="text" id="stockInput" th:field="*{stock}" class="form-control"
                             th:classappend="${#fields.hasErrors('stock')} ? is-invalid">
                             <p class="invalid-feedback" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">(error)</p>
                         </div>
-                        <div class="mt-3">
+                        <div class="mt-3 input-group">
                             <label for="address" class="form-label">配送先　　　</label>
                             <input type="text" id="address" th:field="${userItem.address}" class="form-control">
 <!--                                        <p class="invalid-feedback" th:if="${#fields.hasErrors("${userItem.address}")}" th:errors="*{address}">(error)</p>-->
                         </div>
+                        <div class="mt-3">
+                            <label class="form-label" for="paymentRadio">支払い方法</label>
+                            <div id="paymentRadio">
+                                <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                    <input class="form-check-input" type="radio" id="paymentInvoiceRadio"
+                                           th:field="*{payment}" value="請求書払い"
+                                           th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                    <label class="form-check-label" for="paymentInvoiceRadio">請求書払い</label>
+                                </div>
+                                <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                    <input class="form-check-input" type="radio" id="paymentAccountTransferRadio"
+                                           th:field="*{payment}" value="口座振替"
+                                           th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                    <label class="form-check-label" for="paymentAccountTransferRadio">口座振替</label>
+                                </div>
+                                <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                    <input class="form-check-input" type="radio" id="paymentCreditCardRadio"
+                                           th:field="*{payment}" value="クレジットカード払い"
+                                           th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                    <label class="form-check-label" for="paymentCreditCardRadio">クレジットカード払い</label>
+                                </div>
+                                <p class="invalid-feedback" th:if="${#fields.hasErrors('payment')}"
+                                   th:errors="*{payment}">(errors)</p>
+                            </div>
+                        </div>
+
                         <div class="mt-3">
                             <button type="submit" class="btn btn-primary">購入</button>
                             <a href="./list.html" th:href="@{/items?limit=10&offset=0}" class="btn btn-secondary">キャンセル</a>

@@ -35,5 +35,5 @@ public class ItemForms {
     private int stock;
 
     @NotBlank
-    private int payment;
+    private String payment;
 }

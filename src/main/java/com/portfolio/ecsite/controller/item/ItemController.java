@@ -110,9 +110,9 @@ public class ItemController implements ItemsApi {
             base64Data = null;
         }
 
-        var entity = itemService.create(
+        itemService.create(
                 itemForms.getItemName(), itemForms.getDescription(), fileName,
-                base64Data, itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock());
+                base64Data, itemForms.getCompany(), itemForms.getPrice(), itemForms.getStock(), null);
 
         return "redirect:/items?limit=10&offset=0";
     }
@@ -203,7 +203,7 @@ public class ItemController implements ItemsApi {
     public String buyItemComplete(@PathVariable("itemId") Long itemId,
                           @ModelAttribute @Validated ItemBuyForms itemBuyForms,BindingResult bindingResult) throws IOException {
 
-        itemService.itemBuy(itemId, itemBuyForms.getStock());
+        itemService.itemBuy(itemId, itemBuyForms.getStock(), itemBuyForms.getPayment());
         int stock = itemService.getStock(itemId);
         if (stock == 0) {
             itemService.delete(itemId);

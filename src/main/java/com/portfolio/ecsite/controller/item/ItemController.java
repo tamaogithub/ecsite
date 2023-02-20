@@ -175,19 +175,11 @@ public class ItemController implements ItemsApi {
     //商品の購入ボタン押下し、商品の確認画面に遷移
     @PutMapping("/buy/{itemId}")
     public String buyItem(@PathVariable("itemId") Long itemId,
-                          @ModelAttribute @Validated ItemBuyForms itemBuyForms,BindingResult bindingResult) throws IOException {
+                          @ModelAttribute @Validated ItemBuyForms itemBuyForms,BindingResult bindingResult, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
 //            return showCreationForm(itemForms);
         }
-
-        return "redirect:/items/confirm/{itemId}";
-    }
-
-    //商品の確認画面に遷移
-    @GetMapping("/confirm/{itemId}")
-    public String showConfirmFrom(@PathVariable("itemId") Long itemId, Model model) {
-
         var entity = itemService.find(itemId);
         var userEntity = userService.find(itemId);
 
@@ -196,7 +188,23 @@ public class ItemController implements ItemsApi {
         model.addAttribute("userItemConfirm", userEntity);
 
         return "items/itemBuyConfirm";
+
+//        return "redirect:/items/confirm/{itemId}";
     }
+
+    //商品の確認画面に遷移
+//    @GetMapping("/confirm/{itemId}")
+//    public String showConfirmFrom(@PathVariable("itemId") Long itemId, Model model) {
+//
+////        var entity = itemService.find(itemId);
+////        var userEntity = userService.find(itemId);
+////
+////        model.addAttribute("itemBuyConfirm", entity);
+////        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+////        model.addAttribute("userItemConfirm", userEntity);
+//
+//        return "items/itemBuyConfirm";
+//    }
 
     //購入確定ボタン押下し、購入完了画面に遷移
     @PutMapping("/confirm/{itemId}")

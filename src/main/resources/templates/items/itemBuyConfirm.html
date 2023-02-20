@@ -23,7 +23,6 @@
                             <div th:text="${itemBuyConfirm.itemName}"></div>
                         </div>
                         <div class="mt-3">
-                            <div class="form-label">商品概要</div>
                             <div class="form-label" th:text="${itemBuyConfirm.description}"></div>
                             <div>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</div>
                         </div>
@@ -32,16 +31,20 @@
                             <label class="form-label" th:text="${itemBuyConfirm.price} + 円"></label>
                         </div>
                         <div class="mt-3">
-                            <label class="form-label">在庫数</label>
+                            <label class="form-label">商品個数　</label>
                             <label class="form-label" th:text="${itemBuyConfirm.stock} + 個"></label>
                         </div>
-                        <div class="mt-3">
-                            <label class="form-label">価格合計</label>
-                            <label class="form-label" th:text="${itemBuyConfirm.price} * ${itemBuyConfirm.stock} + 円"></label>
+                        <div class="mt-3 input-group">
+                            <div>価格合計　</div>
+                            <div th:text="${itemBuyConfirm.price} * ${itemBuyConfirm.stock} + 円"></div>
+                        </div>
+                        <div class="mt-3 input-group">
+                            <div>配送先　</div>
+                            <div th:text="${userItemConfirm.address}"></div>
                         </div>
                         <div class="mt-3">
-                            <div class="form-label">配送先</div>
-                            <div th:text="${userItemConfirm.address}" class="form-label"></div>
+                            <div>支払い方法</div>
+                            <div th:text="${itemBuyConfirm.payment}"></div>
                         </div>
                         <div class="mt-3">
                             <button type="submit" class="btn btn-primary">購入確定</button>

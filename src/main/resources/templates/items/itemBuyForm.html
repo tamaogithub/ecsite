@@ -41,39 +41,21 @@
                             <input type="text" id="address" th:field="${userItem.address}" class="form-control">
 <!--                                        <p class="invalid-feedback" th:if="${#fields.hasErrors("${userItem.address}")}" th:errors="*{address}">(error)</p>-->
                         </div>
-<!--                        <div class="mt-3">-->
-<!--                            <label class="form-label" for="paymentRadio">性別　</label>-->
-<!--                            <for th:each="item : *{getPaymentItems()}">-->
-<!--                                <input type="radio" th:value="${item.key}"-->
-<!--                                       th:text="${item.value}" th:field="*{payment}" />-->
-<!--                            </for>-->
-<!--                        </div>-->
                         <div class="mt-3 input-group">
-                            <label class="form-label" for="paymentRadio">支払い方法　</label>
-                            <div id="paymentRadio">
+                            <label class="form-label" for="paymentRadio">支払い方法</label>
+                            <div id="paymentRadio" class="form-check">
                                 <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
-                                    <input type="radio" class="form-check-input"  id="paymentInvoiceRadio"
-                                           th:field="*{payment}" value="請求書払い"
-                                           th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
-                                    <label class="form-check-label" for="paymentInvoiceRadio">請求書払い</label>
-                                </div>
-                                <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
-                                    <input type="radio" class="form-check-input" id="paymentAccountTransferRadio"
-                                           th:field="*{payment}" value="口座振替"
-                                           th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
-                                    <label class="form-check-label" for="paymentAccountTransferRadio">口座振替</label>
-                                </div>
-                                <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
-                                    <input type="radio" class="form-check-input" id="paymentCreditCardRadio"
-                                           th:field="*{payment}" value="クレジットカード払い"
-                                           th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
-                                    <label class="form-check-label" for="paymentCreditCardRadio">クレジットカード払い</label>
+                                    <for th:each="item : ${itemBuyForms.getPaymentItems()}">
+                                        <input type="radio" class="form-check-input"
+                                               th:field="*{payment}" th:value="${item.key}" th:text="${item.value}"
+                                               th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                        <div class="mt-2"></div>
+                                    </for>
                                 </div>
                                 <p class="invalid-feedback" th:if="${#fields.hasErrors('payment')}"
                                    th:errors="*{payment}">(errors)</p>
                             </div>
                         </div>
-
                         <div class="mt-3">
                             <button type="submit" class="btn btn-primary">確認</button>
                             <a href="./list.html" th:href="@{/items?limit=10&offset=0}" class="btn btn-secondary">キャンセル</a>

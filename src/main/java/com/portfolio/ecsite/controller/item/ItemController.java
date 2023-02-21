@@ -195,7 +195,7 @@ public class ItemController implements ItemsApi {
     @PutMapping("/update/{itemId}")
     public String updateItem(@PathVariable("itemId") Long itemId,
                              @ModelAttribute @Validated ItemForms itemForms,
-                             BindingResult bindingResult, Model model) throws IOException {
+                             BindingResult bindingResult) throws IOException {
 
         if (bindingResult.hasErrors()) {
 //            return "items/updateForm";

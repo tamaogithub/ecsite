@@ -16,9 +16,15 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
 
+/**
+ * コントローラクラス
+ * 「@SessionAttributes(types = ItemBuyForms.class)」により、
+ * 生成したFormオブジェクトをセッションとしてもたせている
+ */
 @Controller
 @RequestMapping("/items")
 @RequiredArgsConstructor
+//@SessionAttributes(types = ItemBuyForms.class)
 public class ItemController implements ItemsApi {
 
     private final ItemService itemService;
@@ -35,7 +41,27 @@ public class ItemController implements ItemsApi {
     // NoImage画像の取得
     String base64Data = FileOpeUtil.noImageFileToBase64Data();
 
-    //商品一覧画面に遷移
+//    /**
+//     * Formオブジェクトを初期化して返却する
+//     * @return Formオブジェクト
+//     */
+//    @ModelAttribute("itemBuyForms")
+//    public ItemBuyForms createItemBuyForms(){
+//        ItemBuyForms itemBuyForms = new ItemBuyForms();
+//        //支払い方法の初期値を設定する
+//        itemBuyForms.setPayment("1");
+//
+//        return itemBuyForms;
+//    }
+
+    /**
+     * 商品一覧画面に遷移する
+     * @params リクエストパラメータ
+     * @params limit
+     * @params offset
+     * @params model
+     * @return list.htmlのテンプレート
+     */
     @GetMapping
     public String showList(@RequestParam HashMap<String, String> params,
                             Integer limit, Long offset, Model model) {
@@ -85,13 +111,22 @@ public class ItemController implements ItemsApi {
         return  "items/list";
     }
 
-    //商品登録画面に遷移
+    /**
+     * /商品登録画面に遷移に遷移する
+     * @params itemForms Formオブジェクト
+     * @return creationForm.htmlのテンプレート
+     */
     @GetMapping("/creationForm")
     public String showCreationForm(@ModelAttribute ItemForms itemForms) {
         return "items/creationForm";
     }
 
-    //商品の登録ボタン押下
+    /**
+     * 登録ボタン押下後、商品一覧画面にリダイレクトする
+     * @params itemForms Formオブジェクト
+     * @params bindingResult
+     * @return list.html のテンプレートにリダイレクト
+     */
     @PostMapping
     public String createItem(@ModelAttribute @Validated ItemForms itemForms,
                              BindingResult bindingResult) throws IOException {
@@ -117,7 +152,28 @@ public class ItemController implements ItemsApi {
         return "redirect:/items?limit=10&offset=0";
     }
 
-    //商品編集画面に遷移
+    /**
+     * 商品詳細画面に遷移に遷移する
+     * @params itemId
+     * @params model
+     * @return discriptionForm.html 商品詳細画面のテンプレート
+     */
+    @GetMapping("/discription/{itemId}")
+    public String showDiscriptionFrom(@PathVariable("itemId") Long itemId, Model model) {
+
+        var entity = itemService.find(itemId);
+        var userEntity = userService.find(itemId);
+        model.addAttribute("item", entity);
+        model.addAttribute("userItem", userEntity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+        return "items/discriptionForm";
+    }
+
+    /**
+     * 商品編集画面に遷移に遷移する
+     * @params itemForms Formオブジェクト
+     * @return creationForm.htmlのテンプレート
+     */
     @GetMapping("/update/{itemId}")
     public String showUpdateFrom(@PathVariable("itemId") Long itemId,
                                  @ModelAttribute ItemForms itemForms, Model model) {
@@ -129,7 +185,12 @@ public class ItemController implements ItemsApi {
         return "items/updateForm";
     }
 
-    //商品の編集ボタン押下
+    /**
+     * 編集ボタン押下後、商品一覧画面にリダイレクトする
+     * @params itemId
+     * @params itemForms Formオブジェクト
+     * @return list.html のテンプレートにリダイレクト
+     */
 //    @PreAuthorize("hasAuthority('MAKER')")
     @PutMapping("/update/{itemId}")
     public String updateItem(@PathVariable("itemId") Long itemId,
@@ -158,7 +219,13 @@ public class ItemController implements ItemsApi {
         return "redirect:/items?limit=10&offset=0";
     }
 
-    //商品購入画面に遷移
+    /**
+     * 商品購入画面に遷移に遷移する
+     * @params itemId
+     * @params itemBuyForms Formオブジェクト
+     * @params model
+     * @return itemBuyForm.html 商品購入画面のテンプレート
+     */
     @GetMapping("/buy/{itemId}")
     public String showBuyFrom(@PathVariable("itemId") Long itemId,
                               @ModelAttribute ItemBuyForms itemBuyForms, Model model) {
@@ -172,10 +239,15 @@ public class ItemController implements ItemsApi {
         return "items/itemBuyForm";
     }
 
-    //商品の購入ボタン押下し、商品の確認画面に遷移
-    @PutMapping("/buy/{itemId}")
+    /**
+     * 確認ボタン押下し、購入確認画面に遷移する
+     * @params itemId
+     * @params itemForms Formオブジェクト
+     * @return itemBuyConfirm.html 購入確認画面のテンプレート
+     */
+    @PostMapping("/buy/{itemId}")
     public String buyItem(@PathVariable("itemId") Long itemId,
-                          @ModelAttribute @Validated ItemBuyForms itemBuyForms,BindingResult bindingResult, Model model) throws IOException {
+                          @ModelAttribute @Validated ItemBuyForms itemBuyForms, BindingResult bindingResult, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
 //            return showCreationForm(itemForms);
@@ -206,39 +278,29 @@ public class ItemController implements ItemsApi {
 //        return "items/itemBuyConfirm";
 //    }
 
-    //購入確定ボタン押下し、購入完了画面に遷移
+    /**
+     * 購入確定ボタン押下し、購入完了画面に遷移する
+     * @params itemId
+     * @params itemBuyForms Formオブジェクト
+     * @return itemBuyConfirm.html 購入確認画面のテンプレート
+     */
     @PutMapping("/confirm/{itemId}")
     public String buyItemComplete(@PathVariable("itemId") Long itemId,
-                          @ModelAttribute @Validated ItemBuyForms itemBuyForms,BindingResult bindingResult) throws IOException {
+                          @ModelAttribute ItemBuyForms itemBuyForms) throws IOException {
 
-        itemService.itemBuy(itemId, itemBuyForms.getStock(), itemBuyForms.getPayment());
-        int stock = itemService.getStock(itemId);
-        if (stock == 0) {
-            itemService.delete(itemId);
-        }
+//        itemService.itemBuy(itemId, itemBuyForms.getStock(), itemBuyForms.getPayment());
+//        int stock = itemService.getStock(itemId);
+//        if (stock == 0) {
+//            itemService.delete(itemId);
+//        }
 
         return "redirect:/items/complete/{itemId}";
     }
 
     //購入完了画面に遷移
     @GetMapping("/complete/{itemId}")
-    public String showItemComplete(@PathVariable("itemId") Long itemId, Model model) {
+    public String showItemComplete(@PathVariable("itemId") Long itemId) {
 
         return "items/itemBuyComplete";
     }
-
-
-   //商品詳細画面に遷移
-    @GetMapping("/discription/{itemId}")
-    public String showDiscriptionFrom(@PathVariable("itemId") Long itemId, Model model) {
-
-        var entity = itemService.find(itemId);
-        var userEntity = userService.find(itemId);
-        model.addAttribute("item", entity);
-        model.addAttribute("userItem", userEntity);
-        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
-
-        return "items/discriptionForm";
-    }
-
 }

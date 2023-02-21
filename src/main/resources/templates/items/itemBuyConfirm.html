@@ -45,10 +45,10 @@
                         </div>
                         <div class="mt-3 input-group">
                             <div>支払い方法　</div>
-                            <th:block th:switch="${itemBuyConfirm.payment}">
-                                <p th:case='INVOICE' th:text="請求書払い"></p>
-                                <p th:case='BANK' th:text="口座振替"></p>
-                                <p th:case=’CREDIT’ th:text="クレジットカード"></p>
+                            <th:block th:switch="${itemBuyForms.payment}">
+                                <p th:case='1' th:text="請求書払い"></p>
+                                <p th:case='2' th:text="口座振替"></p>
+                                <p th:case=’3’ th:text="クレジットカード"></p>
                             </th:block>
                         </div>
                         <div class="mt-3">

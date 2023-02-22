@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -30,9 +32,13 @@ public class ItemForms {
     @Size(max=20)
     private String company;
 
-    private int price;
+    @Min(value = 1, message = "{value}以上の値を設定してください")
+    @NotNull
+    private Integer price;
 
-    private int stock;
+    @Min(value = 1, message = "{value}以上の値を設定してください")
+    @NotNull
+    private Integer stock;
 
     private String payment;
 }

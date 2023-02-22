@@ -20,15 +20,15 @@
                               <img th:if="${item.itemImage}" th:src=@{'data:image/png;base64,'+${item.itemImage}} class="card-img-top">
                           </a>
                           <div class="card-body">
-                              <a sec:authorize="hasAuthority('ADMIN')"
+                              <a class="link-dark text-decoration-none" sec:authorize="hasAuthority('ADMIN')"
                                  href="./discriptionForm.html"
                                  th:href="@{/items/discription/{itemId}(itemId=${item.id})}"
                                  th:text="${item.itemName}">(itemName)</a>
-                              <a sec:authorize="hasAuthority('MAKER')"
+                              <a class="link-dark text-decoration-none" sec:authorize="hasAuthority('MAKER')"
                                  href="./updateFrom.html"
                                  th:href="@{/items/update/{itemId}(itemId=${item.id})}"
                                  th:text="${item.itemName}">(itemName)</a>
-                              <a sec:authorize="hasAuthority('SHOP')"
+                              <a class="link-dark text-decoration-none" sec:authorize="hasAuthority('SHOP')"
                                  href="./itemBuyForm.html"
                                  th:href="@{/items/buy/{itemId}(itemId=${item.id})}"
                                  th:text="${item.itemName}">(itemName)</a><br>

@@ -2,6 +2,11 @@ package com.portfolio.ecsite.controller.item;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -9,8 +14,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ItemBuyForms {
 
-    private int stock;
+    @Min(value = 1, message = "{value}以上の値を設定してください")
+    @NotNull
+    private Integer stock;
+
+    @NotBlank
+    @Size(max=100)
     private String address;
+
+    @NotBlank
     private String payment;
 
     /** 支払い方法のMapオブジェクト */

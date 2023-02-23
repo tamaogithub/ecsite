@@ -13,4 +13,5 @@ public class ItemRecord {
     String company;
     int price;
     int stock;
+    String payment;
 }

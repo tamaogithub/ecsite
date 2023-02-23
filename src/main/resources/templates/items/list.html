@@ -13,28 +13,47 @@
           <div class="container text-center">
               <div class="row">
                   <div class="col-sm-15 col-6" th:each="item : ${itemList}">
+<!--                      SHOP権限の場合のCard-->
                       <div class="card">
-                          <a href="./updateForm.html"
-                             th:href="@{/items/{itemId}(itemId=${item.id})}">
+                        <a class="link-dark" sec:authorize="hasAuthority('SHOP')"
+                           href="./itemBuyForm.html"
+                           th:href="@{/items/buy/{itemId}(itemId=${item.id})}">
                               <img th:if="!${item.itemImage}" th:src="${base64Data}" class="card-img-top">
                               <img th:if="${item.itemImage}" th:src=@{'data:image/png;base64,'+${item.itemImage}} class="card-img-top">
+                              <div class="card-body">
+                                  <div class="card-text" th:text="${item.itemName}">(itemName)</div>
+                                  <div class="card-text" th:text="${item.price} + 円">(price)</div>
+                              </div>
                           </a>
-                          <div class="card-body">
-                              <a class="link-dark" sec:authorize="hasAuthority('ADMIN')"
-                                 href="./discriptionForm.html"
-                                 th:href="@{/items/discription/{itemId}(itemId=${item.id})}"
-                                 th:text="${item.itemName}">(itemName)</a>
-                              <a class="link-dark" sec:authorize="hasAuthority('MAKER')"
-                                 href="./updateFrom.html"
-                                 th:href="@{/items/update/{itemId}(itemId=${item.id})}"
-                                 th:text="${item.itemName}">(itemName)</a>
-                              <a class="link-dark" sec:authorize="hasAuthority('SHOP')"
-                                 href="./itemBuyForm.html"
-                                 th:href="@{/items/buy/{itemId}(itemId=${item.id})}"
-                                 th:text="${item.itemName}">(itemName)</a><br>
-                              <p class="card-text" th:text="${item.price} + 円">(price)</p>
-                          </div>
                       </div>
+
+<!--                      ADMIN権限の場合のCard-->
+<!--                      <div class="card">-->
+<!--                          <a class="link-dark" sec:authorize="hasAuthority('ADMIN')"-->
+<!--                             href="./discriptionForm.html"-->
+<!--                             th:href="@{/items/discription/{itemId}(itemId=${item.id})}">-->
+<!--                              <img th:if="!${item.itemImage}" th:src="${base64Data}" class="card-img-top">-->
+<!--                              <img th:if="${item.itemImage}" th:src=@{'data:image/png;base64,'+${item.itemImage}} class="card-img-top">-->
+<!--                              <div class="card-body">-->
+<!--                                  <div class="card-text" th:text="${item.itemName}">(itemName)</div>-->
+<!--                                  <div class="card-text" th:text="${item.price} + 円">(price)</div>-->
+<!--                              </div>-->
+<!--                          </a>-->
+<!--                      </div>-->
+
+<!--                      MAKER権限の場合のCard-->
+<!--                      <div class="card">-->
+<!--                          <a class="link-dark" sec:authorize="hasAuthority('MAKER')"-->
+<!--                             href="./updateFrom.html"-->
+<!--                             th:href="@{/items/update/{itemId}(itemId=${item.id})}">-->
+<!--                              <img th:if="!${item.itemImage}" th:src="${base64Data}" class="card-img-top">-->
+<!--                              <img th:if="${item.itemImage}" th:src=@{'data:image/png;base64,'+${item.itemImage}} class="card-img-top">-->
+<!--                              <div class="card-body">-->
+<!--                                  <div class="card-text" th:text="${item.itemName}">(itemName)</div>-->
+<!--                                  <div class="card-text" th:text="${item.price} + 円">(price)</div>-->
+<!--                              </div>-->
+<!--                          </a>-->
+<!--                      </div>-->
                   </div>
               </div>
           </div>

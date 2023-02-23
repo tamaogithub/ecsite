@@ -25,11 +25,12 @@ public class ItemService {
                         record.getItemImage(),
                         record.getCompany(),
                         record.getPrice(),
-                        record.getStock()))
+                        record.getStock(),
+                        record.getPayment()))
                 .orElseThrow(() -> new ItemEntityNotFoundException(itemId));
     }
 
-    //    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public List<ItemEntity> findAll(int limit ,long offset) {
         //取得したList<itemRecord>をstream()でItemEntityに変換し、最後にList<ItemEntity>に変換する
         return itemRepository.selectList(limit, offset)
@@ -42,7 +43,8 @@ public class ItemService {
                         record.getItemImage(),
                         record.getCompany(),
                         record.getPrice(),
-                        record.getStock()))
+                        record.getStock(),
+                        record.getPayment()))
                 .collect(Collectors.toList());
     }
 
@@ -50,10 +52,10 @@ public class ItemService {
         return itemRepository.selectListCount();
     }
 
-
+//    @PreAuthorize("hasAuthority('MAKER')")
     @Transactional
-    public ItemEntity create(String itemName, String  description, String fileName, String itemImage, String company, int price, int stock) {
-        var record = new ItemRecord(null,itemName, description, fileName, itemImage ,company, price, stock);
+    public ItemEntity create(String itemName, String  description, String fileName, String itemImage, String company, Integer price, Integer stock, String payment) {
+        var record = new ItemRecord(null,itemName, description, fileName, itemImage ,company, price, stock, null);
         itemRepository.insert(record);
 
         return new ItemEntity(
@@ -64,12 +66,35 @@ public class ItemService {
                 record.getItemImage(),
                 record.getCompany(),
                 record.getPrice(),
-                record.getStock());
+                record.getStock(),
+                record.getPayment());
+    }
+
+//    @PreAuthorize("hasAuthority('MAKER')")
+    @Transactional
+    public void update(Long itemId, String itemName, String description, String fileName,String itemImage, String company, Integer price, Integer stock) {
+        itemRepository.update(itemId, itemName, description, fileName, itemImage, company, price, stock);
     }
 
     @Transactional
-    public void update(Long itemId, String itemName, String description, String fileName,String itemImage, String company, int price, int stock) {
-        itemRepository.update(itemId, itemName, description, fileName, itemImage, company, price, stock);
+    public void updateExpectItemImage(Long itemId, String itemName, String description, String fileName, String company, Integer price, Integer stock) {
+        itemRepository.updateExpectItemImage(itemId, itemName, description, fileName, company, price, stock);
+    }
+
+    @Transactional
+    public void itemBuy(Long itemId, Integer stock, String payment) {
+        itemRepository.itemBuy(itemId, stock, payment);
+    }
+
+    @Transactional
+    public int getStock(Long itemId) {
+      Integer stock = itemRepository.getStock(itemId);
+      return stock;
+    }
+
+    @Transactional
+    public void delete(Long itemId) {
+        itemRepository.delete(itemId);
     }
 
 }

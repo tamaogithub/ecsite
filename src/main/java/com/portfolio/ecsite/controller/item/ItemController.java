@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/items")
 @RequiredArgsConstructor
-//@SessionAttributes(types = ItemBuyForms.class)
+@SessionAttributes(types = ItemBuyForms.class)
 public class ItemController implements ItemsApi {
 
     private final ItemService itemService;
@@ -38,21 +39,22 @@ public class ItemController implements ItemsApi {
 
     String currentPage = null;
     String preOffset = "0";
+    String payment = null;
     // NoImage画像の取得
     String base64Data = FileOpeUtil.noImageFileToBase64Data();
 
-//    /**
-//     * Formオブジェクトを初期化して返却する
-//     * @return Formオブジェクト
-//     */
-//    @ModelAttribute("itemBuyForms")
-//    public ItemBuyForms createItemBuyForms(){
-//        ItemBuyForms itemBuyForms = new ItemBuyForms();
-//        //支払い方法の初期値を設定する
-//        itemBuyForms.setPayment("1");
-//
-//        return itemBuyForms;
-//    }
+    /**
+     * Formオブジェクトを初期化して返却する
+     * @return Formオブジェクト
+     */
+    @ModelAttribute("itemBuyForms")
+    public ItemBuyForms createItemBuyForms(){
+        ItemBuyForms itemBuyForms = new ItemBuyForms();
+        //支払い方法の初期値を設定する
+        itemBuyForms.setPayment("1");
+
+        return itemBuyForms;
+    }
 
     /**
      * 商品一覧画面に遷移する
@@ -60,11 +62,16 @@ public class ItemController implements ItemsApi {
      * @params limit
      * @params offset
      * @params model
+     * @params sessionStatus セッションステータス
      * @return list.htmlのテンプレート
      */
     @GetMapping
     public String showList(@RequestParam HashMap<String, String> params,
-                            Integer limit, Long offset, Model model) {
+                            Integer limit, Long offset, Model model, SessionStatus sessionStatus) {
+
+        //セッションオブジェクトを破棄
+        sessionStatus.setComplete();
+
         int total = 0;
 
         // データ一覧を取得
@@ -117,7 +124,8 @@ public class ItemController implements ItemsApi {
      * @return creationForm.htmlのテンプレート
      */
     @GetMapping("/creationForm")
-    public String showCreationForm(@ModelAttribute ItemForms itemForms) {
+    public String showCreationForm(@ModelAttribute ItemForms itemForms, Model model) {
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
         return "items/creationForm";
     }
 
@@ -129,10 +137,10 @@ public class ItemController implements ItemsApi {
      */
     @PostMapping
     public String createItem(@ModelAttribute @Validated ItemForms itemForms,
-                             BindingResult bindingResult) throws IOException {
+                             BindingResult bindingResult, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            return showCreationForm(itemForms);
+            return showCreationForm(itemForms, model);
         }
 
         // フォームで渡されてきたアップロードファイルを取得
@@ -186,21 +194,35 @@ public class ItemController implements ItemsApi {
     }
 
     /**
-     * 編集ボタン押下後、商品一覧画面にリダイレクトする
+     * 商品編集エラー画面に遷移する
+     * @params itemForms Formオブジェクト
+     * @return creationForm.htmlのテンプレート
+     */
+    @GetMapping("/update/error/{itemId}")
+    public String showUpdateErrorFrom(@PathVariable("itemId") Long itemId,
+                                      @ModelAttribute ItemForms itemForms, Model model) {
+
+        var entity = itemService.find(itemId);
+        model.addAttribute("item", entity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+
+        return "items/updateErrorForm";
+    }
+
+    /**
+     * 編集ボタン押下し、商品一覧画面にリダイレクトする
      * @params itemId
      * @params itemForms Formオブジェクト
-     * @return list.html のテンプレートにリダイレクト
+     * @return list.html のテンプレート
      */
 //    @PreAuthorize("hasAuthority('MAKER')")
-    @PutMapping("/update/{itemId}")
+    @PostMapping("/update/{itemId}")
     public String updateItem(@PathVariable("itemId") Long itemId,
                              @ModelAttribute @Validated ItemForms itemForms,
-                             BindingResult bindingResult) throws IOException {
+                             BindingResult bindingResult, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
-//            return "items/updateForm";
-//            return showUpdateFrom(itemId, itemForms ,bindingResult, model); //商品編集画面に遷移
-            return showCreationForm(itemForms); //商品登録画面に遷移
+            return showUpdateErrorFrom(itemId, itemForms , model); //商品編集画面に遷移
         }
 
         //フォームで渡されてきたアップロードファイルを取得
@@ -220,15 +242,14 @@ public class ItemController implements ItemsApi {
     }
 
     /**
-     * 商品購入画面に遷移に遷移する
+     * 商品購入画面に遷移する
      * @params itemId
      * @params itemBuyForms Formオブジェクト
      * @params model
      * @return itemBuyForm.html 商品購入画面のテンプレート
      */
     @GetMapping("/buy/{itemId}")
-    public String showBuyFrom(@PathVariable("itemId") Long itemId,
-                              @ModelAttribute ItemBuyForms itemBuyForms, Model model) {
+    public String showBuyFrom(@PathVariable("itemId") Long itemId, Model model) {
 
         var entity = itemService.find(itemId);
         var userEntity = userService.find(itemId);
@@ -237,6 +258,22 @@ public class ItemController implements ItemsApi {
         model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
         model.addAttribute("userItem", userEntity);
         return "items/itemBuyForm";
+    }
+    /**
+     * 商品購入エラー画面に遷移する
+     * @params itemId
+     * @params itemBuyForms Formオブジェクト
+     * @params model
+     * @return itemBuyForm.html 商品購入エラー画面のテンプレート
+     */
+    @GetMapping("/buy/error/{itemId}")
+    public String showBuyErrorFrom(@PathVariable("itemId") Long itemId,
+                                   @ModelAttribute ItemBuyForms itemBuyForms, Model model) {
+
+        var entity = itemService.find(itemId);
+        model.addAttribute("itemBuy", entity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+        return "items/itemBuyErrorForm";
     }
 
     /**
@@ -247,10 +284,11 @@ public class ItemController implements ItemsApi {
      */
     @PostMapping("/buy/{itemId}")
     public String buyItem(@PathVariable("itemId") Long itemId,
-                          @ModelAttribute @Validated ItemBuyForms itemBuyForms, BindingResult bindingResult, Model model) throws IOException {
+                          @ModelAttribute @Validated ItemBuyForms itemBuyForms,
+                          BindingResult bindingResult, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
-//            return showCreationForm(itemForms);
+            return showBuyErrorFrom(itemId, itemBuyForms, model); //商品購入エラー画面に遷移
         }
         var entity = itemService.find(itemId);
         var userEntity = userService.find(itemId);
@@ -259,24 +297,25 @@ public class ItemController implements ItemsApi {
         model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
         model.addAttribute("userItemConfirm", userEntity);
 
-        return "items/itemBuyConfirm";
+//        return "items/itemBuyConfirm";
 
-//        return "redirect:/items/confirm/{itemId}";
+        return "redirect:/items/confirm/{itemId}";
     }
 
     //商品の確認画面に遷移
-//    @GetMapping("/confirm/{itemId}")
-//    public String showConfirmFrom(@PathVariable("itemId") Long itemId, Model model) {
-//
-////        var entity = itemService.find(itemId);
-////        var userEntity = userService.find(itemId);
-////
-////        model.addAttribute("itemBuyConfirm", entity);
-////        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
-////        model.addAttribute("userItemConfirm", userEntity);
-//
-//        return "items/itemBuyConfirm";
-//    }
+    @GetMapping("/confirm/{itemId}")
+    public String showConfirmFrom(@PathVariable("itemId") Long itemId,
+                                  @ModelAttribute @Validated ItemBuyForms itemBuyForms, Model model) {
+
+        var entity = itemService.find(itemId);
+        var userEntity = userService.find(itemId);
+
+        model.addAttribute("itemBuyConfirm", entity);
+        model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
+        model.addAttribute("userItemConfirm", userEntity);
+
+        return "items/itemBuyConfirm";
+    }
 
     /**
      * 購入確定ボタン押下し、購入完了画面に遷移する
@@ -284,23 +323,53 @@ public class ItemController implements ItemsApi {
      * @params itemBuyForms Formオブジェクト
      * @return itemBuyConfirm.html 購入確認画面のテンプレート
      */
-    @PutMapping("/confirm/{itemId}")
+    @PostMapping("/confirm/{itemId}")
     public String buyItemComplete(@PathVariable("itemId") Long itemId,
-                          @ModelAttribute ItemBuyForms itemBuyForms) throws IOException {
+                                  @ModelAttribute ItemBuyForms itemBuyForms) throws IOException {
 
-//        itemService.itemBuy(itemId, itemBuyForms.getStock(), itemBuyForms.getPayment());
-//        int stock = itemService.getStock(itemId);
-//        if (stock == 0) {
-//            itemService.delete(itemId);
-//        }
+        payment = itemBuyForms.getPayment();
 
-        return "redirect:/items/complete/{itemId}";
-    }
+        switch (payment) {
+            case "1":
+                payment = "INVOICE";
+                break;
+            case "2":
+                payment = "BANK";
+                break;
+            case "3":
+                payment = "CREDIT";
+                break;
+            default:
+                payment = null;
+        }
 
-    //購入完了画面に遷移
+        var currentStock = itemService.getStock(itemId);
+        var formItemNumber =  itemBuyForms.getStock();
+
+        // 現在の在庫数 - フォームで入力した在庫数
+        Integer stock = currentStock - formItemNumber;
+
+        // 個数、支払い方法更新
+        itemService.itemBuy(itemId, stock, payment);
+        Integer itemStock = itemService.getStock(itemId);
+        if (itemStock == 0) {
+            //商品の削除
+            itemService.delete(itemId);
+        }
+
+            return "redirect:/items/complete/{itemId}";
+        }
+
+    /**
+     * 購入完了画面に遷移する
+     * @params itemId
+     * @params sessionStatus セッションステータス
+     * @return itemBuyComplete.html 購入完了画面
+     */
     @GetMapping("/complete/{itemId}")
-    public String showItemComplete(@PathVariable("itemId") Long itemId) {
-
+    public String showItemComplete(@PathVariable("itemId") Long itemId, SessionStatus sessionStatus) {
+        //セッションオブジェクトを破棄
+        sessionStatus.setComplete();
         return "items/itemBuyComplete";
     }
 }

@@ -114,8 +114,7 @@ public class UserController {
     @PutMapping("/{userId}")
     public String update(@PathVariable("userId") Long userId,
                          @ModelAttribute @Validated UserForms form,
-                         BindingResult bindingResult,
-                         Model model){
+                         BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return showCreationForm(form);
         }

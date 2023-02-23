@@ -8,7 +8,7 @@
 <h1 class="mt-3">商品購入</h1>
 <a href="./list.html" th:href="@{/items?limit=10&offset=0}">商品一覧に戻る</a>
 <div align="center">下記、必須事項を記載の上、「確認」ボタンをを押してください</div>
-    <div class="card mb-3 mt-3" style="max-width: 1840px;">
+    <div class="card mt-3 mb-3" style="max-width: 1840px;">
         <div class="row g-0">
             <div class="col-md-5">
                 <img th:if="!${itemBuy.itemImage}" th:src="${base64Data}" style="width: 480px;height: 480px;">
@@ -20,19 +20,19 @@
                       th:object="${itemBuy}">
                     <div class="card-body">
                         <div class="mt-3">
-                            <div th:text="${itemBuy.itemName}"></div>
+                            <div th:text="*{itemName}"></div>
                         </div>
                         <div class="mt-3">
-                            <div class="form-label" th:text="${itemBuy.description}"></div>
+                            <div class="form-label" th:text="*{description}"></div>
                             <div>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</div>
                         </div>
                         <div class="mt-3">
                             <label class="form-label">販売価格　　</label>
-                            <label class="form-label" th:text="${itemBuy.price} + 円"></label>
+                            <label class="form-label" th:text="*{price} + 円"></label>
                         </div>
                         <div class="mt-3 input-group" >
-                            <label for="stockInput" class="form-label">個数（個）　</label>
-                            <input type="text" id="stockInput" th:field="${itemBuy.stock}" class="form-control"
+                            <label for="stockInput" class="form-label">個数　残<label th:text="*{stock}"></label>個　</label>
+                            <input type="text" id="stockInput"  value="1" class="form-control"
                             th:classappend="${#fields.hasErrors('stock')} ? is-invalid">
                             <p class="invalid-feedback" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">(error)</p>
                         </div>

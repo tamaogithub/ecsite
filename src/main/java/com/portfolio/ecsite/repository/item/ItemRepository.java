@@ -22,11 +22,23 @@ public interface ItemRepository {
     ItemEntity findById(Long itemId);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into items (itemname, description, filename, itemimage, company, price, stock) values " +
-            "(#{itemName}, #{description}, #{fileName}, #{itemImage}, #{company}, #{price}, #{stock})")
+    @Insert("insert into items (itemname, description, filename, itemimage, company, price, stock, payment) values " +
+            "(#{itemName}, #{description}, #{fileName}, #{itemImage}, #{company}, #{price}, #{stock}, #{payment})")
     void insert(ItemRecord record);
 
     @Update("update items set itemname = #{itemName}, description = #{description}, filename = #{fileName}, " +
             "itemimage = #{itemImage}, company = #{company}, price = #{price}, stock = #{stock} where id = #{itemId}")
-    void update(Long itemId, String itemName, String description, String fileName, String itemImage ,String company, int price, int stock);
+    void update(Long itemId, String itemName, String description, String fileName, String itemImage ,String company, Integer price, Integer stock);
+
+    @Update("update items set itemname = #{itemName}, description = #{description}, filename = #{fileName}, " +
+            "company = #{company}, price = #{price}, stock = #{stock} where id = #{itemId}")
+    void updateExpectItemImage(Long itemId, String itemName, String description, String fileName, String company, Integer price, Integer stock);
+    @Update("update items set stock = #{stock}, payment = #{payment} where id = #{itemId}")
+    void itemBuy(Long itemId, Integer stock, String payment);
+
+    @Select("SELECT stock FROM items where id = #{itemId}")
+    int getStock(Long itemId);
+
+    @Delete("DELETE FROM items WHERE id = #{itemId}")
+    void delete(Long itemId);
 }

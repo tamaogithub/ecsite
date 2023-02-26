@@ -32,11 +32,9 @@ class ItemControllerTest {
     @MockBean
     private UserService userService;
 
-    final MockHttpServletRequestBuilder items = get("/items?limit=10&offset=0")
-            .accept(MediaType.TEXT_HTML);
-
-    final MockHttpServletRequestBuilder creationForm = get("/items/creationForm")
-            .accept(MediaType.TEXT_HTML);
+    final MockHttpServletRequestBuilder items = get("/items?limit=10&offset=0").accept(MediaType.TEXT_HTML);
+    final MockHttpServletRequestBuilder creationForm = get("/items/creationForm").accept(MediaType.TEXT_HTML);
+    final MockHttpServletRequestBuilder updateForm = get("/items/update/1").accept(MediaType.TEXT_HTML);
 
     MockMvc mockMvc;
 
@@ -62,37 +60,39 @@ class ItemControllerTest {
         @Order(1)
         @DisplayName("商品一覧画面のアクセス")
         void createItemTest() throws Exception {
-            // http:localhost:8080/にアクセスした場合のテストを行う
             mockMvc.perform(items)
-            // modelに下記の名前でオブジェクトが格納されていることを確認
             .andExpect(model().attributeExists(
                 "itemList","total","page","totalPage", "startPage",
                 "endPage","offset","preOffset","itemList","base64Data"))
-            // HTTPステータスがOKであることを確認
             .andExpect(status().isOk())
-            // Modelオブジェクトにエラーが無いことを確認
             .andExpect(model().hasNoErrors())
-            // 次画面の遷移先がlist.htmlであることを確認
             .andExpect(view().name("items/list"));
-            System.out.println("商品一覧画面のアクセス");
         }
 
         @Test
         @Order(2)
+
         @DisplayName("商品詳細画面のアクセス")
         void showDiscriptionFromTest() throws Exception {
-            // http:localhost:8080/にアクセスした場合のテストを行う
             mockMvc.perform(creationForm)
-            // modelに下記の名前でオブジェクトが格納されていることを確認
             .andExpect(model().attributeExists("base64Data"))
-            // HTTPステータスがOKであることを確認
             .andExpect(status().isOk())
-            // Modelオブジェクトにエラーが無いことを確認
             .andExpect(model().hasNoErrors());
-            // 次画面の遷移先がlist.htmlであることを確認
-
-            System.out.println("商品詳細画面のアクセス");
+//            .andExpect(view().name("items/list"));
         }
+
+//        @Test
+//        @Order(3)
+//        @DisplayName("商品編集画面のアクセス")
+//        void showUpdateFromTest() throws Exception {
+//            mockMvc.perform(updateForm)
+//                .andExpect(model().attributeExists("base64Data"))
+//                .andExpect(status().isOk())
+//                .andExpect(model().hasNoErrors())
+//                .andExpect(view().name("items/updateForm"));
+//        }
+
+
     }
 
 //        @Nested

@@ -1,6 +1,7 @@
 package com.portfolio.ecsite.controller.user;
 
 import com.portfolio.ecsite.validation.UniqueUsername;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class UserForms {
 
     @NotBlank

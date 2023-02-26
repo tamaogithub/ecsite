@@ -32,7 +32,6 @@ class ItemControllerTest {
     @MockBean
     private UserService userService;
 
-    final MockHttpServletRequestBuilder items = get("/items?limit=10&offset=0").accept(MediaType.TEXT_HTML);
     final MockHttpServletRequestBuilder creationForm = get("/items/creationForm").accept(MediaType.TEXT_HTML);
     final MockHttpServletRequestBuilder updateForm = get("/items/update/1").accept(MediaType.TEXT_HTML);
 
@@ -60,7 +59,7 @@ class ItemControllerTest {
         @Order(1)
         @DisplayName("商品一覧画面のアクセス")
         void createItemTest() throws Exception {
-            mockMvc.perform(items)
+            mockMvc.perform(get("/items?limit=10&offset=0").accept(MediaType.TEXT_HTML))
             .andExpect(model().attributeExists(
                 "itemList","total","page","totalPage", "startPage",
                 "endPage","offset","preOffset","itemList","base64Data"))
@@ -71,21 +70,19 @@ class ItemControllerTest {
 
         @Test
         @Order(2)
-
-        @DisplayName("商品詳細画面のアクセス")
+        @DisplayName("商品登録画面のアクセス")
         void showDiscriptionFromTest() throws Exception {
-            mockMvc.perform(creationForm)
+            mockMvc.perform(get("/items/creationForm").accept(MediaType.TEXT_HTML))
             .andExpect(model().attributeExists("base64Data"))
             .andExpect(status().isOk())
-            .andExpect(model().hasNoErrors());
-//            .andExpect(view().name("items/list"));
+            .andExpect(model().hasNoErrors())
+            .andExpect(view().name("items/creationForm"));
         }
-
 //        @Test
-//        @Order(3)
+//        @Order(4)
 //        @DisplayName("商品編集画面のアクセス")
 //        void showUpdateFromTest() throws Exception {
-//            mockMvc.perform(updateForm)
+//            mockMvc.perform(get("/items/update/1").accept(MediaType.TEXT_HTML));
 //                .andExpect(model().attributeExists("base64Data"))
 //                .andExpect(status().isOk())
 //                .andExpect(model().hasNoErrors())

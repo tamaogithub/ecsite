@@ -17,7 +17,7 @@
 
             <div class="col-md-7">
                 <form action="#" th:action="@{/items/confirm/{itemId}(itemId=${itemBuyConfirm.id})}"
-                      th:method="put"
+                      th:method="post"
                       th:object="${itemBuyConfirm}">
                     <div class="card-body">
                         <div class="mt-3">

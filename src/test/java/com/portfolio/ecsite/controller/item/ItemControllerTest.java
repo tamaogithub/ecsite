@@ -31,7 +31,7 @@ class ItemControllerTest {
     final MockHttpServletRequestBuilder items = get("/items?limit=10&offset=0")
             .accept(MediaType.TEXT_HTML);
 
-    final MockHttpServletRequestBuilder creationForm = get("/creationForm")
+    final MockHttpServletRequestBuilder creationForm = get("/items/creationForm")
             .accept(MediaType.TEXT_HTML);
 
     MockMvc mockMvc;
@@ -51,11 +51,13 @@ class ItemControllerTest {
     @Nested
     @Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-    class コントローラーの検証 {
+    @DisplayName("コントローラーの検証")
+    class ControllerTest {
 
         @Test
         @Order(1)
-        void 商品一覧画面のアクセス() throws Exception {
+        @DisplayName("商品一覧画面のアクセス")
+        void createItemTest() throws Exception {
         // http:localhost:8080/にアクセスした場合のテストを行う
         mockMvc.perform(items)
             // modelに下記の名前でオブジェクトが格納されていることを確認
@@ -73,7 +75,8 @@ class ItemControllerTest {
 
         @Test
         @Order(2)
-        void 商品詳細画面のアクセス() throws Exception {
+        @DisplayName("商品詳細画面のアクセス")
+        void showDiscriptionFrom() throws Exception {
             // http:localhost:8080/にアクセスした場合のテストを行う
             mockMvc.perform(creationForm)
                     // HTTPステータスがOKであることを確認

@@ -1,5 +1,6 @@
 package com.portfolio.ecsite.controller.item;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.ecsite.service.item.ItemService;
 import com.portfolio.ecsite.service.user.UserService;
 import org.junit.jupiter.api.*;
@@ -9,11 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 // テスト対象のサーバを起動して、Controllerのテストを行えるようにするアノテーション
@@ -25,69 +26,84 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Import({RestTemplate.class, HttpHeaders.class})
 class ItemControllerTest {
 
-    // MainControllerでItemServiceにMockオブジェクトをDIする
+    @Autowired
+    ItemController itemController;
+
+    // ItemServiceにMockオブジェクトをDIする
     @MockBean
     private ItemService itemService;
 
     @MockBean
     private UserService userService;
 
-    final MockHttpServletRequestBuilder creationForm = get("/items/creationForm").accept(MediaType.TEXT_HTML);
-    final MockHttpServletRequestBuilder updateForm = get("/items/update/1").accept(MediaType.TEXT_HTML);
-
     MockMvc mockMvc;
 
-    @Autowired
-    WebApplicationContext webApplicationContext;
+//    @Autowired
+//    WebApplicationContext webApplicationContext;
+
 
     @BeforeEach
     void setup() {
-        // @AutoConfigureMockMvcというアノテーションを使うとこの初期化は不要だが、
-        // 問題が起きることもあるので手動で初期化している。
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        System.out.println("mockMvc初期化");
+        mockMvc = MockMvcBuilders.standaloneSetup(itemController).build();
     }
 
 
-    @Nested
-    @Order(1)
+    @Nested @Order(1) @DisplayName("UserControllerの検証")
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-    @DisplayName("コントローラーの検証")
     class ControllerTest {
 
-        @Test
-        @Order(1)
-        @DisplayName("商品一覧画面のアクセス")
-        void createItemTest() throws Exception {
-            mockMvc.perform(get("/items?limit=10&offset=0").accept(MediaType.TEXT_HTML))
+        @Test @Order(1) @DisplayName("商品一覧画面のアクセス")
+        void showListTest() throws Exception {
+            MvcResult result = mockMvc.perform(get("/items?limit=10&offset=0").accept(MediaType.TEXT_HTML))
             .andExpect(model().attributeExists(
                 "itemList","total","page","totalPage", "startPage",
                 "endPage","offset","preOffset","itemList","base64Data"))
             .andExpect(status().isOk())
             .andExpect(model().hasNoErrors())
-            .andExpect(view().name("items/list"));
+            .andExpect(view().name("items/list")).andReturn();
         }
 
-        @Test
-        @Order(2)
-        @DisplayName("商品登録画面のアクセス")
-        void showDiscriptionFromTest() throws Exception {
-            mockMvc.perform(get("/items/creationForm").accept(MediaType.TEXT_HTML))
+        @Test @Order(2) @DisplayName("商品登録画面のアクセス")
+        void showCreationFormTest() throws Exception {
+            MvcResult result = mockMvc.perform(get("/items/creationForm").accept(MediaType.TEXT_HTML))
             .andExpect(model().attributeExists("base64Data"))
             .andExpect(status().isOk())
             .andExpect(model().hasNoErrors())
-            .andExpect(view().name("items/creationForm"));
+            .andExpect(view().name("items/creationForm")).andReturn();
         }
-//        @Test
-//        @Order(4)
-//        @DisplayName("商品編集画面のアクセス")
-//        void showUpdateFromTest() throws Exception {
-//            mockMvc.perform(get("/items/update/1").accept(MediaType.TEXT_HTML));
-//                .andExpect(model().attributeExists("base64Data"))
-//                .andExpect(status().isOk())
-//                .andExpect(model().hasNoErrors())
-//                .andExpect(view().name("items/updateForm"));
-//        }
+        @Test @Order(3) @DisplayName("商品登録画面の「登録」ボタンを押下後、商品一覧画面にリダイレクト")
+        void createItemTest() throws Exception {
+            var itemFroms = new ItemForms("歯ブラシ","歯ブラシ（極細）",null, null ,"LION",198,3,null);
+            var objectMapper = new ObjectMapper();
+            mockMvc.perform(
+                post("/items/creationForm")
+                        .content(objectMapper.writeValueAsString(itemFroms))  // リクエストボディを指定
+                        .contentType(MediaType.APPLICATION_JSON_VALUE) // Content Typeを指定
+                ).andExpect(status().isCreated());
+//                    .andExpect(status().isOk())
+//                    .andExpect(model().hasNoErrors())
+//                    .andExpect(view().name("items/creationForm")).andReturn();
+        }
+
+        @Test @Order(4) @DisplayName("購入確認画面のアクセス")
+        void showConfirmFromTest() throws Exception {
+            mockMvc.perform(get("/items/confirm/1"))
+                    .andExpect(status().isOk());
+        }
+
+        @Test @Order(5) @DisplayName("商品詳細画面のアクセス")
+        void showDiscriptionFromTest() throws Exception {
+            mockMvc.perform(get("/items/discription/1"))
+                    .andExpect(status().isOk());
+        }
+
+        @Test @Order(6) @DisplayName("購入完了画面のアクセス")
+        void buyItemCompleteTest() throws Exception {
+            mockMvc.perform(get("/items/complete/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(model().hasNoErrors())
+                    .andExpect(view().name("items/itemBuyComplete"));
+        }
 
 
     }

@@ -1,6 +1,7 @@
 package com.portfolio.ecsite.controller.item;
 
 import com.portfolio.ecsite.service.item.ItemService;
+import com.portfolio.ecsite.service.user.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,6 +28,9 @@ class ItemControllerTest {
     // MainControllerでItemServiceにMockオブジェクトをDIする
     @MockBean
     private ItemService itemService;
+
+    @MockBean
+    private UserService userService;
 
     final MockHttpServletRequestBuilder items = get("/items?limit=10&offset=0")
             .accept(MediaType.TEXT_HTML);
@@ -58,29 +62,34 @@ class ItemControllerTest {
         @Order(1)
         @DisplayName("商品一覧画面のアクセス")
         void createItemTest() throws Exception {
-        // http:localhost:8080/にアクセスした場合のテストを行う
-        mockMvc.perform(items)
+            // http:localhost:8080/にアクセスした場合のテストを行う
+            mockMvc.perform(items)
             // modelに下記の名前でオブジェクトが格納されていることを確認
             .andExpect(model().attributeExists(
-                    "itemList","total","page","totalPage", "startPage",
-                    "endPage","offset","preOffset","itemList","base64Data"))
-                // HTTPステータスがOKであることを確認
-                .andExpect(status().isOk())
-                // Modelオブジェクトにエラーが無いことを確認
-                .andExpect(model().hasNoErrors())
-                // 次画面の遷移先がlist.htmlであることを確認
-                .andExpect(view().name("items/list"));
+                "itemList","total","page","totalPage", "startPage",
+                "endPage","offset","preOffset","itemList","base64Data"))
+            // HTTPステータスがOKであることを確認
+            .andExpect(status().isOk())
+            // Modelオブジェクトにエラーが無いことを確認
+            .andExpect(model().hasNoErrors())
+            // 次画面の遷移先がlist.htmlであることを確認
+            .andExpect(view().name("items/list"));
             System.out.println("商品一覧画面のアクセス");
         }
 
         @Test
         @Order(2)
         @DisplayName("商品詳細画面のアクセス")
-        void showDiscriptionFrom() throws Exception {
+        void showDiscriptionFromTest() throws Exception {
             // http:localhost:8080/にアクセスした場合のテストを行う
             mockMvc.perform(creationForm)
-                    // HTTPステータスがOKであることを確認
-                    .andExpect(status().isOk());
+            // modelに下記の名前でオブジェクトが格納されていることを確認
+            .andExpect(model().attributeExists("base64Data"))
+            // HTTPステータスがOKであることを確認
+            .andExpect(status().isOk())
+            // Modelオブジェクトにエラーが無いことを確認
+            .andExpect(model().hasNoErrors());
+            // 次画面の遷移先がlist.htmlであることを確認
 
             System.out.println("商品詳細画面のアクセス");
         }

@@ -19,12 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 // @SpringBootTestアノテーションの代わりに、@WebMvcTestアノテーションを利用
-//　@Importアノテーションで、テスト対象クラスで参照するクラスをDIできるように指定
+//@Importアノテーションで、テスト対象クラスで参照するクラスをDIできるように指定
 //@WebMvcTest(controllers = ItemController.class)
 //@Import({RestTemplate.class, HttpHeaders.class})
 class ItemControllerTest {
 
-    // MainControllerでSampleServiceにMockオブジェクトをDIする
+    // MainControllerでItemServiceにMockオブジェクトをDIする
     @MockBean
     private ItemService itemService;
 

@@ -97,7 +97,15 @@ class ItemControllerTest {
                     .andExpect(status().isOk());
         }
 
-        @Test @Order(6) @DisplayName("購入完了画面のアクセス")
+        @Test @Order(6) @DisplayName("商品編集画面のアクセス")
+        void showUpdateFromTest() throws Exception {
+            mockMvc.perform(get("/items/update/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(model().hasNoErrors())
+                    .andExpect(view().name("items/updateForm"));
+        }
+
+        @Test @Order(7) @DisplayName("購入完了画面のアクセス")
         void buyItemCompleteTest() throws Exception {
             mockMvc.perform(get("/items/complete/1"))
                     .andExpect(status().isOk())

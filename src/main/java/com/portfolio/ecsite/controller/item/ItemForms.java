@@ -1,6 +1,7 @@
 package com.portfolio.ecsite.controller.item;
 
 import com.portfolio.ecsite.validation.MediaTypeImage;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class ItemForms {
 

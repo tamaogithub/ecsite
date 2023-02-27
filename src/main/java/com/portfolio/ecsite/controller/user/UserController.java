@@ -1,5 +1,6 @@
 package com.portfolio.ecsite.controller.user;
 
+import com.portfolio.ecsite.controller.UsersApi;
 import com.portfolio.ecsite.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,9 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UsersApi {
 
     private final UserService userService;
-
     /** １ページの表示数 */
     private final String limits = "10";
 
@@ -27,7 +27,14 @@ public class UserController {
     String currentPage = null;
     String preOffset = "0";
 
-    //ユーザー一覧画面に遷移
+    /**
+     * ユーザー一覧画面に遷移する
+     * @params リクエストパラメータ
+     * @params limit
+     * @params offset
+     * @params model
+     * @return list.htmlのテンプレート
+     */
     @GetMapping
     public String showList(@RequestParam HashMap<String, String> params,
                            Integer limit, Long offset, Model model) {
@@ -76,33 +83,47 @@ public class UserController {
         model.addAttribute("preOffset", preOffset);
         model.addAttribute("userList", entityList);
 
-        return "users/List";
+        return "users/list";
     }
 
-    //ユーザー登録画面に遷移
+    /**
+     * /ユーザー登録画面に遷移に遷移する
+     * @params itemForms
+     * @return creationForm.htmlのテンプレート
+     */
     @GetMapping("/creationForm")
-    public String showCreationForm(@ModelAttribute UserForms user) {
+    public String showCreationForm(@ModelAttribute UserForms userForms) {
+
         return "users/creationForm";
     }
 
-    //ユーザーの登録ボタン押下
+    /**
+     * 登録ボタン押下後、ユーザ一覧画面にリダイレクトする
+     * @params itemForms Formオブジェクト
+     * @params bindingResult
+     * @return list.html のテンプレートにリダイレクト
+     */
     @PostMapping
-    public String createUser(@ModelAttribute @Validated UserForms form,
+    public String createUser(@ModelAttribute @Validated UserForms userForms,
                          BindingResult bindingResult) throws IOException {
 
-        if(bindingResult.hasFieldErrors()){
-            return showCreationForm(form);
+        if (bindingResult.hasErrors()) {
+            return showCreationForm(userForms);
         }
 
-        //ユーザー名、パスワード登録
         userService.create(
-                form.getUserName(),form.getPassword(), form.getAuthority(),
-                form.getCampany(), form.getAddress(), form.getPhone());
+                userForms.getUserName(),userForms.getPassword(), userForms.getAuthority(),
+                userForms.getCampany(), userForms.getAddress(), userForms.getPhone());
         return "redirect:/users?limit=10&offset=0";
     }
 
-    //ユーザー編集画面に遷移
-    @GetMapping("/{userId}")
+    /**
+     * 商品編集画面に遷移に遷移する
+     * @params userId
+     * @params model
+     * @return creationForm.htmlのテンプレート
+     */
+    @GetMapping("/update/{userId}")
     public String showUpdateFrom(@PathVariable("userId") Long userId, Model model) {
         var entity = userService.find(userId);
         model.addAttribute("user", entity);
@@ -110,18 +131,37 @@ public class UserController {
         return "users/updateForm";
     }
 
-    //ユーザーの編集ボタン押下
-    @PutMapping("/{userId}")
-    public String update(@PathVariable("userId") Long userId,
-                         @ModelAttribute @Validated UserForms form,
-                         BindingResult bindingResult){
+    /**
+     * ユーザー編集エラー画面に遷移する
+     * @params userId
+     * @params userForms Formオブジェクト
+     * @return creationForm.htmlのテンプレート
+     */
+    @GetMapping("/update/error/{userId}")
+    public String showUserUpdateErrorFrom(@PathVariable("userId") Long userId,
+                                          @ModelAttribute UserForms userForms) {
+        return "users/updateErrorForm";
+    }
+
+    /**
+     * 編集ボタン押下し、ユーザー一覧画面にリダイレクトする
+     * @params userId
+     * @params userForms Formオブジェクト
+     * @params bindingResult
+     * @params Model
+     * @return list.html のテンプレート
+     */
+    @PostMapping("/update/{userId}")
+    public String updateUser(@PathVariable("userId") Long userId,
+                             @ModelAttribute @Validated UserForms userForms,
+                             BindingResult bindingResult) throws IOException {
+
         if (bindingResult.hasErrors()) {
-            return showCreationForm(form);
+            return showUserUpdateErrorFrom(userId, userForms); //商品編集画面に遷移
         }
         userService.update(userId,
-                form.getUserName(),form.getPassword(), form.getAuthority(),
-                form.getCampany(), form.getAddress(), form.getPhone());
+                userForms.getUserName(),userForms.getPassword(), userForms.getAuthority(),
+                userForms.getCampany(), userForms.getAddress(), userForms.getPhone());
         return "redirect:/users?limit=10&offset=0";
     }
 }
-

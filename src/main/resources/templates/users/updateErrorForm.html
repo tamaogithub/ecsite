@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
+<head>
+    <title>ユーザー編集 | ECサイト アプリケーション</title>
+</head>
+<body>
+    <h1 class="mt-3">ユーザー編集エラー</h1>
+    <a href="./list.html" th:href="@{/users?limit=10&offset=0}">ユーザー一覧に戻る</a>
+    <div align="center">下記、必須事項を記載の上、「編集」ボタンをを押してください</div>
+    <form class="mt-3"　action="#" th:action="@{/users?limit=10&offset=0}"
+          th:method="post"
+          th:object="${userForms}">
+        <div class="mt-3">
+            <label for="usernameInput" class="form-label">ユーザー名</label>
+            <input type="text" id="usernameInput" class="form-control" th:field="*{userName}"
+                   th:classappend="${#fields.hasErrors('userName')} ? is-invalid">
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">(errors)</p>
+        </div>
+        <div class="mt-3">
+            <label for="passwordInput" class="form-label">パスワード</label>
+            <input type="password" id="passwordInput" class="form-control"  th:field="*{password}"
+                   th:classappend="${#fields.hasErrors('password')} ? is-invalid">
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">(errors)</p>
+        </div>
+        <div class="mt-3">
+            <label class="form-label" for="authorityRadio">ユーザー権限</label>
+            <div id="authorityRadio">
+                <div class="form-check" th:classappend="${#fields.hasErrors('authority')} ? is-invalid">
+                    <input class="form-check-input" type="radio" id="authorityAdminRadio"
+                           th:field="*{authority}" value="ADMIN"
+                           th:classappend="${#fields.hasErrors('authority')} ? is-invalid">
+                    <label class="form-check-label" for="authorityAdminRadio">ADMIN</label>
+                </div>
+                <div class="form-check" th:classappend="${#fields.hasErrors('authority')} ? is-invalid">
+                    <input class="form-check-input" type="radio" id="authorityMakerRadio"
+                           th:field="*{authority}" value="MAKER"
+                           th:classappend="${#fields.hasErrors('authority')} ? is-invalid">
+                    <label class="form-check-label" for="authorityMakerRadio">MAKER</label>
+                </div>
+                <div class="form-check" th:classappend="${#fields.hasErrors('authority')} ? is-invalid">
+                    <input class="form-check-input" type="radio" id="authorityShopRadio"
+                           th:field="*{authority}" value="SHOP"
+                           th:classappend="${#fields.hasErrors('authority')} ? is-invalid">
+                    <label class="form-check-label" for="authorityShopRadio">SHOP</label>
+                </div>
+                <p class="invalid-feedback" th:if="${#fields.hasErrors('authority')}"
+                   th:errors="*{authority}">(errors)</p>
+            </div>
+        </div>
+        <div class="mt-3">
+            <label for="campanyInput" class="form-label">所属会社</label>
+            <input type="text" id="campanyInput" class="form-control" th:field="*{campany}"
+                   th:classappend="${#fields.hasErrors('campany')} ? is-invalid">
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('campany')}" th:errors="*{campany}">(errors)</p>
+        </div>
+        <div class="mt-3">
+            <label for="addressInput" class="form-label">住所</label>
+            <input type="text" id="addressInput" class="form-control" th:field="*{address}"
+                   th:classappend="${#fields.hasErrors('address')} ? is-invalid">
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">(errors)</p>
+        </div>
+        <div class="mt-3">
+            <label for="phoneInput" class="form-label">電話番号</label>
+            <input type="text" id="phoneInput" class="form-control" th:field="*{phone}"
+                   th:classappend="${#fields.hasErrors('phone')} ? is-invalid">
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">(errors)</p>
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">編集</button>
+            <a href="./list.html" th:href="@{/users?limit=10&offset=0}" class="btn btn-secondary">キャンセル</a>
+        </div>
+    </form>
+</body>
+</html>

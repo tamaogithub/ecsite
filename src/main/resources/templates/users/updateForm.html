@@ -7,16 +7,19 @@
 <body>
     <h1 class="mt-3">ユーザー編集</h1>
     <a href="./list.html" th:href="@{/users?limit=10&offset=0}">ユーザー一覧に戻る</a>
-    <form action="#" th:action="@{/users/{userId}(userId=${user.id})}" th:method="put" th:object="${user}">
+    <div align="center">下記、必須事項を記載の上、「編集」ボタンをを押してください</div>
+    <form class="mt-3" action="#" th:action="@{/users/update/{userId}(userId=${user.id})}"
+          th:method="post"
+          th:object="${user}">
         <div class="mt-3">
-            <label for="usernameInput" class="form-label">ユーザー名</label>
-            <input type="text" id="usernameInput" class="form-control" th:field="*{userName}"
+            <label for="userNameInput" class="form-label">ユーザー名</label>
+            <input type="text" id="userNameInput" th:field="*{userName}" class="form-control"
                    th:classappend="${#fields.hasErrors('userName')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">(errors)</p>
         </div>
         <div class="mt-3">
             <label for="passwordInput" class="form-label">パスワード</label>
-            <input type="password" id="passwordInput" class="form-control"  th:field="*{password}"
+            <input type="password" id="passwordInput" th:field="*{password}" class="form-control"
                    th:classappend="${#fields.hasErrors('password')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">(errors)</p>
         </div>
@@ -47,19 +50,19 @@
         </div>
         <div class="mt-3">
             <label for="campanyInput" class="form-label">所属会社</label>
-            <input type="text" id="campanyInput" class="form-control" th:field="*{campany}"
+            <input type="text" id="campanyInput" th:field="*{campany}" class="form-control"
                    th:classappend="${#fields.hasErrors('campany')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('campany')}" th:errors="*{campany}">(errors)</p>
         </div>
         <div class="mt-3">
             <label for="addressInput" class="form-label">住所</label>
-            <input type="text" id="addressInput" class="form-control" th:field="*{address}"
+            <input type="text" id="addressInput" th:field="*{address}" class="form-control"
                    th:classappend="${#fields.hasErrors('address')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">(errors)</p>
         </div>
         <div class="mt-3">
             <label for="phoneInput" class="form-label">電話番号</label>
-            <input type="text" id="phoneInput" class="form-control" th:field="*{phone}"
+            <input type="text" id="phoneInput" th:field="*{phone}" class="form-control"
                    th:classappend="${#fields.hasErrors('phone')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">(errors)</p>
         </div>

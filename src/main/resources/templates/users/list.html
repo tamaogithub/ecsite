@@ -15,7 +15,9 @@
         <tbody>
             <tr th:each="user : ${userList}">
                 <th th:text="${user.id}">(id)</th>
-                <td><a href="./updateForm.html" th:href="@{/users/{userId}(userId=${user.id})}" th:text="${user.userName}">(userName)</a></td>
+                <td><a href="./updateForm.html"
+                       th:href="@{/users/update/{userId}(userId=${user.id})}"
+                       th:text="${user.userName}">(userName)</a></td>
                 <td th:text="${user.authority}">(authority)</td>
                 <td th:text="${user.campany}">(campany)</td>
                 <td th:text="${user.address}">(address)</td>

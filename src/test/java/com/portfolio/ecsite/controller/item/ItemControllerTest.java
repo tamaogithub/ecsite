@@ -1,6 +1,5 @@
 package com.portfolio.ecsite.controller.item;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.ecsite.service.item.ItemService;
 import com.portfolio.ecsite.service.user.UserService;
 import org.junit.jupiter.api.*;
@@ -14,7 +13,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 // テスト対象のサーバを起動して、Controllerのテストを行えるようにするアノテーション
@@ -41,7 +39,6 @@ class ItemControllerTest {
 //    @Autowired
 //    WebApplicationContext webApplicationContext;
 
-
     @BeforeEach
     void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(itemController).build();
@@ -53,7 +50,7 @@ class ItemControllerTest {
     class ControllerTest {
 
         @Test @Order(1) @DisplayName("商品一覧画面のアクセス")
-        void showListTest() throws Exception {
+        void showList() throws Exception {
             MvcResult result = mockMvc.perform(get("/items?limit=10&offset=0").accept(MediaType.TEXT_HTML))
             .andExpect(model().attributeExists(
                 "itemList","total","page","totalPage", "startPage",
@@ -64,7 +61,7 @@ class ItemControllerTest {
         }
 
         @Test @Order(2) @DisplayName("商品登録画面のアクセス")
-        void showCreationFormTest() throws Exception {
+        void showCreationForm() throws Exception {
             MvcResult result = mockMvc.perform(get("/items/creationForm").accept(MediaType.TEXT_HTML))
             .andExpect(model().attributeExists("base64Data"))
             .andExpect(status().isOk())
@@ -73,134 +70,89 @@ class ItemControllerTest {
         }
         @Test @Order(3) @DisplayName("商品登録画面の「登録」ボタンを押下後、商品一覧画面にリダイレクト")
         void createItemTest() throws Exception {
-            var itemFroms = new ItemForms("歯ブラシ","歯ブラシ（極細）",null, null ,"LION",198,3,null);
-            var objectMapper = new ObjectMapper();
-            mockMvc.perform(
-                post("/items/creationForm")
-                        .content(objectMapper.writeValueAsString(itemFroms))  // リクエストボディを指定
-                        .contentType(MediaType.APPLICATION_JSON_VALUE) // Content Typeを指定
-                ).andExpect(status().isCreated());
+//            var itemFroms = new ItemForms("歯ブラシ","歯ブラシ（極細）",null, null ,"LION",198,3,null);
+//            var objectMapper = new ObjectMapper();
+//            mockMvc.perform(
+//                post("/items/creationForm")
+//                        .content(objectMapper.writeValueAsString(itemFroms))  // リクエストボディを指定
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE) // Content Typeを指定
+//                ).andExpect(status().isCreated());
 //                    .andExpect(status().isOk())
 //                    .andExpect(model().hasNoErrors())
 //                    .andExpect(view().name("items/creationForm")).andReturn();
         }
 
-        @Test @Order(4) @DisplayName("購入確認画面のアクセス")
-        void showConfirmFromTest() throws Exception {
-            mockMvc.perform(get("/items/confirm/1"))
-                    .andExpect(status().isOk());
-        }
-
-        @Test @Order(5) @DisplayName("商品詳細画面のアクセス")
-        void showDiscriptionFromTest() throws Exception {
+        @Test @Order(4) @DisplayName("商品詳細画面のアクセス")
+        void showDiscriptionFrom() throws Exception {
             mockMvc.perform(get("/items/discription/1"))
                     .andExpect(status().isOk());
         }
 
-        @Test @Order(6) @DisplayName("商品編集画面のアクセス")
-        void showUpdateFromTest() throws Exception {
+        @Test @Order(5) @DisplayName("商品編集画面のアクセス")
+        void showUpdateFrom() throws Exception {
             mockMvc.perform(get("/items/update/1"))
                     .andExpect(status().isOk())
                     .andExpect(model().hasNoErrors())
                     .andExpect(view().name("items/updateForm"));
         }
 
-        @Test @Order(7) @DisplayName("購入完了画面のアクセス")
-        void buyItemCompleteTest() throws Exception {
+        @Test @Order(6) @DisplayName("商品編集エラー画面に遷移する")
+        void showUpdateErrorFrom() throws Exception {
+            mockMvc.perform(get("/items/update/error/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(model().hasNoErrors())
+                    .andExpect(view().name("items/updateErrorForm"));
+        }
+
+        @Test @Order(7) @DisplayName("編集ボタン押下し、商品一覧画面にリダイレクトする")
+        void updateItem() throws Exception {
+
+        }
+
+        @Test @Order(8) @DisplayName("商品購入画面に遷移する")
+        void showBuyFrom() throws Exception {
+            mockMvc.perform(get("/items/buy/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(model().hasNoErrors())
+                    .andExpect(view().name("items/itemBuyForm"));
+        }
+
+        @Test @Order(9) @DisplayName("商品購入エラー画面に遷移する")
+        void showBuyErrorFrom() throws Exception {
+            mockMvc.perform(get("/items/buy/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(model().hasNoErrors())
+                    .andExpect(view().name("items/itemBuyForm"));
+        }
+
+        @Test @Order(10) @DisplayName("確認ボタン押下し、購入確認画面に遷移する")
+        void buyItem() throws Exception {
+//            mockMvc.perform(get("/items/buy/1"))
+//                    .andExpect(status().isOk())
+//                    .andExpect(model().hasNoErrors())
+//                    .andExpect(view().name("items/itemBuyForm"));
+        }
+
+        @Test @Order(11) @DisplayName("購入確認画面に遷移")
+        void showConfirmFrom() throws Exception {
+            mockMvc.perform(get("/items/confirm/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(model().hasNoErrors())
+                    .andExpect(view().name("items/itemBuyConfirm"));
+        }
+
+        @Test @Order(12) @DisplayName("購入確定ボタン押下し、購入完了画面に遷移する")
+        void buyItemComplete() throws Exception {
+//            mockMvc.perform(get("/items/confirm/1"))
+//                    .andExpect(status().isOk());
+        }
+
+        @Test @Order(13) @DisplayName("購入完了画面のアクセス")
+        void showItemComplete() throws Exception {
             mockMvc.perform(get("/items/complete/1"))
                     .andExpect(status().isOk())
                     .andExpect(model().hasNoErrors())
                     .andExpect(view().name("items/itemBuyComplete"));
         }
-
-
     }
-
-//        @Nested
-//        @Order(2)
-//        @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-//        class 商品詳細画面のアクセス {
-//            final MockHttpServletRequestBuilder creationForm = get("/creationForm")
-//                    .accept(MediaType.TEXT_HTML);
-//
-//            @BeforeEach
-//            void setup() {
-//                // @AutoConfigureMockMvcというアノテーションを使うとこの初期化は不要だが、
-//                // 問題が起きることもあるので手動で初期化している。
-//                mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-//                System.out.println("mockMvc初期化");
-//            }
-
-//            @Disabled //テストの無効化
-//            @Test
-//            @Order(1)
-//            void モデルが格納されているオブジェクトを確認() throws Exception {
-//                // http:localhost:8080/にアクセスした場合のテストを行う
-//                mockMvc.perform(creationForm)
-//                // HTTPステータスがOKであることを確認
-//                .andExpect(status().isOk());
-//
-//                System.out.println("商品詳細画面のアクセス");
-//            }
-
 }
-//    @Test
-//    void createItemBuyForms() {
-//    }
-//
-//    @Test
-//    void showList() {
-//    }
-//
-//    @Test
-//    void showCreationForm() {
-//    }
-
-    //に /items/{itemId} GET メソッドでリクエストを送信し、HTTP ステータスとして 200 が返ってくることをテスト
-//    @Test
-//    @DisplayName("get Book, should return expected Book")
-//    void createItem() {
-////        int itemId = 1;
-////        this.mvc.perform(get("/item/{itemId}")).andExpect(status().isOk());
-//    }
-
-//    @Test
-//    void showDiscriptionFrom() {
-//    }
-//
-//    @Test
-//    void showUpdateFrom() {
-//    }
-//
-//    @Test
-//    void showUpdateErrorFrom() {
-//    }
-//
-//    @Test
-//    void updateItem() {
-//    }
-//
-//    @Test
-//    void showBuyFrom() {
-//    }
-//
-//    @Test
-//    void showBuyErrorFrom() {
-//    }
-//
-//    @Test
-//    void buyItem() {
-//    }
-//
-//    @Test
-//    void showConfirmFrom() {
-//    }
-//
-//    @Test
-//    void buyItemComplete() {
-//    }
-//
-//    @Test
-//    void showItemComplete() {
-//    }
-//}

@@ -120,7 +120,8 @@ public class ItemController implements ItemsApi {
 
     /**
      * /商品登録画面に遷移に遷移する
-     * @params itemForms Formオブジェクト
+     * @params itemForms
+     * @params model
      * @return creationForm.htmlのテンプレート
      */
     @GetMapping("/creationForm")
@@ -213,6 +214,8 @@ public class ItemController implements ItemsApi {
      * 編集ボタン押下し、商品一覧画面にリダイレクトする
      * @params itemId
      * @params itemForms Formオブジェクト
+     * @params bindingResult
+     * @params model
      * @return list.html のテンプレート
      */
 //    @PreAuthorize("hasAuthority('MAKER')")
@@ -282,6 +285,7 @@ public class ItemController implements ItemsApi {
      * @params itemForms Formオブジェクト
      * @return itemBuyConfirm.html 購入確認画面のテンプレート
      */
+//    @PreAuthorize("hasAuthority('SHOP')")
     @PostMapping("/buy/{itemId}")
     public String buyItem(@PathVariable("itemId") Long itemId,
                           @ModelAttribute @Validated ItemBuyForms itemBuyForms,
@@ -302,7 +306,13 @@ public class ItemController implements ItemsApi {
         return "redirect:/items/confirm/{itemId}";
     }
 
-    //商品の確認画面に遷移
+    /**
+     * 購入確認画面に遷移する
+     * @params itemId
+     * @params itemBuyForms Formオブジェクト
+     * @params model
+     * @return itemBuyForm.html 購入確認画面のテンプレート
+     */
     @GetMapping("/confirm/{itemId}")
     public String showConfirmFrom(@PathVariable("itemId") Long itemId,
                                   @ModelAttribute @Validated ItemBuyForms itemBuyForms, Model model) {

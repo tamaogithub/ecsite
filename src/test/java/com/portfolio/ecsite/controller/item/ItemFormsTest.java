@@ -1,9 +1,12 @@
 package com.portfolio.ecsite.controller.item;
 
 import com.portfolio.ecsite.validation.MediaTypeImage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,17 +19,22 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+@SpringBootTest
 class ItemFormsTest {
 
+    Validator validator;
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        // バリデータのファクトリを取得
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        // バリデータを取得
+        validator = factory.getValidator();
+    }
     @Test
     @Order(1)
     @DisplayName("バリデーションがないかチェック【正常系】")
     void testValidation() throws IOException {
-        // バリデータのファクトリを取得
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        // バリデータを取得
-        Validator validator = factory.getValidator();
         // 画像ファイルを含むMockMultipartFileオブジェクトを作成する
         MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", getClass().getResourceAsStream("/c/tmp/image.jpg"));
         // バリデーション対象のオブジェクトを生成
@@ -41,11 +49,6 @@ class ItemFormsTest {
     @Order(2)
     @DisplayName("バリデーションがあるかチェック【異常系】")
     void testInvalidValidation() {
-        // バリデータのファクトリを取得
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        // バリデータを取得
-        Validator validator = factory.getValidator();
-
         // バリデーション対象のオブジェクトを生成（バリデーションエラーあり）
         ItemForms itemForms = new ItemForms("", "", "azarashi.png", null, "", null, null, null);
 
@@ -109,12 +112,7 @@ class ItemFormsTest {
     @DisplayName("画像情報チェック【異常系】")
     void testUploadImage() throws Exception {
         // 画像ファイルを含むMockMultipartFileオブジェクトを作成する
-        MockMultipartFile file = new MockMultipartFile(
-                "file",
-                "image.jpg",
-                "image/jpeg",
-                getClass().getResourceAsStream("/c/tmp/image.jpg")
-        );
+        MockMultipartFile file = new MockMultipartFile("file", "image.jpg", "image/jpeg", getClass().getResourceAsStream("/c/tmp/image.jpg"));
 
         // 画像ファイルをアップロードするメソッドを呼び出す
 //        MyImageUploadService imageUploadService = new MyImageUploadService();

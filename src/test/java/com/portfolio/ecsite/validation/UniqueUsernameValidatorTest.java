@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 public class UniqueUsernameValidatorTest {
 
-    private UniqueUsernameValidator validator;
+    private UniqueUsernameValidator uniqueUsernameValidator;
 
     @Mock
     private UserRepository userRepository;
@@ -29,7 +29,7 @@ public class UniqueUsernameValidatorTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        validator = new UniqueUsernameValidator(userRepository);
+        uniqueUsernameValidator = new UniqueUsernameValidator(userRepository);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class UniqueUsernameValidatorTest {
     public void testIsValidWithNonExistingUsername() {
         String username = "testUser";
         when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
-        boolean result = validator.isValid(username, context);
+        boolean result = uniqueUsernameValidator.isValid(username, context);
         assertTrue(result);
     }
 
@@ -50,7 +50,7 @@ public class UniqueUsernameValidatorTest {
         UserEntity user = new UserEntity(1,"tom","password1234","SHOP","DELL","埼玉県","080-5555-6666");
         user.setUsername(username);
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        boolean result = validator.isValid(username, context);
+        boolean result = uniqueUsernameValidator.isValid(username, context);
         assertFalse(result);
     }
 }

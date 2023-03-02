@@ -11,8 +11,8 @@
     <div class="card mt-3 mb-3" style="max-width: 1840px;">
         <div class="row g-0">
             <div class="col-md-5">
-                <img th:if="!${itemBuyConfirm.itemImage}" th:src="${base64Data}" style="width: 480px;height: 480px;">
-                <img th:if="${itemBuyConfirm.itemImage}" th:src=@{'data:image/png;base64,'+${itemBuyConfirm.itemImage}} style="width: 480px;height: 480px;" >
+                <img class="card-img" th:if="!${itemBuyConfirm.itemImage}" th:src="${base64Data}" style="width: 480px;height: 480px;">
+                <img class="card-img" th:if="${itemBuyConfirm.itemImage}" th:src=@{'data:image/png;base64,'+${itemBuyConfirm.itemImage}} style="width: 480px;height: 480px;" >
             </div>
 
             <div class="col-md-7">

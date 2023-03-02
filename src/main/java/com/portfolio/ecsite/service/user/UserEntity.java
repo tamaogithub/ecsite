@@ -1,7 +1,9 @@
 package com.portfolio.ecsite.service.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Value;
 
+@AllArgsConstructor
 @Value
 public class UserEntity {
     long id;
@@ -11,4 +13,6 @@ public class UserEntity {
     String campany;
     String address;
     String phone;
+    public void setUsername(String username) {
+    }
 }

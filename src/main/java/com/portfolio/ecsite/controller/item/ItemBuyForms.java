@@ -3,10 +3,7 @@ package com.portfolio.ecsite.controller.item;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,14 +12,15 @@ import java.util.Map;
 public class ItemBuyForms {
 
     @Min(value = 1, message = "{value}以上の値を設定してください")
-    @NotNull
+    @Max(value = 1000000000, message = "{value}未満の値を設定してください")
+    @NotNull(message = "空白は許可されていません")
     private Integer stock;
 
     @NotBlank
     @Size(max=100)
     private String address;
 
-    @NotBlank
+    @NotNull(message = "空白は許可されていません")
     private String payment;
 
     /** 支払い方法のMapオブジェクト */

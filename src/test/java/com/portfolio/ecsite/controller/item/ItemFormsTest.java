@@ -27,6 +27,10 @@ class ItemFormsTest {
 
     MockMultipartFile mockMultipartFile;
 
+    Set<ConstraintViolation<ItemForms>> violations;
+
+    ConstraintViolation<ItemForms> violation;
+
     @BeforeEach
     public void setUp() throws IOException {
         MockitoAnnotations.openMocks(this);
@@ -43,10 +47,8 @@ class ItemFormsTest {
     @Order(1)
     @DisplayName("正常系：フォームにバリデーションが1件もないかチェック")
     void testValidation() {
-        // バリデーション対象のオブジェクトを生成
-        var violations = validator.validate(itemForms);
-        // バリデーションがないかチェック
-        assertTrue(violations.isEmpty());
+        // バリデーション対象のオブジェクトを生成し、バリデーションがないかチェック
+        assertTrue(validator.validate(itemForms).isEmpty());
     }
 
     @Test
@@ -55,9 +57,8 @@ class ItemFormsTest {
     void testInvalidValidation() {
         // バリデーション対象のオブジェクトを生成（バリデーションエラーあり）
         ItemForms itemForms = new ItemForms("", "", "azarashi.png", null, "", null, null);
-        // バリデーションを実行
-        var violations = validator.validate(itemForms);
-        var violationsSize = violations.size();
+        // バリデーション対象のオブジェクトを生成し、バリデーションの件数を取得
+        var violationsSize = validator.validate(itemForms).size();
         //バリデーションがあるかをチェック
         assertEquals(5, violationsSize);
     }
@@ -67,9 +68,9 @@ class ItemFormsTest {
     @Test
     void testBlankItemName() {
         itemForms.setItemName("");
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         Assertions.assertEquals(1, violations.size());
-        ConstraintViolation<ItemForms> violation = violations.iterator().next();
+        violation = violations.iterator().next();
         Assertions.assertEquals("空白は許可されていません", violation.getMessage());
     }
 
@@ -78,98 +79,116 @@ class ItemFormsTest {
     @Test
     void testMaxItemName() {
         itemForms.setItemName("a".repeat(21));
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         Assertions.assertEquals(1, violations.size());
-        ConstraintViolation<ItemForms> violation = violations.iterator().next();
+        violation = violations.iterator().next();
         Assertions.assertEquals("20文字以下で入力してください", violation.getMessage());
     }
 
-
+    @Test
     @Order(5)
     @DisplayName("異常系：商品概要が空白の場合のバリデーションチェック")
-    @Test
     void testBlankDescription() {
         itemForms.setDescription("");
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         Assertions.assertEquals(1, violations.size());
-        ConstraintViolation<ItemForms> violation = violations.iterator().next();
+        violation = violations.iterator().next();
         Assertions.assertEquals("空白は許可されていません", violation.getMessage());
     }
 
+    @Test
     @Order(6)
     @DisplayName("異常系：商品説明が最大文字数を超えた場合のバリデーションチェック")
-    @Test
     void testMaxDescription() {
         itemForms.setDescription("a".repeat(101));
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         Assertions.assertEquals(1, violations.size());
-        ConstraintViolation<ItemForms> violation = violations.iterator().next();
+        violation = violations.iterator().next();
         Assertions.assertEquals("100文字以下で入力してください", violation.getMessage());
     }
 
     @Test
     @Order(7)
-    @DisplayName("異常系：fileNameのサイズチェックのテスト")
+    @DisplayName("異常系：fileNameの最大文字数を超えた場合のバリデーションチェック")
     void testSizeCheckOfFileName() {
         itemForms.setFileName("a".repeat(256));
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         assertEquals(violations.size(), 1);
         assertEquals("255文字以下で入力してください", violations.iterator().next().getMessage());
     }
-
+    @Test
     @Order(8)
     @DisplayName("異常系：販売会社が空白の場合のバリデーションチェック")
-    @Test
     void testBlankCompany() {
         itemForms.setCompany("");
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         Assertions.assertEquals(1, violations.size());
-        ConstraintViolation<ItemForms> violation = violations.iterator().next();
+        violation = violations.iterator().next();
         Assertions.assertEquals("空白は許可されていません", violation.getMessage());
     }
 
     @Test
     @Order(9)
-    @DisplayName("異常系：販売会社のサイズチェックのテスト")
+    @DisplayName("異常系：販売会社が最大値以上の場合のバリデーションチェック")
     void testSizeCheckOfCompany() {
         itemForms.setCompany("a".repeat(101));
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         assertEquals(violations.size(), 1);
         assertEquals("100文字以下で入力してください", violations.iterator().next().getMessage());
     }
 
     @Test
-    @DisplayName("異常系：販売価格（円）が最小値以下の場合のテスト")
     @Order(10)
+    @DisplayName("異常系：販売価格（円）がnullの場合のバリデーションチェック")
+    void testNullPrice() {
+        itemForms.setPrice(null);
+        violations = validator.validate(itemForms);
+        Assertions.assertEquals(1, violations.size());
+        violation = violations.iterator().next();
+        Assertions.assertEquals("空白は許可されていません", violation.getMessage());
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("異常系：販売価格（円）が最小値以下の場合のバリデーションチェック")
     void testPriceMinValidation() {
         itemForms.setPrice(0);
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
 
         assertEquals(1, violations.size());
         assertEquals("1以上で入力してください", violations.iterator().next().getMessage());
         itemForms.setPrice(-1);
         assertEquals(1, violations.size());
         assertEquals("1以上で入力してください", violations.iterator().next().getMessage());
-
     }
 
     @Test
-    @DisplayName("異常系：販売価格（円）が最大値を超えた場合のテスト")
-    @Order(11)
+    @Order(12)
+    @DisplayName("異常系：販売価格（円）が最大値以上の場合のバリデーションチェック")
     void testPriceMaxValidation() {
         itemForms.setPrice(1000000001);
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
 
         assertEquals(1, violations.size());
         assertEquals("1000000000以下で入力してください", violations.iterator().next().getMessage());
     }
+    @Test
+    @Order(13)
+    @DisplayName("異常系：在庫数（個）がnullの場合のバリデーションチェック")
+    void testNullStock() {
+        itemForms.setStock(null);
+        violations = validator.validate(itemForms);
+        Assertions.assertEquals(1, violations.size());
+        violation = violations.iterator().next();
+        Assertions.assertEquals("空白は許可されていません", violation.getMessage());
+    }
 
     @Test
-    @DisplayName("異常系：在庫数（個）が1以上であることを検証する")
-    @Order(12)
+    @Order(14)
+    @DisplayName("異常系：在庫数（個）が最小値以下の場合のバリデーションチェック")
     void testStockMinValidation() {
         itemForms.setStock(0);
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         assertEquals(1, violations.size());
         assertEquals("1以上で入力してください", violations.iterator().next().getMessage());
         itemForms.setStock(-1);
@@ -178,11 +197,11 @@ class ItemFormsTest {
     }
 
     @Test
-    @DisplayName("異常系：在庫数（個）が最大値を超えた場合のテスト")
-    @Order(13)
+    @Order(15)
+    @DisplayName("異常系：在庫数（個）が最大値以上の場合のバリデーションチェック")
     void testStockMaxValidation() {
         itemForms.setStock(1000000001);
-        Set<ConstraintViolation<ItemForms>> violations = validator.validate(itemForms);
+        violations = validator.validate(itemForms);
         assertEquals(1, violations.size());
         assertEquals("1000000000以下で入力してください", violations.iterator().next().getMessage());
     }

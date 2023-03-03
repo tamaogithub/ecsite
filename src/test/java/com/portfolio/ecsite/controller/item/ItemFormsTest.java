@@ -45,7 +45,7 @@ class ItemFormsTest {
     }
     @Test
     @Order(1)
-    @DisplayName("正常系：フォームにバリデーションが1件もないこと")
+    @DisplayName("正常系：フォームにバリデーションが全て成功すること")
     void testValidation() {
         // バリデーション対象のオブジェクトを生成し、バリデーションがないかチェック
         assertTrue(validator.validate(itemForms).isEmpty());
@@ -53,7 +53,7 @@ class ItemFormsTest {
 
     @Test
     @Order(2)
-    @DisplayName("異常系：フォームにバリデーションが5件あること")
+    @DisplayName("異常系：フォームにバリデーションエラーが5件あること")
     void testInvalidValidation() {
         // バリデーション対象のオブジェクトを生成（バリデーションエラーあり）
         ItemForms itemForms = new ItemForms("", "", "azarashi.png", null, "", null, null);
@@ -63,9 +63,9 @@ class ItemFormsTest {
         assertEquals(5, violationsSize);
     }
 
-    @Order(3)
-    @DisplayName("異常系：商品名が空白の場合、バリデーションが失敗すること")
     @Test
+    @Order(3)
+    @DisplayName("異常系：商品名が空白の場合、バリデーションエラーになること")
     void testBlankItemName() {
         itemForms.setItemName("");
         violations = validator.validate(itemForms);
@@ -74,9 +74,9 @@ class ItemFormsTest {
         Assertions.assertEquals("空白は許可されていません", violation.getMessage());
     }
 
+    @Test
     @Order(4)
     @DisplayName("異常系：商品名が最大文字数を超えた場合、バリデーションエラーになること")
-    @Test
     void testMaxItemName() {
         itemForms.setItemName("a".repeat(21));
         violations = validator.validate(itemForms);

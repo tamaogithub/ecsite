@@ -14,26 +14,26 @@ import javax.validation.constraints.Size;
 public class UserForms {
 
     @NotBlank
-    @Size(min = 1, max=20)
+    @Size(max=20, message = "20文字以下で入力してください")
     @UniqueUsername
     private String userName;
 
     @NotBlank
-    @Size(min = 12, max = 128)
+    @Size(min = 12, max = 128, message = "12～20文字で入力してください")
     private  String password;
 
     @NotBlank
     private String authority;
 
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(max = 100, message = "100文字以下で入力してください")
     private String campany;
 
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(max = 100, message = "100文字以下で入力してください")
     private String address;
 
     @NotBlank
-    @Size(min = 1, max = 255)
+    @Size(max = 255, message = "255文字以下で入力してください")
     private String phone;
 }

@@ -14,30 +14,30 @@ import javax.validation.constraints.*;
 public class ItemForms {
 
     @NotBlank
-    @Size(max=20)
+    @Size(max = 20, message = "20文字以下で入力してください")
     private String itemName;
 
     @NotBlank
-    @Size(max=100)
+    @Size(max = 100, message = "100文字以下で入力してください")
     private String description;
 
-    @Size(max=255)
+    @Size(max = 255, message = "255文字以下で入力してください")
     private String fileName;
 
     @MediaTypeImage
     private MultipartFile itemImage;
 
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(max = 100, message = "100文字以下で入力してください")
     private String company;
 
-    @Min(value = 1, message = "{value}以上の値を設定してください")
-    @Max(value = 1000000000, message = "{value}未満の値を設定してください")
+    @Min(value = 1, message = "{value}以上で入力してください")
+    @Max(value = 1000000000, message = "{value}以下で入力してください")
     @NotNull(message = "空白は許可されていません")
     private Integer price;
 
-    @Min(value = 1, message = "{value}以上の値を設定してください")
-    @Max(value = 1000000000, message = "{value}未満の値を設定してください")
+    @Min(value = 1, message = "{value}以上で入力してください")
+    @Max(value = 1000000000, message = "{value}以下で入力してください")
     @NotNull(message = "空白は許可されていません")
     private Integer stock;
 }

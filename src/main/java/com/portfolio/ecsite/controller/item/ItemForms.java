@@ -40,6 +40,4 @@ public class ItemForms {
     @Max(value = 1000000000, message = "{value}未満の値を設定してください")
     @NotNull(message = "空白は許可されていません")
     private Integer stock;
-
-    private String payment;
 }

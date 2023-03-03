@@ -51,7 +51,7 @@ class ItemFormsTest {
 
     @Test
     @Order(2)
-    @DisplayName("異常系：フォームにバリデーションが8件あるかチェック")
+    @DisplayName("異常系：フォームにバリデーションが5件あるかチェック")
     void testInvalidValidation() {
         // バリデーション対象のオブジェクトを生成（バリデーションエラーあり）
         ItemForms itemForms = new ItemForms("", "", "azarashi.png", null, "", null, null);

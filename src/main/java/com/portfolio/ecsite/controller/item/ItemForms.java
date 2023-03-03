@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -31,14 +28,16 @@ public class ItemForms {
     private MultipartFile itemImage;
 
     @NotBlank
-    @Size(max=20)
+    @Size(min = 1, max = 100)
     private String company;
 
     @Min(value = 1, message = "{value}以上の値を設定してください")
+    @Max(value = 1000000000, message = "{value}未満の値を設定してください")
     @NotNull
     private Integer price;
 
     @Min(value = 1, message = "{value}以上の値を設定してください")
+    @Max(value = 1000000000, message = "{value}未満の値を設定してください")
     @NotNull
     private Integer stock;
 

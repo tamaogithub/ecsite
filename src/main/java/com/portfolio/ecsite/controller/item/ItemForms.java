@@ -33,12 +33,12 @@ public class ItemForms {
 
     @Min(value = 1, message = "{value}以上の値を設定してください")
     @Max(value = 1000000000, message = "{value}未満の値を設定してください")
-    @NotNull
+    @NotNull(message = "空白は許可されていません")
     private Integer price;
 
     @Min(value = 1, message = "{value}以上の値を設定してください")
     @Max(value = 1000000000, message = "{value}未満の値を設定してください")
-    @NotNull
+    @NotNull(message = "空白は許可されていません")
     private Integer stock;
 
     private String payment;

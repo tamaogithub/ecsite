@@ -39,9 +39,7 @@ class UserControllerTest {
         @Test @Order(1) @DisplayName("ユーザー一覧画面のアクセス")
         void showList() throws Exception {
             MvcResult result = mockMvc.perform(get("/users?limit=10&offset=0").accept(MediaType.TEXT_HTML))
-                    .andExpect(model().attributeExists(
-                            "total", "page", "totalPage", "startPage",
-                            "endPage", "offset", "preOffset", "userList"))
+                    .andExpect(model().attributeExists("total", "page", "totalPage", "startPage", "endPage", "offset", "preOffset", "userList"))
                     .andExpect(status().isOk())
                     .andExpect(model().hasNoErrors())
                     .andExpect(view().name("users/list")).andReturn();

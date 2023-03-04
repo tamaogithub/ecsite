@@ -47,10 +47,9 @@ class UserControllerTest {
             HashMap<String, String> params = new HashMap<>();
             params.put("limit", "10");
             params.put("offset", "0");
-            MvcResult result = mockMvc.perform(
-                MockMvcRequestBuilders.get("/users")
-                    .param("limit", params.getOrDefault("limit", "10"))
-                    .param("offset", params.getOrDefault("offset", "0")))
+            MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users")
+                .param("limit", params.getOrDefault("limit", "10"))
+                .param("offset", params.getOrDefault("offset", "0")))
                 .andExpect(model().attributeExists("total", "page", "totalPage", "startPage", "endPage", "offset", "preOffset", "userList"))
                 .andExpect(status().isOk())
                 .andExpect(model().hasNoErrors())

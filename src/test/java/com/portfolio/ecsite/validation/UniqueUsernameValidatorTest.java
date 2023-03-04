@@ -34,9 +34,11 @@ public class UniqueUsernameValidatorTest {
 
     @Test
     @Order(1)
-    @DisplayName("正常系テスト：ユーザ名が重複していない場合、trueが返ることを確認する")
+    @DisplayName("正常系テスト：ユーザ名がユニークの場合、trueが返ることを確認する")
     public void testIsValidWithNonExistingUsername() {
         String username = "testUser";
+        //userRepository.findByUsername(username)が呼び出された場合に、Optional.empty()を返すように設定しています。
+        //これにより、テスト中にUserRepositoryの実際のデータベースアクセスを行わずに、想定されたバリデーション結果をテストすることができます。
         when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
         boolean result = uniqueUsernameValidator.isValid(username, context);
         assertTrue(result);
@@ -47,9 +49,14 @@ public class UniqueUsernameValidatorTest {
     @DisplayName("異常系テスト：ユーザ名が重複している場合、falseが返ることを確認する")
     public void testIsValidWithExistingUsername() {
         String username = "testUser";
-        UserEntity user = new UserEntity(1,"tom","password1234","SHOP","DELL","埼玉県","080-5555-6666");
-        user.setUsername(username);
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        UserEntity userEntity = new UserEntity(1,"tom","password1234","SHOP","DELL","埼玉県","080-5555-6666");
+
+        //ユーザー名が"testUser"のUserEntityオブジェクトを作成
+        userEntity.setUsername(username);
+
+        //userRepository.findByUsername(username)が呼び出された場合に、Optional.of(userEntity)を返すように設定しています。
+        //これにより、指定されたユーザー名が既にデータベースに存在することがシミュレートされます。
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(userEntity));
         boolean result = uniqueUsernameValidator.isValid(username, context);
         assertFalse(result);
     }

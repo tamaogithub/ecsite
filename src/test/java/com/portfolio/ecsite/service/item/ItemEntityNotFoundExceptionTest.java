@@ -9,7 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -37,6 +38,27 @@ class ItemEntityNotFoundExceptionTest {
             itemService.find(itemId);
         });
         assertEquals(itemId, thrown.getItemId());
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("商品IDが存在しないエラーメッセージが正しいことを確認するテスト")
+    void testErrorMessage() {
+        Long itemId = 1L;
+        ItemEntityNotFoundException exception = new ItemEntityNotFoundException(itemId);
+        String expectedMessage = "ItemEntity ( id = " + itemId + ") is not found.";
+
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("商品 ID が正しく設定されていることを確認するテスト")
+    void testUserId() {
+        long itemId = 2L;
+        ItemEntityNotFoundException exception = new ItemEntityNotFoundException(itemId);
+
+        assertEquals(itemId, exception.getItemId());
     }
 
 }

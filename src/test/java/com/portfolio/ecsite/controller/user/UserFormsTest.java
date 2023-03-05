@@ -1,67 +1,165 @@
 package com.portfolio.ecsite.controller.user;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import com.portfolio.ecsite.repository.user.UserRepository;
+import com.portfolio.ecsite.validation.UniqueUsername;
+import com.portfolio.ecsite.validation.UniqueUsernameValidator;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
-import javax.validation.ConstraintValidatorContext;
+import javax.validation.*;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@DisplayName("ユーザー登録、編集のフォームのテスト")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserFormsTest {
+
+    @InjectMocks
+    private UserForms userForms;
+    private Validator validator;
+    UniqueUsernameValidator uniqueUsernameValidator;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private UniqueUsername uniqueUsername;
 
     @Mock
     private ConstraintValidatorContext context;
 
-    @InjectMocks
-    private UserForms userForms;
+    Set<ConstraintViolation<UserForms>> violations;
+
+    ConstraintViolation<UserForms> violation;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        // バリデータのファクトリを取得
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        // バリデータを取得
+        validator = factory.getValidator();
+
+        uniqueUsernameValidator = new UniqueUsernameValidator(userRepository);
+        // バリデーション対象のオブジェクトを生成
+        UserForms userForms = new UserForms("tom", "password1234", "SHOP", "DELL", "埼玉", "080-0000-1111");
+
+    }
+
+//    @Test
+//    @DisplayName("バリデーション成功パターン")
+//    void validateSuccess() {
+//        UserForms userForms = new UserForms("authority", "company");
+//        Errors errors = new BeanPropertyBindingResult(userForms, "userForms");
+//        validator.validate(userForms, errors);
+//        assertFalse(errors.hasErrors());
+//    }
+
 
     @Test
     @Order(1)
-    @DisplayName("ユーザー名が空白でないことを確認する")
+    @DisplayName("正常系：ユーザー名がユニークな場合")
+    public void testValidUserName() {
+        String username = "tom";
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+
+        // カスタムバリデータにテスト用のユーザー名とモックされたリポジトリを渡してバリデーションを実行
+        boolean result = uniqueUsernameValidator.isValid(username, context);
+
+        assertEquals(true, result);
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("異常系：ユーザー名が空白の場合、バリデーションエラーになること")
+    void testBlankUserName() {
+        String username = "testUser";
+        userForms.setUserName("");
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        boolean result = uniqueUsernameValidator.isValid(username, context);
+
+        violations = validator.validate(userForms);
+        Assertions.assertEquals(1, violations.size());
+        violation = violations.iterator().next();
+        Assertions.assertEquals("空白は許可されていません", violation.getMessage());
+
+    }
+    @Test
+    @Order(3)
+    @DisplayName("異常系：ユーザー名が空白でないことを確認する")
     void testUserNameNotBlank() {
         userForms.setUserName("");
         assertThat(userForms.getUserName()).isEmpty();
     }
 
     @Test
-    @Order(2)
-    @DisplayName("ユーザー名が20文字以下であることを確認する")
-    void testUserNameMaxLength() {
-        userForms.setUserName("123456789012345678901");
-        assertThat(userForms.getUserName()).hasSize(20);
+    @Order(4)
+    @DisplayName("異常系：ユーザー名が空の場合、バリデーションエラーになること")
+    public void testUserNameIsEmpty() {
+        userForms.setUserName("");
+        String username = userForms.getUserName();
+        when(userRepository.findByUsername(userForms.getUserName())).thenReturn(Optional.empty());
+        // カスタムバリデータにテスト用のユーザー名とモックされたリポジトリを渡してバリデーションを実行
+        boolean result = uniqueUsernameValidator.isValid(username, context);
+        assertEquals(true, result);
     }
 
-//  UniqueUsernameValidatorTest で重複チェックの確認している為、このテストケースはいらない
-//    @Test
-//    @DisplayName("ユーザー名がUniqueUsernameによって重複していないことを確認する")
-//    @Order(3)
-//    void testUniqueUsername() {
-//        when(context.isValid()).thenReturn(true);
-//        UniqueUsername uniqueUsername = new UniqueUsername();
-//        uniqueUsername.initialize(null);
-//        assertThat(uniqueUsername.isValid("test", context)).isTrue();
-//    }
 
     @Test
-    @Order(3)
-    @DisplayName("パスワードが空白でないことを確認する")
+    @Order(5)
+    @DisplayName("異常系：ユーザー名が20文字以上の場合、バリデーションに失敗すること")
+    void testUserNameMaxLength() {
+        // 20文字の文字列を作成
+        String maxCharString = "a".repeat(20);
+        userForms.setUserName(maxCharString);
+
+        violations = validator.validate(userForms);
+        Assertions.assertEquals(1, violations.size());
+
+        // userNameプロパティが20文字であることを確認
+        assertEquals(maxCharString, userForms.getUserName());
+
+
+//        assertThat(userForms.getUserName()).hasSize(20);
+
+        assertThrows(ConstraintViolationException.class, () -> {
+            userForms.setUserName("a".repeat(21));
+        });
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("異常系：パスワードが空白の場合、バリデーションエラーになること")
     void testPasswordNotBlank() {
         userForms.setPassword("");
+        violations = validator.validate(userForms);
+        Assertions.assertEquals(1, violations.size());
+        violation = violations.iterator().next();
         assertThat(userForms.getPassword()).isEmpty();
     }
 
     @Test
-    @Order(4)
-    @DisplayName("パスワードが128文字以下であることを確認する")
+    @Order(7)
+    @DisplayName("正常系：パスワードが8文字以上であることを確認する")
+    void testPasswordMinLength() {
+        userForms.setPassword("a".repeat(8));
+        assertThat(userForms.getPassword()).hasSize(8);
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("正常系：パスワードが128文字以下であることを確認する")
     void testPasswordMaxLength() {
-        userForms.setPassword("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890");
+        userForms.setPassword("a".repeat(128));
         assertThat(userForms.getPassword()).hasSize(128);
     }
 }

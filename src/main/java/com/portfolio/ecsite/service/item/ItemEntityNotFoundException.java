@@ -2,10 +2,14 @@ package com.portfolio.ecsite.service.item;
 
 public class ItemEntityNotFoundException extends RuntimeException{
 
-    private long itemId;
+    private Long itemId;
 
     public ItemEntityNotFoundException(long itemId){
         super("ItemEntity ( id = " + itemId + ") is not found.");
         this.itemId = itemId;
+    }
+
+    public Long getItemId() {
+        return itemId;
     }
 }

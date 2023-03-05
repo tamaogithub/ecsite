@@ -4,8 +4,8 @@ package com.portfolio.ecsite.service.user;
 import com.portfolio.ecsite.repository.user.UserRecord;
 import com.portfolio.ecsite.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserEntity> findAll(int limit ,long offset){
-        //取得したList<itemRecord>をstream()でItemEntityに変換し、最後にList<ItemEntity>に変換する
+    //取得したList<itemRecord>をstream()でItemEntityに変換し、最後にList<ItemEntity>に変換する
     return userRepository.findAll(limit, offset)
             .stream()
             .map(record -> new UserEntity(
@@ -33,10 +33,10 @@ public class UserService {
                     record.getPhone()))
             .collect(Collectors.toList());
     }
-//    @PreAuthorize("hasAuthority('ADMIN')")
+   @PreAuthorize("hasAuthority('ADMIN')")
     public void create(String userName, String password, String authority, String campany, String address, String phone) {
 //        //パスワードをエンコード
-//        var encodedPassword = passwordEncoder.encode(password);
+        var encodedPassword = passwordEncoder.encode(password);
         var record = new UserRecord(null,userName,password,authority,campany,address,phone);
         userRepository.insert(record);
     }

@@ -12,7 +12,7 @@
         <li sec:authorize="hasAuthority('ADMIN')">
             <a href="./users/list.html" th:href="@{/users?limit=10&offset=0}">ユーザー一覧</a></li>
         <li><a href="./items/list.html" th:href="@{/items?limit=10&offset=0}">商品一覧</a></li>
-        <li><a href="./logout.html" th:href="@{/logout}">ログアウト</a></li>
+        <li><a href="./logout.html" th:href="@{/login}">ログアウト</a></li>
     </ul>
 </body>
 <div th:replace="~{fragments/layout :: footer}"></div>

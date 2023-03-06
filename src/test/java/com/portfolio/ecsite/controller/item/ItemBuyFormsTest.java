@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -26,25 +25,20 @@ import static org.mockito.Mockito.when;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ItemBuyFormsTest {
 
-    @Autowired
-    ItemController itemController;
     @Mock
     private Map<String,String> paymentItemsMock;
 
     @InjectMocks
-    ItemBuyForms itemBuyForms;
+    private ItemBuyForms itemBuyForms;
 
-    Validator validator;
-
-    MockMultipartFile mockMultipartFile;
-
-    ItemBuyForms itemForms;
+    private Validator validator;
+    private MockMultipartFile mockMultipartFile;
 
     private Map<String,String> paymentItems;
 
-    Set<ConstraintViolation<ItemBuyForms>> violations;
+    private Set<ConstraintViolation<ItemBuyForms>> violations;
 
-    ConstraintViolation<ItemBuyForms> violation;
+    private ConstraintViolation<ItemBuyForms> violation;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -55,33 +49,34 @@ class ItemBuyFormsTest {
         validator = factory.getValidator();
         // 画像ファイルを含むMockMultipartFileオブジェクトを作成する
         mockMultipartFile = new MockMultipartFile("file", "image.jpg", "image/jpeg", getClass().getResourceAsStream("/c/tmp/image.jpg"));
-        //支払い方法のMapオブジェクト取得
-//        paymentItems = itemController.getPaymentItems();
         // バリデーション対象のオブジェクトを生成
-        itemBuyForms = new ItemBuyForms(1, "埼玉県", "請求書払い");
+        itemBuyForms = new ItemBuyForms(1,12,  "埼玉県", "請求書払い");
         //支払い方法のMapオブジェクトを生成
         paymentItems = new HashMap<>();
-
-        //itemBuyForms = new ItemBuyForms(paymentItemsMock);
     }
 
     @Test
     @Order(1)
-    @DisplayName("支払い方法のMapオブジェクトのテスト")
-    @Disabled
+    @DisplayName("正常系：支払い方法のMapオブジェクトのテスト")
     void testGetPaymentItems() {
         // Mockの設定
         when(paymentItemsMock.put("1", "請求書払い")).thenReturn("1");
         when(paymentItemsMock.put("2", "口座振替")).thenReturn(null);
         when(paymentItemsMock.put("3", "クレジットカード")).thenReturn(null);
 
+        //支払い方法のMapオブジェクト 期待値作成
+        Map<String, String> expected = new HashMap<>();
+        expected.put("1", "請求書払い");
+        expected.put("2", "口座振替");
+        expected.put("3", "クレジットカード");
+
         // 検証
-        assertEquals(paymentItemsMock.size(), itemBuyForms.getPaymentItems().size());
-        assertEquals(paymentItemsMock, itemBuyForms.getPaymentItems());
+        assertEquals(3, itemBuyForms.getPaymentItems().size());
+        assertEquals(expected, itemBuyForms.getPaymentItems());
     }
 
     @Test
-    @Order(5)
+    @Order(2)
     @DisplayName("異常系：個数がnullの場合、バリデーションエラーになること")
     void testNullStock() {
         itemBuyForms.setStock(null);
@@ -92,7 +87,7 @@ class ItemBuyFormsTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("異常系：個数が最小値以下の場合、バリデーションエラーになること")
     void testStockMinValue() {
         // テスト対象フィールドの設定
@@ -106,7 +101,7 @@ class ItemBuyFormsTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("異常系：個数が最小値以上の場合、バリデーションエラーになること")
     void testStockMaxValue() {
         itemBuyForms.setStock(1000000001);
@@ -116,7 +111,7 @@ class ItemBuyFormsTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @DisplayName("異常系：配送先が空白の場合、バリデーションエラーになること")
     void testBlankAdress() {
         itemBuyForms.setAddress("");
@@ -127,7 +122,7 @@ class ItemBuyFormsTest {
     }
 
     @Test
-    @Order(4)
+    @Order(6)
     @DisplayName("異常系：配送先が最大文字数を超えた場合、バリデーションエラーになること")
     void testAddressMaxSize() {
         itemBuyForms.setAddress("a".repeat(101));
@@ -139,7 +134,7 @@ class ItemBuyFormsTest {
 
 
     @Test
-    @Order(5)
+    @Order(7)
     @DisplayName("正常系：支払い方法のフィールドのテスト")
     void testPayment() {
         // テスト対象フィールドの設定

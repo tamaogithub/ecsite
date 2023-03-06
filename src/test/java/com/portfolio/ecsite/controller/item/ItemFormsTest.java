@@ -23,13 +23,13 @@ class ItemFormsTest {
 
     @InjectMocks
     private ItemForms itemForms;
-    Validator validator;
+    private Validator validator;
 
-    MockMultipartFile mockMultipartFile;
+    private MockMultipartFile mockMultipartFile;
 
-    Set<ConstraintViolation<ItemForms>> violations;
+    private Set<ConstraintViolation<ItemForms>> violations;
 
-    ConstraintViolation<ItemForms> violation;
+    private ConstraintViolation<ItemForms> violation;
 
     @BeforeEach
     public void setUp() throws IOException {
@@ -185,19 +185,23 @@ class ItemFormsTest {
 
     @Test
     @Order(14)
-    @DisplayName("異常系：在庫数（個）が最小値以下の場合、バリデーションエラーになること")
+    @DisplayName("正常系：在庫数（個）が最小値の場合、バリデーションに成功する")
     void testStockMinValidation() {
-        itemForms.setStock(0);
+        itemForms.setStock(1);
         violations = validator.validate(itemForms);
-        assertEquals(1, violations.size());
-        assertEquals("1以上で入力してください", violations.iterator().next().getMessage());
-        itemForms.setStock(-1);
-        assertEquals(1, violations.size());
-        assertEquals("1以上で入力してください", violations.iterator().next().getMessage());
+        assertEquals(0, violations.size());
     }
 
     @Test
     @Order(15)
+    @DisplayName("正常系：在庫数（個）が最大値の場合、バリデーションエラーに成功する")
+    void testStockMaxOkValidation() {
+        itemForms.setStock(1000000000);
+        violations = validator.validate(itemForms);
+        assertEquals(0, violations.size());
+    }
+    @Test
+    @Order(16)
     @DisplayName("異常系：在庫数（個）が最大値以上の場合、バリデーションエラーになること")
     void testStockMaxValidation() {
         itemForms.setStock(1000000001);

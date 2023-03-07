@@ -302,6 +302,10 @@ components:
           description: "作成される商品の詳細"
           maxLength: 100
           minLength: 1
+        itemimage:
+          type: string
+          format: binary
+          description: "作成される商品の画像"
         company:
           type: string
           description: "作成される販売会社"

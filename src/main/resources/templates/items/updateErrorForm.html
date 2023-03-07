@@ -57,8 +57,17 @@
         </div>
         <div class="mt-3" >
             <label for="stockInput" class="form-label">在庫数（個）</label>
-            <input type="text" id="stockInput" th:field="*{stock}" class="form-control"
-                   th:classappend="${#fields.hasErrors('stock')} ? is-invalid">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
+                </div>
+                <input type="number" id="stockInput" th:field="*{stock}" class="quantity-input form-control" name="quantity" value="1" min="0" style="pointer-events: none;"
+                       th:classappend="${#fields.hasErrors('stock')} ? is-invalid">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
+                </div>
+                <p class="invalid-feedback" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">(error)</p>
+            </div>
             <p class="invalid-feedback" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">(error)</p>
         </div>
     <div class="mt-3">

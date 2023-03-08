@@ -36,7 +36,6 @@ public class ItemForms {
     @NotNull(message = "空白は許可されていません")
     private Integer price;
 
-    @Min(value = 1, message = "{value}以上で入力してください")
     @Max(value = 1000000000, message = "{value}以下で入力してください")
     @NotNull(message = "空白は許可されていません")
     private Integer stock;

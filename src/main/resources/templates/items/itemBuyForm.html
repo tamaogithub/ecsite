@@ -11,8 +11,8 @@
     <div class="card mt-3 mb-3" style="max-width: 1840px;">
         <div class="row g-0">
             <div class="col-md-5">
-                <img th:if="!${itemBuy.itemImage}" th:src="${base64Data}" style="width: 480px;height: 480px;">
-                <img th:if="${itemBuy.itemImage}" th:src=@{'data:image/png;base64,'+${itemBuy.itemImage}} style="width: 480px;height: 480px;" >
+                    <img class="card-img" th:if="!${itemBuy.itemImage}" th:src="${base64Data}" style="width: 480px;height: 480px;">
+                    <img class="card-img" th:if="${itemBuy.itemImage}" th:src=@{'data:image/png;base64,'+${itemBuy.itemImage}} style="width: 480px;height: 480px;" >
             </div>
             <div class="col-md-7">
                 <form action="#" th:action="@{/items/buy/{itemId}(itemId=${itemBuy.id})}"
@@ -55,9 +55,9 @@
                             <div class="form-label" for="paymentRadio">支払い方法　　</div>
                             <div id="paymentRadio">
                                 <for th:each="item : ${itemBuyForms.getPaymentItems()}">
-                                    <input type="radio" class="form-check-input"
-                                           th:field="*{payment}" th:value="${item.key}" th:text="${item.value}">
-                                    <div class="mt-2"></div>
+                                    <label class="form-check-inline">
+                                        <input type="radio" class="form-check-input" th:field="*{payment}" th:value="${item.key}" th:text="${item.value}">
+                                    </label>
                                 </for>
 <!--                                <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">-->
 <!--                                    <input class="form-check-input" type="radio" id="paymentInvoiceRadio"-->

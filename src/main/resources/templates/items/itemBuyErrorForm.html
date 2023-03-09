@@ -37,7 +37,8 @@
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
                                     </div>
-                                    <input type="number" id="stockInput" th:field="*{stock}" class="form-control quantity-input" name="quantity" value="1" min="1" max="${itemBuy.stock}"
+                                    <input type="number" id="stockInput" class="form-control quantity-input" name="quantity" style="pointer-events: none;"
+                                           th:field="*{stock}" th:min="1" th:max="${itemBuy.stock}"
                                            th:classappend="${#fields.hasErrors('stock')} ? is-invalid">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary plus-btn" type="button">+</button>

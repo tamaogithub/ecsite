@@ -19,7 +19,7 @@ public class UserForms {
     @UniqueUsername
     private String userName;
 
-    @Pattern(regexp = "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\\d)[a-zA-Z\\d]{12,}$", message = "パスワードは12文字以上で、少なくとも1つの小文字、1つの大文字、1つの数字を含めてください")
+    @Pattern(regexp = "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\\d)[a-zA-Z\\d]{12,20}$", message = "パスワードは12～20文字で、少なくとも1つの小文字、1つの大文字、1つの数字を含めてください")
     private  String password;
 
     @NotBlank

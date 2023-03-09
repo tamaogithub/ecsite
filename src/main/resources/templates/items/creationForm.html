@@ -61,7 +61,7 @@
                     <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
                 </div>
                 <input type="number" id="stockInput" class="form-control quantity-input" name="quantity"
-                       th:field="*{stock}" min="1" max="1000000000"
+                       th:field="*{stock}" th:min="1" th:max="1000000000"
                        th:classappend="${#fields.hasErrors('stock')} ? is-invalid">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary plus-btn" type="button">+</button>

@@ -57,10 +57,9 @@
                             <div class="form-label" for="paymentRadio">支払い方法　　</div>
                             <div id="paymentRadio">
                                 <for th:each="item : ${itemBuyForms.getPaymentItems()}">
-                                    <input type="radio" class="form-check-input"
-                                           th:field="*{payment}" th:value="${item.key}" th:text="${item.value}"
-                                           th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
-                                    <div class="mt-2"></div>
+                                    <label class="form-check-inline">
+                                        <input type="radio" class="form-check-input" th:field="*{payment}" th:value="${item.key}" th:text="${item.value}" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">
+                                    </label>
                                 </for>
 <!--                                <div class="form-check" th:classappend="${#fields.hasErrors('payment')} ? is-invalid">-->
 <!--                                    <input class="form-check-input" type="radio" id="paymentInvoiceRadio"-->

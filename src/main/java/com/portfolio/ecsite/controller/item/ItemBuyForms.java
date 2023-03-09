@@ -18,9 +18,6 @@ public class ItemBuyForms {
     @NotNull(message = "空白は許可されていません")
     private Integer stock;
 
-    @Max(value = 1000000000, message = "{value}以下で入力してください")
-    private Integer quantity;
-
     @NotBlank
     @Size(max = 100, message = "100文字以下で入力してください")
     private String address;

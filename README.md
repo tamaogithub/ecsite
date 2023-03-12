@@ -17,13 +17,13 @@
 # ローカル環境での動作確認
 このアプリケーションをローカル環境で実行するためには、以下の手順に従ってください。
 1. このリポジトリをクローンします。<br>
-``` git clone https://github.com/tamaogithub/ecsite.git ```
-2. 下記コマンドでアプリケーションをビルドします。 
-``` ./gradlew build```
+```git clone https://github.com/tamaogithub/ecsite.git ```
+2. 下記コマンドでアプリケーションをビルドします。<br> 
+```./gradlew build```
 3. 下記コマンドでjarファイルを実行してアプリケーションを起動します。<br>
-``` java -jar target/{jarファイル名}```
+```java -jar target/{jarファイル名}```
 4. ブラウザで下記URLにアクセスして、アプリケーションが正常に動作していることを確認します。<br>
-``` http://localhost:8080/login ```
+```http://localhost:8080/login ```
 5. ログイン画面で下記ユーザ、パスワードを入力します。
 #### 管理者権限（ADMIN）でログインする場合
 - ユーザー：tom

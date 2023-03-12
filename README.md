@@ -20,9 +20,10 @@
 - スマホからも使用すると想定される為、レスポンシブデザイン対応をする
 
 # 制約事項
-- 購入後の決済処理は対象外とする。
+- ユーザー情報、商品情報の検索処理は対象外とする。
 - ユーザー情報、商品情報の削除処理は対象外とする。
-- 
+- 商品の購入後の決済処理、購入取り消し、税額計算は対象外とする
+
 # 技術スタック
 - フロントエンド：HTML5、CSS、JavaScript、jQuery、BootStrap、Thymeleaf
 - バックエンド：Java18、SpringBoot、SpringSecurity、Mybatis、MySQL、lombok、Validation、JUnit、DbUnit ...etc<br>

@@ -24,8 +24,8 @@
 - ユーザー情報、商品情報の削除処理は対象外とする。
 - 
 # 技術スタック
-- フロントエンド：HTML5、CSS、BootStrap、Thymeleaf
-- バックエンド：Java、SpringBoot、SpringSecurity、Mybatis、MySQL、lombok、Validation、JUnit、DbUnit ...etc<br>
+- フロントエンド：HTML5、CSS、JavaScript、jQuery、BootStrap、Thymeleaf
+- バックエンド：Java18、SpringBoot、SpringSecurity、Mybatis、MySQL、lombok、Validation、JUnit、DbUnit ...etc<br>
 ※ その他技術スタックは、build.gradle 参照
 
 # ローカル環境での動作確認
@@ -69,10 +69,12 @@
 3. ログアウト
 
 # 納品物
-納品物は下記とする
-- インセプションデッキ
-- ユースケース図
-- 画面遷移図、画面設計書
-- API定義書
-- DB設計書、ER図
-- 試験項目書
+ソースコード以外の納品物は下記とする
+- [要件定義](https://docs.google.com/document/d/10nq4WdK7KVjKBI2eLFSeeKP2L65iv4za/edit)
+- [ユースケース図](https://drive.google.com/drive/folders/1P5bdhr7V7B6z9jghsLN6iMIrtcHMYAm_)
+- [シーケンス図]
+- [画面遷移図](https://drive.google.com/drive/folders/1y4oY_1f3hZc__UtuiwES0q1rbpZeTY9s)
+- [API定義書](http://localhost:61112/swaggerui.html?project=b920a53b&filename=C:/Users/farno/ecsite/src/main/resources/api-schema.yaml&renderer=0)
+- [画面設計書](https://docs.google.com/spreadsheets/d/1A0jdlHoIj8a1JjD0q2jo4bblBcmKMHvQ1LSGgM0Q-1E/edit#gid=0)
+- [DB設計書](https://docs.google.com/spreadsheets/d/1haTe27o6zy1MlmP4Zu3EzqU_CKUCFNrSfQAwkuZ2MZE/edit#gid=877501984)
+- [試験項目書](https://docs.google.com/spreadsheets/d/1OGezkqqGK2X-pxyfaLvJaUFUVmCoyfFr/edit#gid=672063631)

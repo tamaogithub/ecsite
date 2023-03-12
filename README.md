@@ -23,8 +23,7 @@
 
 # 技術スタック
 - フロントエンド：HTML5、CSS、BootStrap、Thymeleaf
-- バックエンド：Java、SpringBoot、SpringSecurity、Mybatis<br>
-　　　　　　　MySQL、lombok、Validation、JUnit、DbUnit ...etc<br>
+- バックエンド：Java、SpringBoot、SpringSecurity、Mybatis、MySQL、lombok、Validation、JUnit、DbUnit ...etc<br>
 ※ その他技術スタックは、build.gradle 参照
 
 # ローカル環境での動作確認

@@ -77,7 +77,7 @@
 ソースコード以外の納品物は下記とする
 - [要件定義](https://docs.google.com/document/d/10nq4WdK7KVjKBI2eLFSeeKP2L65iv4za/edit)
 - [ユースケース図](https://drive.google.com/drive/folders/1P5bdhr7V7B6z9jghsLN6iMIrtcHMYAm_)
-- [シーケンス図](https://drive.google.com/drive/folders/14zvos9h9CCVH6Nyll08nMOTlG4FsTyqJ)
+- [シーケンス図](https://drive.google.com/drive/folders/1vDQfPZyUCv8TRgRY2NEG-46tHJ4uPjZT)
 - [画面遷移図](https://drive.google.com/drive/folders/1y4oY_1f3hZc__UtuiwES0q1rbpZeTY9s)
 - [API定義書](http://localhost:61112/swaggerui.html?project=b920a53b&filename=C:/Users/farno/ecsite/src/main/resources/api-schema.yaml&renderer=0)
 - [画面設計書](https://docs.google.com/spreadsheets/d/1A0jdlHoIj8a1JjD0q2jo4bblBcmKMHvQ1LSGgM0Q-1E/edit#gid=0)

@@ -34,11 +34,12 @@
                     <span class="btn btn-secondary">
                         ファイルを選択
                         <input id="itemImageInput" class="uploadFile" type="file" name="itemForms"
-                               th:field="*{itemImage}" upload_fileclass="form-control" style="display:none">
+                               th:field="*{itemImage}" upload_fileclass="form-control" style="display:none"
+                               th:classappend="${#fields.hasErrors('itemImage')} ? is-invalid">
                     </span>
                 </label>
                 <input type="text" th:field="*{fileName}" class="form-control" readonly=""
-                       th:classappend="${#fields.hasErrors('itemImage')} ? is-invalid">
+                       th:classappend="${#fields.hasErrors('fileName')} ? is-invalid">
                 <p class="invalid-feedback" th:if="${#fields.hasErrors('itemImage')}" th:errors="*{itemImage}">(error)</p>
             </div>
         </div>

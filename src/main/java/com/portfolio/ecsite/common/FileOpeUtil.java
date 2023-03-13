@@ -59,19 +59,4 @@ public class FileOpeUtil {
         }
         return base64Data;
     }
-
-    /**
-     * アップロードされたファイルの拡張子を取得し画像かどうか判定する
-     * @param image
-     * @return bool値
-     */
-    static public Boolean isImageMimeType(MultipartFile image) {
-        String contentType = image.getContentType();
-
-        //ファイルが空でなく、画像形式ファイルでない場合
-        if (!image.isEmpty() && contentType.contains(MimeTypes.MIME_IMAGE)){
-            return false;
-        }
-        return true;
-    }
 }

@@ -49,7 +49,7 @@ public class UniqueUsernameValidatorTest {
     @DisplayName("異常系テスト：ユーザ名が重複している場合、falseが返ることを確認する")
     public void testIsValidWithExistingUsername() {
         String username = "testUser";
-        UserEntity userEntity = new UserEntity(1,"tom","password1234","SHOP","DELL","埼玉県","080-5555-6666");
+        UserEntity userEntity = new UserEntity(1L,"tom","password1234","SHOP","DELL","埼玉県","080-5555-6666");
 
         //ユーザー名が"testUser"のUserEntityオブジェクトを作成
         userEntity.setUsername(username);

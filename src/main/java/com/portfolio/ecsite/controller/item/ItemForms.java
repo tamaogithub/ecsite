@@ -17,12 +17,12 @@ public class ItemForms {
     @Size(max = 20, message = "20文字以下で入力してください")
     private String itemName;
 
-    @MediaTypeImage
-    private MultipartFile itemImage;
-
     @NotBlank
     @Size(max = 300, message = "300文字以下で入力してください")
     private String description;
+
+    @MediaTypeImage
+    private MultipartFile itemImage;
 
     @Size(max = 100, message = "100文字以下で入力してください")
     private String fileName;

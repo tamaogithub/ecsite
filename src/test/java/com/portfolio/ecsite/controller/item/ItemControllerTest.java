@@ -52,11 +52,9 @@ class ItemControllerTest {
         @Test
         @Order(1)
         @DisplayName("商品一覧画面のアクセス")
-        void showList() throws Exception {
+        void testShowList() throws Exception {
             MvcResult result = mockMvc.perform(get("/items?limit=10&offset=0").accept(MediaType.TEXT_HTML))
-            .andExpect(model().attributeExists(
-                "itemList","total","page","totalPage", "startPage",
-                "endPage","offset","preOffset","itemList","base64Data"))
+            .andExpect(model().attributeExists("itemList","total","page","totalPage", "startPage", "endPage","offset","preOffset","itemList","base64Data"))
             .andExpect(status().isOk())
             .andExpect(model().hasNoErrors())
             .andExpect(view().name("items/list")).andReturn();
@@ -147,17 +145,17 @@ class ItemControllerTest {
         @Order(10)
         @DisplayName("確認ボタン押下し、購入確認画面に遷移する")
         void buyItem() throws Exception {
-//            mockMvc.perform(get("/items/buy/1"))
-//                    .andExpect(status().isOk())
-//                    .andExpect(model().hasNoErrors())
-//                    .andExpect(view().name("items/itemBuyForm"));
+            mockMvc.perform(get("/items/buy/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(model().hasNoErrors())
+                    .andExpect(view().name("items/itemBuyForm"));
         }
 
         @Test
         @Order(11)
         @DisplayName("購入確認画面に遷移")
         void showConfirmFrom() throws Exception {
-            mockMvc.perform(get("/items/confirm/1"))
+            mockMvc.perform(get("/items/buy/1"))
                     .andExpect(status().isOk())
                     .andExpect(model().hasNoErrors())
                     .andExpect(view().name("items/itemBuyConfirm"));
@@ -167,8 +165,8 @@ class ItemControllerTest {
         @Order(12)
         @DisplayName("購入確定ボタン押下し、購入完了画面に遷移する")
         void buyItemComplete() throws Exception {
-//            mockMvc.perform(get("/items/confirm/1"))
-//                    .andExpect(status().isOk());
+            mockMvc.perform(get("/items/confirm/1"))
+                    .andExpect(status().isOk());
         }
 
         @Test

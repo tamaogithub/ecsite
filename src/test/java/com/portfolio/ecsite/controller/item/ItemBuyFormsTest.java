@@ -50,7 +50,7 @@ class ItemBuyFormsTest {
         // 画像ファイルを含むMockMultipartFileオブジェクトを作成する
         mockMultipartFile = new MockMultipartFile("file", "image.jpg", "image/jpeg", getClass().getResourceAsStream("/c/tmp/image.jpg"));
         // バリデーション対象のオブジェクトを生成
-        itemBuyForms = new ItemBuyForms(1,12,  "埼玉県", "請求書払い");
+        itemBuyForms = new ItemBuyForms(1,  "埼玉県", "請求書払い");
         //支払い方法のMapオブジェクトを生成
         paymentItems = new HashMap<>();
     }

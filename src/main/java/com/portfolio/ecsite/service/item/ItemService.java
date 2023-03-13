@@ -54,7 +54,7 @@ public class ItemService {
 
 //    @PreAuthorize("hasAuthority('MAKER')")
     @Transactional
-    public ItemEntity create(String itemName, String  description, String fileName, String itemImage, String company, Integer price, Integer stock, String payment) {
+    public ItemEntity create(String itemName, String  description, String fileName, String itemImage, String company, String price, Integer stock, String payment) {
         var record = new ItemRecord(null,itemName, description, fileName, itemImage ,company, price, stock, null);
         itemRepository.insert(record);
 
@@ -72,12 +72,12 @@ public class ItemService {
 
 //    @PreAuthorize("hasAuthority('MAKER')")
     @Transactional
-    public void update(Long itemId, String itemName, String description, String fileName,String itemImage, String company, Integer price, Integer stock) {
+    public void update(Long itemId, String itemName, String description, String fileName, String itemImage, String company, String price, Integer stock) {
         itemRepository.update(itemId, itemName, description, fileName, itemImage, company, price, stock);
     }
 
     @Transactional
-    public void updateExpectItemImage(Long itemId, String itemName, String description, String fileName, String company, Integer price, Integer stock) {
+    public void updateExpectItemImage(Long itemId, String itemName, String description, String fileName, String company, String price, Integer stock) {
         itemRepository.updateExpectItemImage(itemId, itemName, description, fileName, company, price, stock);
     }
 
@@ -97,4 +97,7 @@ public class ItemService {
         itemRepository.delete(itemId);
     }
 
+//    public void orderCreate(Long userId, Long itemId, Integer quantity) {
+//        itemRepository.orderInsert(userId, itemId, quantity);
+//    }
 }

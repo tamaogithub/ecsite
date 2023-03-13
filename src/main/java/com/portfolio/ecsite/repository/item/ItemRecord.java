@@ -11,7 +11,7 @@ public class ItemRecord {
     String fileName;
     String itemImage;
     String company;
-    int price;
-    int stock;
+    String price;
+    Integer stock;
     String payment;
 }

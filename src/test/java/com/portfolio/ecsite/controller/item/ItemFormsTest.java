@@ -41,7 +41,7 @@ class ItemFormsTest {
         // 画像ファイルを含むMockMultipartFileオブジェクトを作成する
         mockMultipartFile = new MockMultipartFile("file", "image.jpg", "image/jpeg", getClass().getResourceAsStream("/c/tmp/image.jpg"));
         // バリデーション対象のオブジェクトを生成
-        itemForms = new ItemForms("歯ブラシ", "歯ブラシ（極細）", "歯ブラシ2.jpg", mockMultipartFile, "ELECOM", 157, 10);
+        itemForms = new ItemForms("歯ブラシ", "歯ブラシ（極細）",  mockMultipartFile, "歯ブラシ2.jpg", "ELECOM", "157", 10);
     }
     @Test
     @Order(1)
@@ -56,7 +56,7 @@ class ItemFormsTest {
     @DisplayName("異常系：フォームにバリデーションエラーが5件あること")
     void testInvalidValidation() {
         // バリデーション対象のオブジェクトを生成（バリデーションエラーあり）
-        ItemForms itemForms = new ItemForms("", "", "azarashi.png", null, "", null, null);
+        ItemForms itemForms = new ItemForms("", "", null, "azarashi.png", "", null, null);
         // バリデーション対象のオブジェクトを生成し、バリデーションの件数を取得
         var violationsSize = validator.validate(itemForms).size();
         //バリデーションがあるかをチェック
@@ -152,12 +152,12 @@ class ItemFormsTest {
     @Order(11)
     @DisplayName("異常系：販売価格（円）が最小値以下の場合、バリデーションエラーになること")
     void testPriceMinValidation() {
-        itemForms.setPrice(0);
+        itemForms.setPrice("0");
         violations = validator.validate(itemForms);
 
         assertEquals(1, violations.size());
         assertEquals("1以上で入力してください", violations.iterator().next().getMessage());
-        itemForms.setPrice(-1);
+        itemForms.setPrice("-1");
         assertEquals(1, violations.size());
         assertEquals("1以上で入力してください", violations.iterator().next().getMessage());
     }
@@ -166,7 +166,7 @@ class ItemFormsTest {
     @Order(12)
     @DisplayName("異常系：販売価格（円）が最大値以上の場合、バリデーションエラーになること")
     void testPriceMaxValidation() {
-        itemForms.setPrice(1000000001);
+        itemForms.setPrice("1000000001");
         violations = validator.validate(itemForms);
 
         assertEquals(1, violations.size());

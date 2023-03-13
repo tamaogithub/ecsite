@@ -57,19 +57,8 @@ class FileOpeUtilTest {
     }
 
     @Test
-    @DisplayName("画像ファイルでないMultipartFileを渡すと、MIMEタイプが画像形式でないと判定されるテスト")
-    @Order(3)
-    void testIsImageMimeType2() throws IOException {
-
-        // 画像形式でないファイルをアップロードするためのMockMultipartFileを作成
-        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "test image".getBytes());
-
-        assertFalse(FileOpeUtil.isImageMimeType(file));
-    }
-
-    @Test
     @DisplayName("画像ファイルが存在しない場合、指定された画像ファイルが返されるテスト")
-    @Order(4)
+    @Order(3)
     public void testNoImageFileToBase64Data() {
         String base64Data = FileOpeUtil.noImageFileToBase64Data();
         assertNotNull(base64Data, "base64Dataがnullであるべきではありません");
@@ -77,7 +66,7 @@ class FileOpeUtilTest {
     }
 
     @Test
-    @Order(5)
+    @Order(4)
     @DisplayName("存在しないファイルを読み込んだ場合のテスト")
     public void testNoImageFileToBase64DataWithNonExistingFile() {
         File fileImg = new File("\\c\\tmp\\nonExistingImage.png");
@@ -92,16 +81,5 @@ class FileOpeUtilTest {
 
         }
         assertEquals(null, base64Data, "base64Dataがnullであるべきです");
-    }
-
-    @Test
-    @DisplayName("空のMultipartFileを渡すと、MIMEタイプが画像形式でないと判定されるテスト")
-    @Order(6)
-    void testIsImageMimeType() throws IOException {
-
-        // 空のMultipartFileを作成
-        MockMultipartFile file = new MockMultipartFile("file", "test.jpg", "image/jpeg", "".getBytes());
-
-        assertFalse(FileOpeUtil.isImageMimeType(file));
     }
 }

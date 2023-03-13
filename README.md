@@ -31,7 +31,7 @@
 - バックエンド：Java18、SpringBoot、SpringSecurity、Mybatis、MySQL、lombok、Validation、JUnit、DbUnit ...etc<br>
 ※ その他技術スタックは、build.gradle 参照
 
-# ローカル環境での動作確認
+# ローカル環境での使用方法
 このアプリケーションをローカル環境で実行するためには、以下の手順に従ってください。
 1. このリポジトリをクローンします。<br>
 ```git clone https://github.com/tamaogithub/ecsite.git ```
@@ -39,16 +39,18 @@
 ```./gradlew build```
 3. 下記コマンドでjarファイルを実行してアプリケーションを起動します。<br>
 ```java -jar target/{jarファイル名}```
-4. ブラウザで下記URLにアクセスして、アプリケーションが正常に動作していることを確認します。<br>
+4. アプリケーションをデプロイするために、ビルドされたjarファイルをローカル環境にコピーします。
+```cp build/libs/<your-app-name>.jar /path/to/local/deployment/```
+5. ブラウザで下記URLにアクセスして、アプリケーションが正常に動作していることを確認します。<br>
 ```http://localhost:8080/login ```
-5. ログイン画面で下記ユーザ、パスワードを入力します。
-#### 管理者権限（ADMIN）でログインする場合
+6. ログイン画面で下記ユーザ、パスワードを入力します。
+#### 管理者権限（ADMIN）でログインする場合の例
 - ユーザー：tom
 - パスワード：password1234
-#### メーカー権限(MAKER)でログインする場合
+#### メーカー権限(MAKER)でログインする場合の例
 - ユーザー：bob
 - パスワード：password1234
-#### 店舗権限(SHOP)でログインする場合
+#### 店舗権限(SHOP)でログインする場合の例
 - ユーザー：dag
 - パスワード：password1234
 
@@ -75,7 +77,7 @@
 ソースコード以外の納品物は下記とする
 - [要件定義](https://docs.google.com/document/d/10nq4WdK7KVjKBI2eLFSeeKP2L65iv4za/edit)
 - [ユースケース図](https://drive.google.com/drive/folders/1P5bdhr7V7B6z9jghsLN6iMIrtcHMYAm_)
-- [シーケンス図]
+- [シーケンス図](https://drive.google.com/drive/folders/14zvos9h9CCVH6Nyll08nMOTlG4FsTyqJ)
 - [画面遷移図](https://drive.google.com/drive/folders/1y4oY_1f3hZc__UtuiwES0q1rbpZeTY9s)
 - [API定義書](http://localhost:61112/swaggerui.html?project=b920a53b&filename=C:/Users/farno/ecsite/src/main/resources/api-schema.yaml&renderer=0)
 - [画面設計書](https://docs.google.com/spreadsheets/d/1A0jdlHoIj8a1JjD0q2jo4bblBcmKMHvQ1LSGgM0Q-1E/edit#gid=0)

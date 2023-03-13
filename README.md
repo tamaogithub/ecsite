@@ -39,7 +39,7 @@
 ```./gradlew build```
 3. 下記コマンドでjarファイルを実行してアプリケーションを起動します。<br>
 ```java -jar target/{jarファイル名}```
-4. アプリケーションをデプロイするために、ビルドされたjarファイルをローカル環境にコピーします。
+4. アプリケーションをデプロイするために、ビルドされたjarファイルをローカル環境にコピーします。<br>
 ```cp build/libs/<your-app-name>.jar /path/to/local/deployment/```
 5. ブラウザで下記URLにアクセスして、アプリケーションが正常に動作していることを確認します。<br>
 ```http://localhost:8080/login ```

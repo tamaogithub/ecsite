@@ -19,19 +19,20 @@
 
 ## 権限ごとの表示画面一覧
 
-| 画面/権限    | ADMIN | MAKER | SHOP |
-|:---------|:------|:------|:-----|
-| メニュー画面   | 〇     | 〇     | 〇    |
-| ユーザ登録画面  | 〇     | -     | -    |
-| ユーザー一覧画面 | 〇     | -     | -    |
-| ユーザー編集画面 | 〇     | -     | -    |
-| 商品登録画面   | -     | 〇     | -    |
-| 商品一覧画面   | 〇     | 〇     | 〇    |
-| 商品詳細画面   | 〇     | -     | -    |
-| 商品編集画面   | -     | 〇     | -    |
-| 商品購入画面   | -     | -     | 〇    |
-| 購入確認画面   | -     | -     | 〇    |
-| 購入完了画面   | -     | -     | 〇    |
+| 画面/権限    | ADMIN | MAKER | SHOP | 画面URL 例                                       |
+|:---------|:------|:------|:-----|:----------------------------------------------|
+| ログイン画面   | -     | -     | -    | http://localhost:8080/login                   |
+| メニュー画面   | 〇     | 〇     | 〇    | http://localhost:8080                         |
+| ユーザ登録画面  | 〇     | -     | -    | http://localhost:8080/users/creationForm      |
+| ユーザー一覧画面 | 〇     | -     | -    | http://localhost:8080/users?limit=10&offset=0 |
+| ユーザー編集画面 | 〇     | -     | -    | http://localhost:8080/users/update/1          |
+| 商品登録画面   | -     | 〇     | -    | http://localhost:8080/items/creationForm      |
+| 商品一覧画面   | 〇     | 〇     | 〇    | http://localhost:8080/items?limit=10&offset=0 |
+| 商品詳細画面   | 〇     | -     | -    | http://localhost:8080/items/discription/1     |
+| 商品編集画面   | -     | 〇     | -    | http://localhost:8080/items/update/1          |         
+| 商品購入画面   | -     | -     | 〇    | http://localhost:8080/items/buy/1             |
+| 購入確認画面   | -     | -     | 〇    | http://localhost:8080/items/confirm/1         |
+| 購入完了画面   | -     | -     | 〇    | http://localhost:8080/items/complete/1        |
 
 # 共通事項
 - ECサイトへの情報の入力は、マウス及びキーボード、スマホから行う。

@@ -140,11 +140,11 @@ class UserControllerTest {
                 .andExpect(view().name("users/updateErrorForm"));
         }
 
-        @Test
-        @Order(6)
-        @DisplayName("編集ボタン押下し、ユーザー一覧画面にリダイレクトする")
-        void updateUser() {
-        }
+//        @Test
+//        @Order(6)
+//        @DisplayName("編集ボタン押下し、ユーザー一覧画面にリダイレクトする")
+//        void updateUser() {
+//        }
     }
 
 

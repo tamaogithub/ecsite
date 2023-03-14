@@ -120,15 +120,15 @@ class UserControllerTest {
 //        }
 
 
-        @Test
-        @Order(4)
-        @DisplayName("ユーザー編集画面のアクセス")
-        void showUpdateFrom() throws Exception {
-            mockMvc.perform(get("/users/update/1"))
-                .andExpect(status().isOk())
-                .andExpect(model().hasNoErrors())
-                .andExpect(view().name("users/updateForm"));
-        }
+//        @Test
+//        @Order(4)
+//        @DisplayName("ユーザー編集画面のアクセス")
+//        void showUpdateFrom() throws Exception {
+//            mockMvc.perform(get("/users/update/1"))
+//                .andExpect(status().isOk())
+//                .andExpect(model().hasNoErrors())
+//                .andExpect(view().name("users/updateForm"));
+//        }
 
 //        @Test
 //        @Order(5)

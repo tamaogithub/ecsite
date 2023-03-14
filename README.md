@@ -57,7 +57,7 @@
 2. cloneしたプロジェクトのフォルダに移動します。<br>
 ```cd ecsite ```
 3. 下記コマンドでアプリケーションをビルドします。<br>
-```./gradlew build```
+```./gradlew build -x test```
 4. 下記コマンドでjarファイルを実行してアプリケーションを起動します。<br>
 ```java -jar build/libs/ecsite-0.0.1-SNAPSHOT.jar```<br>
    手順2 で java17でビルドした場合、ランタイムもJava17 に合わせる必要があります。<br>

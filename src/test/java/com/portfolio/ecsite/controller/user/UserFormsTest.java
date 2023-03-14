@@ -55,16 +55,6 @@ class UserFormsTest {
 
     }
 
-//    @Test
-//    @DisplayName("バリデーション成功パターン")
-//    void validateSuccess() {
-//        UserForms userForms = new UserForms("authority", "company");
-//        Errors errors = new BeanPropertyBindingResult(userForms, "userForms");
-//        validator.validate(userForms, errors);
-//        assertFalse(errors.hasErrors());
-//    }
-
-
     @Test
     @Order(1)
     @DisplayName("正常系：ユーザー名がユニークな場合")

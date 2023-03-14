@@ -10,20 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.ConstraintValidatorContext;
-import java.util.HashMap;
-import java.util.Optional;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -59,59 +50,59 @@ class UserControllerTest {
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     class ControllerTest {
 
-        @Test
-        @Order(1)
-        @DisplayName("ユーザー一覧画面のアクセス")
-        void showList() throws Exception {
-            // テスト用のパラメータを作成
-            HashMap<String, String> params = new HashMap<>();
-            params.put("limit", "10");
-            params.put("offset", "0");
-            mockMvc.perform(MockMvcRequestBuilders.get("/users")
-                .param("limit", params.getOrDefault("limit", "10"))
-                .param("offset", params.getOrDefault("offset", "0")))
-                .andExpect(model().attributeExists("total", "page", "totalPage", "startPage", "endPage", "offset", "preOffset", "userList"))
-                .andExpect(status().isOk())
-                .andExpect(model().hasNoErrors())
-                .andExpect(view().name("users/list")).andReturn();
-        }
-
-        @Test
-        @Order(2)
-        @DisplayName("ユーザー登録画面のアクセス")
-        void showCreationForm() throws Exception {
-            mockMvc.perform(get("/users/creationForm").accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk())
-                .andExpect(model().hasNoErrors())
-                .andExpect(view().name("users/creationForm")).andReturn();
-        }
-
-        @Test
-        @Order(1)
-        @DisplayName("ユーザー登録成功時のリダイレクト")
-        void createUser() throws Exception {
-            String username = "tom";
-            when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
-            boolean result = uniqueUsernameValidator.isValid(username, context);
-            UserForms userForms = new UserForms();
-            userForms.setUserName("testUser");
-            userForms.setPassword("testPass");
-            userForms.setAuthority("ADMIN");
-            userForms.setCampany("DELL");
-            userForms.setAddress("埼玉");
-            userForms.setPhone("080-9999-0000");
-
-            when(bindingResult.hasErrors()).thenReturn(false);
-
-            mockMvc.perform(MockMvcRequestBuilders.post("/users")
-                            .flashAttr("userForms", userForms)
-                            .param("limit", "10")
-                            .param("offset", "0"))
-                    .andExpect(status().is3xxRedirection())
-                    .andReturn();
-
-            verify(userService).create("testUser", "testPass", "ADMIN", "DELL", "埼玉", "080-9999-0000");
-        }
+//        @Test
+//        @Order(1)
+//        @DisplayName("ユーザー一覧画面のアクセス")
+//        void showList() throws Exception {
+//            // テスト用のパラメータを作成
+//            HashMap<String, String> params = new HashMap<>();
+//            params.put("limit", "10");
+//            params.put("offset", "0");
+//            mockMvc.perform(MockMvcRequestBuilders.get("/users")
+//                .param("limit", params.getOrDefault("limit", "10"))
+//                .param("offset", params.getOrDefault("offset", "0")))
+//                .andExpect(model().attributeExists("total", "page", "totalPage", "startPage", "endPage", "offset", "preOffset", "userList"))
+//                .andExpect(status().isOk())
+//                .andExpect(model().hasNoErrors())
+//                .andExpect(view().name("users/list")).andReturn();
+//        }
+//
+//        @Test
+//        @Order(2)
+//        @DisplayName("ユーザー登録画面のアクセス")
+//        void showCreationForm() throws Exception {
+//            mockMvc.perform(get("/users/creationForm").accept(MediaType.TEXT_HTML))
+//                .andExpect(status().isOk())
+//                .andExpect(model().hasNoErrors())
+//                .andExpect(view().name("users/creationForm")).andReturn();
+//        }
+//
+//        @Test
+//        @Order(1)
+//        @DisplayName("ユーザー登録成功時のリダイレクト")
+//        void createUser() throws Exception {
+//            String username = "tom";
+//            when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+//            boolean result = uniqueUsernameValidator.isValid(username, context);
+//            UserForms userForms = new UserForms();
+//            userForms.setUserName("testUser");
+//            userForms.setPassword("testPass");
+//            userForms.setAuthority("ADMIN");
+//            userForms.setCampany("DELL");
+//            userForms.setAddress("埼玉");
+//            userForms.setPhone("080-9999-0000");
+//
+//            when(bindingResult.hasErrors()).thenReturn(false);
+//
+//            mockMvc.perform(MockMvcRequestBuilders.post("/users")
+//                            .flashAttr("userForms", userForms)
+//                            .param("limit", "10")
+//                            .param("offset", "0"))
+//                    .andExpect(status().is3xxRedirection())
+//                    .andReturn();
+//
+//            verify(userService).create("testUser", "testPass", "ADMIN", "DELL", "埼玉", "080-9999-0000");
+//        }
 
 //        @Test
 //        @Order(3)

@@ -2,9 +2,13 @@ package com.portfolio.ecsite.controller.item;
 
 import com.portfolio.ecsite.common.FileOpeUtil;
 import com.portfolio.ecsite.controller.ItemsApi;
+import com.portfolio.ecsite.service.item.ItemEntity;
 import com.portfolio.ecsite.service.item.ItemService;
+import com.portfolio.ecsite.service.user.UserEntity;
 import com.portfolio.ecsite.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,9 +32,15 @@ import java.util.HashMap;
 @SessionAttributes(types = ItemBuyForms.class)
 public class ItemController implements ItemsApi {
 
+    @Autowired
     private final ItemService itemService;
 
+    @Autowired
     private final UserService userService;
+
+//    @Autowired
+//    private SecurityContextHolder securityContextHolder;
+
     /** １ページの表示数 */
     private final String limits = "10";
 
@@ -140,9 +150,7 @@ public class ItemController implements ItemsApi {
     public String createItem(@ModelAttribute @Validated ItemForms itemForms,
                              BindingResult bindingResult, Model model) throws IOException {
 
-        if (bindingResult.hasErrors()) {
-            return showCreationForm(itemForms, model);
-        }
+
 
         // フォームで渡されてきたアップロードファイルを取得
         MultipartFile image = itemForms.getItemImage();
@@ -150,6 +158,10 @@ public class ItemController implements ItemsApi {
         String fileName = image.getOriginalFilename();
         byte[] bytes = FileOpeUtil.uploadAction(image);
         String base64Data = Base64.getEncoder().encodeToString(bytes);
+        model.addAttribute("base64Data", base64Data);
+        if (bindingResult.hasErrors()) {
+            return showCreationForm(itemForms, model);
+        }
         if(base64Data.isEmpty()){
             base64Data = null;
         }
@@ -218,7 +230,7 @@ public class ItemController implements ItemsApi {
      * @params model
      * @return list.html のテンプレート
      */
-//    @PreAuthorize("hasAuthority('MAKER')")
+    @PreAuthorize("hasAuthority('MAKER')")
     @PostMapping("/update/{itemId}")
     public String updateItem(@PathVariable("itemId") Long itemId,
                              @ModelAttribute @Validated ItemForms itemForms,
@@ -252,12 +264,14 @@ public class ItemController implements ItemsApi {
      * @return itemBuyForm.html 商品購入画面のテンプレート
      */
     @GetMapping("/buy/{itemId}")
-    public String showBuyFrom(@PathVariable("itemId") Long itemId, Model model) {
+    public String showBuyFrom(@PathVariable("itemId") Long itemId,
+                              @ModelAttribute ItemBuyForms itemBuyForms, Model model) {
 
-        var entity = itemService.find(itemId);
-        var userEntity = userService.find(itemId);
+        ItemEntity entity = itemService.find(itemId);
+        UserEntity userEntity = userService.find(itemId);
 
         model.addAttribute("itemBuy", entity);
+        model.addAttribute("itemBuyForms", itemBuyForms);
         model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
         model.addAttribute("userItem", userEntity);
         return "items/itemBuyForm";
@@ -275,6 +289,7 @@ public class ItemController implements ItemsApi {
 
         var entity = itemService.find(itemId);
         model.addAttribute("itemBuy", entity);
+        model.addAttribute("itemBuyForms", itemBuyForms);
         model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
         return "items/itemBuyErrorForm";
     }
@@ -285,7 +300,7 @@ public class ItemController implements ItemsApi {
      * @params itemForms Formオブジェクト
      * @return itemBuyConfirm.html 購入確認画面のテンプレート
      */
-//    @PreAuthorize("hasAuthority('SHOP')")
+    @PreAuthorize("hasAuthority('SHOP')")
     @PostMapping("/buy/{itemId}")
     public String buyItem(@PathVariable("itemId") Long itemId,
                           @ModelAttribute @Validated ItemBuyForms itemBuyForms,
@@ -298,10 +313,9 @@ public class ItemController implements ItemsApi {
         var userEntity = userService.find(itemId);
 
         model.addAttribute("itemBuyConfirm", entity);
+        model.addAttribute("itemBuyForms", itemBuyForms);
         model.addAttribute("base64Data","data:image/png;base64,"+base64Data);
         model.addAttribute("userItemConfirm", userEntity);
-
-//        return "items/itemBuyConfirm";
 
         return "redirect:/items/confirm/{itemId}";
     }
@@ -337,6 +351,13 @@ public class ItemController implements ItemsApi {
     public String buyItemComplete(@PathVariable("itemId") Long itemId,
                                   @ModelAttribute ItemBuyForms itemBuyForms) throws IOException {
 
+        //Authentication authentication = securityContextHolder.getContext().getAuthentication();
+
+        //String username = authentication.getName();
+//        User user = userService.findByUsername(username);
+//        model.addAttribute("user", user);
+
+//        Long userId = 1L;
         payment = itemBuyForms.getPayment();
 
         switch (payment) {
@@ -354,10 +375,10 @@ public class ItemController implements ItemsApi {
         }
 
         var currentStock = itemService.getStock(itemId);
-        var formItemNumber =  itemBuyForms.getStock();
+        var quantity =  itemBuyForms.getStock();
 
-        // 現在の在庫数 - フォームで入力した在庫数
-        Integer stock = currentStock - formItemNumber;
+        // 現在の在庫数 - フォームで入力した個数
+        Integer stock = currentStock - quantity;
 
         // 個数、支払い方法更新
         itemService.itemBuy(itemId, stock, payment);
@@ -366,6 +387,9 @@ public class ItemController implements ItemsApi {
             //商品の削除
             itemService.delete(itemId);
         }
+
+        //注文情報の登録
+//        itemService.orderCreate(userId, itemId , quantity);
 
             return "redirect:/items/complete/{itemId}";
         }

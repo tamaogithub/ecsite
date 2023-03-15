@@ -37,13 +37,15 @@
 
 # 共通事項
 - ECサイトへの情報の入力は、マウス及びキーボード、スマホから行う。
-- ブラウザはChromeのみ対応とする
-- スマホからも使用すると想定される為、レスポンシブデザイン対応をする
+- ブラウザはChromeを推奨とする。<br>
+  Chromeのみで動作を確認済みだが、古いブラウザ（internet explorer）などはJavaScriptが対応していない可能性があるため、<br>
+  動作を保証することはできません。
+- スマホからも使用すると想定される為、レスポンシブデザイン対応をする。
 
 # 制約事項
 - ユーザー情報、商品情報の検索処理は対象外とする。
 - ユーザー情報、商品情報の削除処理は対象外とする。
-- 商品の購入後の決済処理、購入取り消し、税額計算は対象外とする
+- 商品の購入後の決済処理、購入取り消し、税額計算は対象外とする。
 
 # 技術スタック
 - フロントエンド：HTML5、CSS、JavaScript、jQuery、BootStrap、Thymeleaf
@@ -110,4 +112,5 @@
 - [画面設計書](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/BasicDesign/%E7%94%BB%E9%9D%A2%E8%A8%AD%E8%A8%88.xlsx)
 - [API定義書](http://localhost:61112/swaggerui.html?project=b920a53b&filename=C:/Users/farno/ecsite/src/main/resources/api-schema.yaml&renderer=0)
 - [DB設計書](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/DatabaseDesign/DB%E8%A8%AD%E8%A8%88.xlsx)
+- [単体試験実施状況](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/3.Implementation/UnitTest/JUNIT%E3%83%86%E3%82%B9%E3%83%88%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%AF%84%E5%9B%B2.xlsx)
 - [試験項目書](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/4.Verification/SystemTest/%E7%B7%8F%E5%90%88%E3%83%86%E3%82%B9%E3%83%88%E4%BB%95%E6%A7%98%E6%9B%B8.xlsx)

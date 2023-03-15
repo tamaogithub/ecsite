@@ -100,11 +100,14 @@
 
 # 納品物
 ソースコード以外の納品物は下記とする
-- [要件定義](https://docs.google.com/document/d/10nq4WdK7KVjKBI2eLFSeeKP2L65iv4za/edit)
-- [ユースケース図](https://drive.google.com/drive/folders/1P5bdhr7V7B6z9jghsLN6iMIrtcHMYAm_)
-- [シーケンス図](https://drive.google.com/drive/folders/1vDQfPZyUCv8TRgRY2NEG-46tHJ4uPjZT)
-- [画面遷移図](https://drive.google.com/drive/folders/1y4oY_1f3hZc__UtuiwES0q1rbpZeTY9s)
+- [要件定義](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9.docx)
+- [ユースケース図](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/UseCaseDiagram/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E5%9B%B3.pdf)
+- [シーケンス図(3層アーキテクチャ)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/sta()tic/docs/2.Design/DetailDesign/SequenceDiagram/3%E5%B1%A4%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E3%81%AE%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%9B%B3.jpg)
+- [シーケンス図(ADMIN権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/ADMIN%E6%A8%A9%E9%99%90%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E5%A0%B4%E5%90%88%E3%81%AE%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%9B%B3.jpg)
+- [シーケンス図(MAKER権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/MAKER%E6%A8%A9%E9%99%90%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E5%A0%B4%E5%90%88%E3%81%AE%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%9B%B3.jpg)
+- [シーケンス図(SHOP権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/SHOP%E6%A8%A9%E9%99%90%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E5%A0%B4%E5%90%88%E3%81%AE%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%9B%B3.jpg) 
+- [画面遷移図](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/BasicDesign/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3.png)
+- [画面設計書](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/BasicDesign/%E7%94%BB%E9%9D%A2%E8%A8%AD%E8%A8%88.xlsx)
 - [API定義書](http://localhost:61112/swaggerui.html?project=b920a53b&filename=C:/Users/farno/ecsite/src/main/resources/api-schema.yaml&renderer=0)
-- [画面設計書](https://docs.google.com/spreadsheets/d/1A0jdlHoIj8a1JjD0q2jo4bblBcmKMHvQ1LSGgM0Q-1E/edit#gid=0)
-- [DB設計書](https://docs.google.com/spreadsheets/d/1haTe27o6zy1MlmP4Zu3EzqU_CKUCFNrSfQAwkuZ2MZE/edit#gid=877501984)
-- [試験項目書](https://docs.google.com/spreadsheets/d/1OGezkqqGK2X-pxyfaLvJaUFUVmCoyfFr/edit#gid=672063631)
+- [DB設計書](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/DatabaseDesign/DB%E8%A8%AD%E8%A8%88.xlsx)
+- [試験項目書](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/4.Verification/SystemTest/%E7%B7%8F%E5%90%88%E3%83%86%E3%82%B9%E3%83%88%E4%BB%95%E6%A7%98%E6%9B%B8.xlsx)

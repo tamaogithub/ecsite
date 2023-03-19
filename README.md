@@ -104,10 +104,11 @@
 ソースコード以外の納品物は下記とする
 - [要件定義](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/要件定義.docx)
 - [ユースケース図](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/UseCaseDiagram/ユースケース図.pdf)
-- [シーケンス図(3層アーキテクチャ)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/3層アーキテクチャのシーケンス図.jpg)
-- [シーケンス図(ADMIN権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/ADMIN権限でログインした場合のシーケンス図.jpg)
-- [シーケンス図(MAKER権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/MAKER権限でログインした場合のシーケンス図.jpg)
-- [シーケンス図(SHOP権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/SHOP権限でログインした場合のシーケンス図.jpg)
+- シーケンス図は、NotionAIを使用してMarmed.jsで自動生成されました。<br>
+  [シーケンス図(3層アーキテクチャ)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/3層アーキテクチャのシーケンス図.jpg)<br>
+  [シーケンス図(ADMIN権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/ADMIN権限でログインした場合のシーケンス図.jpg)<br>
+  [シーケンス図(MAKER権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/MAKER権限でログインした場合のシーケンス図.jpg)<br>
+  [シーケンス図(SHOP権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/SHOP権限でログインした場合のシーケンス図.jpg)<br>
 - [画面遷移図](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/BasicDesign/画面遷移図.png)
 - [画面設計書(ADMIN権限)](https://www.figma.com/file/fADbDWFmmOfNlBWR4xG4qW/ecSite%EF%BC%88ADMIN%E6%A8%A9%E9%99%90%EF%BC%89?t=CIMYWvw98TBdHq4u-0)
 - [画面設計書(MAKER権限)](https://www.figma.com/file/Qa5LKJ8cT4rCVd7HChNL7I/ecSite%EF%BC%88MAKER%E6%A8%A9%E9%99%90%EF%BC%89?node-id=0%3A1&t=AQkwm8VQszcS8Gc0-1)

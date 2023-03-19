@@ -13,13 +13,13 @@
           enctype="multipart/form-data"
           th:object="${itemForms}">
         <div class="mt-3">
-            <label for="itemInput" class="form-label" >商品名</label>
+            <label for="itemInput" class="form-label" >商品名</label><label class="required">*</label>
             <input type="text" id="itemInput" th:field="*{itemName}" class="form-control"
                    th:classappend="${#fields.hasErrors('itemName')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}">(error)</p>
         </div>
         <div class="mt-3">
-            <label for="descriptionInput" class="form-label">商品概要</label>
+            <label for="descriptionInput" class="form-label">商品概要</label><label class="required">*</label>
             <textarea id="descriptionInput" th:field="*{description}" class="form-control" rows="3" style="height: 6em;"
                       th:classappend="${#fields.hasErrors('description')} ? is-invalid"></textarea>
             <p class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">(error)</p>
@@ -44,19 +44,19 @@
             </div>
         </div>
         <div class="mt-3">
-            <label for="companyInput" class="form-label">販売会社</label>
+            <label for="companyInput" class="form-label">販売会社</label><label class="required">*</label>
             <textarea id="companyInput" th:field="*{company}" class="form-control"
                       th:classappend="${#fields.hasErrors('company')} ? is-invalid"></textarea>
             <p class="invalid-feedback" th:if="${#fields.hasErrors('company')}" th:errors="*{company}">(error)</p>
         </div>
         <div class="mt-3" >
-            <label for="stockInput" class="form-label">販売価格（円）</label>
+            <label for="stockInput" class="form-label">販売価格（円）</label><label class="required">*</label>
             <input type="text" id="priceInput" th:field="*{price}" class="form-control"
                    th:classappend="${#fields.hasErrors('price')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">(error)</p>
         </div>
         <div class="mt-3" >
-            <label for="stockInput" class="form-label">在庫数（個）</label>
+            <label for="stockInput" class="form-label">在庫数（個）</label><label class="required">*</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <button class="btn btn-outline-secondary minus-btn" type="button">-</button>

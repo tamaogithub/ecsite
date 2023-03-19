@@ -30,7 +30,7 @@
                             <label class="form-label" th:text="${itemBuy.price} + 円"></label>
                         </div>
                         <div class="mt-3 input-group">
-                            <label for="stockInput" class="form-label">個数　在庫<label th:text="${itemBuy.stock}"></label>個　</label>
+                            <label for="stockInput" class="form-label">個数<label class="required">*</label>　在庫<label th:text="${itemBuy.stock}"></label>個　</label>
                             <div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="mt-3 input-group">
-                            <label for="addressInput" class="form-label">配送先　　　</label>
+                            <label for="addressInput" class="form-label">配送先<label class="required">*</label>　　　</label>
                             <input type="text" id="addressInput" th:field="*{address}" class="form-control"
                                    th:classappend="${#fields.hasErrors('address')} ? is-invalid">
                             <p class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">(error)</p>

@@ -18,6 +18,6 @@
 1. コマンドラインから、Java SE Development Kit 17をインストールします。以下のコマンドを実行します。<br>
 ```sudo apt update```
 ```sudo apt install openjdk-17-jdk ```
-2. インストールが完了したら、Javaのバージョンを確認します。
+2. インストールが完了したら、Javaのバージョンを確認します。<br>
 ```java -version```
 3. バージョン情報が表示されれば、インストールが成功しています。<br>

@@ -30,7 +30,7 @@
                             <label class="form-label" th:text="*{price} + 円"></label>
                         </div>
                         <div class="mt-3 input-group">
-                            <label for="stockInput" class="form-label">個数　在庫<label th:text="*{stock}"></label>個　</label>
+                            <label for="stockInput" class="form-label">個数<label class="required">*</label>　在庫<label th:text="*{stock}"></label>個　</label>
                             <div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -48,11 +48,11 @@
                                 </div>
                         </div>
                         <div class="mt-3 input-group">
-                            <label for="address" class="form-label">配送先　　　　</label>
+                            <label for="address" class="form-label">配送先<label class="required">*</label>　　　　</label>
                             <input type="text" id="address" th:field="${userItem.address}" class="form-control">
                         </div>
                         <div class="mt-3 input-group">
-                            <div class="form-label" for="paymentRadio">支払い方法　　</div>
+                            <div class="form-label" for="paymentRadio">支払い方法<label class="required">*</label>　　</div>
                             <div id="paymentRadio">
                                 <for th:each="item : ${itemBuyForms.getPaymentItems()}">
                                     <label class="form-check-inline">

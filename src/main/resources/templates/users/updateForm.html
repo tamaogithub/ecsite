@@ -12,19 +12,19 @@
           th:method="post"
           th:object="${user}">
         <div class="mt-3">
-            <label for="userNameInput" class="form-label">ユーザー名</label>
+            <label for="userNameInput" class="form-label">ユーザー名</label><label class="required">*</label>
             <input type="text" id="userNameInput" th:field="*{userName}" class="form-control"
                    th:classappend="${#fields.hasErrors('userName')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">(errors)</p>
         </div>
         <div class="mt-3">
-            <label for="passwordInput" class="form-label">パスワード</label>
+            <label for="passwordInput" class="form-label">パスワード</label><label class="required">*</label>
             <input type="password" id="passwordInput" th:field="*{password}" class="form-control"
                    th:classappend="${#fields.hasErrors('password')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">(errors)</p>
         </div>
         <div class="mt-3">
-            <label class="form-label" for="authorityRadio">ユーザー権限</label>
+            <label class="form-label" for="authorityRadio">ユーザー権限</label><label class="required">*</label>
             <div id="authorityRadio">
                 <div class="form-check" th:classappend="${#fields.hasErrors('authority')} ? is-invalid">
                     <input class="form-check-input" type="radio" id="authorityAdminRadio"
@@ -49,19 +49,19 @@
             </div>
         </div>
         <div class="mt-3">
-            <label for="campanyInput" class="form-label">所属会社</label>
+            <label for="campanyInput" class="form-label">所属会社</label><label class="required">*</label>
             <input type="text" id="campanyInput" th:field="*{campany}" class="form-control"
                    th:classappend="${#fields.hasErrors('campany')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('campany')}" th:errors="*{campany}">(errors)</p>
         </div>
         <div class="mt-3">
-            <label for="addressInput" class="form-label">住所</label>
+            <label for="addressInput" class="form-label">住所</label><label class="required">*</label>
             <input type="text" id="addressInput" th:field="*{address}" class="form-control"
                    th:classappend="${#fields.hasErrors('address')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">(errors)</p>
         </div>
         <div class="mt-3">
-            <label for="phoneInput" class="form-label">電話番号</label>
+            <label for="phoneInput" class="form-label">電話番号</label><label class="required">*</label>
             <input type="text" id="phoneInput" th:field="*{phone}" class="form-control"
                    th:classappend="${#fields.hasErrors('phone')} ? is-invalid">
             <p class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">(errors)</p>

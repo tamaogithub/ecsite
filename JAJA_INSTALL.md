@@ -12,8 +12,9 @@
 1. [公式サイト](https://www.oracle.com/jp/java/technologies/downloads/#jdk19-mac)からJava SE Development Kit 17をダウンロードします。<br>
 2. ダウンロードしたファイルを実行して、インストーラーを起動します。<br>
 3. インストーラーに従って、インストールを開始します。<br>
-4. インストールが完了したら、ターミナルを開いて、Javaのバージョンを確認します。<br>
-5. ターミナルに「java -version」と入力して、バージョン情報が表示されれば、インストールが成功しています。<br>
+4. インストールが完了したら、Javaのバージョンを確認します。<br>
+   ```java -version```
+5. バージョン情報が表示されれば、インストールが成功しています。<br>
 ### Linux<br>
 1. コマンドラインから、Java SE Development Kit 17をインストールします。以下のコマンドを実行します。<br>
 ```sudo apt update```

@@ -20,23 +20,23 @@
                 <div class="col-md-7">
                     <div class="card-body">
                         <div class="mt-3">
-                            <div class="form-label" >商品名</div><label class="required">*</label>
+                            <div class="form-label" >商品名</div>
                             <div th:text="${item.itemName}"></div>
                         </div>
                         <div class="mt-3">
-                            <div class="form-label">商品概要</div><label class="required">*</label>
+                            <div class="form-label">商品概要</div>
                             <div class="form-label" th:text="${item.description}"></div>
                         </div>
                         <div class="mt-3">
-                            <label class="form-label">販売価格（円）</label><label class="required">*</label>
+                            <label class="form-label">販売価格（円）</label>
                             <label class="form-label" th:text="${item.price}"></label>
                         </div>
                         <div class="mt-3">
-                            <label class="form-label">在庫数（個）</label><label class="required">*</label>
+                            <label class="form-label">在庫数（個）</label>
                             <label class="form-label" th:text="${item.stock}"></label>
                         </div>
                         <div class="mt-3">
-                            <div class="form-label">配送先</div><label class="required">*</label>
+                            <div class="form-label">配送先</div>
                             <div th:text="${userItem.address}" class="form-label"></div>
                         </div>
                     </div>

@@ -37,7 +37,7 @@ public class UserService {
     public void create(String userName, String password, String authority, String campany, String address, String phone) {
 //        //パスワードをエンコード
         var encodedPassword = passwordEncoder.encode(password);
-        var record = new UserRecord(null,userName,password,authority,campany,address,phone);
+        var record = new UserRecord(null,userName,encodedPassword,authority,campany,address,phone);
         userRepository.insert(record);
     }
 
@@ -62,6 +62,8 @@ public class UserService {
 
     @Transactional
     public void update(Long userId, String userName,String password, String authority, String campany, String address, String phone) {
-        userRepository.update(userId, userName, password, authority, campany, address, phone);
+        //パスワードをエンコード
+        var encodedPassword = passwordEncoder.encode(password);
+        userRepository.update(userId, userName, encodedPassword, authority, campany, address, phone);
     }
 }

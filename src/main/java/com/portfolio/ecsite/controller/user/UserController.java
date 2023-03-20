@@ -139,7 +139,7 @@ public class UserController implements UsersApi {
      */
     @GetMapping("/update/error/{userId}")
     public String showUserUpdateErrorFrom(@PathVariable("userId") Long userId,
-                                          @ModelAttribute UserForms userForms) {
+                                          @ModelAttribute UserUpdateForms userForms) {
         return "users/updateErrorForm";
     }
 
@@ -153,7 +153,7 @@ public class UserController implements UsersApi {
      */
     @PostMapping("/update/{userId}")
     public String updateUser(@PathVariable("userId") Long userId,
-                             @ModelAttribute @Validated UserForms userForms,
+                             @ModelAttribute @Validated UserUpdateForms userForms,
                              BindingResult bindingResult) throws IOException {
 
         if (bindingResult.hasErrors()) {

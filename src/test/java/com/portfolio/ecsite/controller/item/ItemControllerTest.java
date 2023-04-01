@@ -158,7 +158,7 @@ class ItemControllerTest {
             mockMvc.perform(get("/items/buy/1"))
                     .andExpect(status().isOk())
                     .andExpect(model().hasNoErrors())
-                    .andExpect(view().name("items/itemBuyConfirm"));
+                    .andExpect(view().name("items/itemBuyForm"));
         }
 
         @Test

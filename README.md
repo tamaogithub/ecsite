@@ -26,7 +26,7 @@
 # 使用方法
 このアプリケーションを実行するためには、以下の手順に従ってください。
 1. Chromeブラウザで下記URLにアクセスして、アプリケーションが正常に動作していることを確認します。<br>
-```http://aws-infra-meron.com:8080/login ```
+- [http://aws-infra-meron.com:8080/login](http://aws-infra-meron.com:8080/login) 
 ※ログインパスワードは別途連携
 
 # 認証権限について
@@ -56,9 +56,6 @@
 | 商品購入画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/buy/1             | SHOPのみ商品の購入ができる        |
 | 購入確認画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/confirm/1         | SHOPのみ商品の購入確認画面が閲覧できる  |
 | 購入完了画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/complete/1        | SHOPのみ商品の購入完了画面が閲覧できる  |
-
-## アプリケーションの終了
-1. アプリケーションを停止するには、ターミナルまたはコマンドプロンプトでCtrl + Cを入力します。
 
 # 納品物
 ソースコード以外の納品物は下記とする

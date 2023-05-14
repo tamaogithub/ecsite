@@ -25,21 +25,9 @@
 
 # ローカル環境での使用方法
 このアプリケーションをローカル環境で実行するためには、以下の手順に従ってください。
-1. PCにJavaをインストールしていない場合、[Javaをインスール](https://github.com/tamaogithub/ecsite/blob/master/JAJA_INSTALL.md)する。
-2. ターミナルまたはコマンドプロンプトで、このリポジトリをクローンします。<br>
-```git clone https://github.com/tamaogithub/ecsite.git ```
-3. cloneしたプロジェクトのフォルダに移動します。<br>
-```cd ecsite ```
-4. 下記コマンドでアプリケーションをビルドします。<br>
-```./gradlew build -x test```
-5. 下記コマンドでjarファイルを実行してアプリケーションを起動します。<br>
-```java -jar build/libs/ecsite-0.0.1-SNAPSHOT.jar```<br>
-   手順2 で java17でビルドした場合、ランタイムもJava17 に合わせる必要があります。<br>
-   下記、コマンドでローカル環境のJavaのバージョンを確認し、Javaが入ってない場合はインストールしてください<br>
-``` java -version ```
-6. :iブラウザで下記URLにアクセスして、アプリケーションが正常に動作していることを確認します。<br>
-```http://localhost:8080/login ```
-7. ログイン画面で下記ユーザ、パスワードを入力します。
+1. iブラウザで下記URLにアクセスして、アプリケーションが正常に動作していることを確認します。<br>
+```http://aws-infra-meron.com:8080/login ```
+2. ログイン画面で下記ユーザ、パスワードを入力します。
 #### 管理者権限（ADMIN）でログインする場合の例
 - ユーザー：tom
 - パスワード：Password1234
@@ -65,18 +53,18 @@
 
 | 画面/権限    | ADMIN | MAKER | SHOP | 画面URL 例                                       | 備考                     |
 |:---------|:------|:------|:-----|:----------------------------------------------|:-----------------------|
-| ログイン画面   | 〇     | 〇     | 〇    | http://localhost:8080/login                   | ログイン画面は権限認証しなくても表示できる  |
-| メニュー画面   | 〇     | 〇     | 〇    | http://localhost:8080                         | 権限ごとの画面リンクが表示される       |
-| ユーザ登録画面  | 〇     | -     | -    | http://localhost:8080/users/creationForm      | ADMINのみユーザーの登録ができる     |
-| ユーザー一覧画面 | 〇     | -     | -    | http://localhost:8080/users?limit=10&offset=0 | ADMINのみユーザー一覧画面の閲覧ができる |
-| ユーザー編集画面 | 〇     | -     | -    | http://localhost:8080/users/update/1          | ADMINのみユーザーの編集ができる     |
-| 商品登録画面   | -     | 〇     | -    | http://localhost:8080/items/creationForm      | MAKERのみ商品の登録ができる       |
-| 商品一覧画面   | 〇     | 〇     | 〇    | http://localhost:8080/items?limit=10&offset=0 | 商品の一覧画面が閲覧できる          |
-| 商品詳細画面   | 〇     | -     | -    | http://localhost:8080/items/discription/1     | ADMINのみ商品の詳細が閲覧できる     |
-| 商品編集画面   | -     | 〇     | -    | http://localhost:8080/items/update/1          | MAKERのみ商品の編集ができる       | 
-| 商品購入画面   | -     | -     | 〇    | http://localhost:8080/items/buy/1             | SHOPのみ商品の購入ができる        |
-| 購入確認画面   | -     | -     | 〇    | http://localhost:8080/items/confirm/1         | SHOPのみ商品の購入確認画面が閲覧できる  |
-| 購入完了画面   | -     | -     | 〇    | http://localhost:8080/items/complete/1        | SHOPのみ商品の購入完了画面が閲覧できる  |
+| ログイン画面   | 〇     | 〇     | 〇    |http://aws-infra-meron.com:8080/login                   | ログイン画面は権限認証しなくても表示できる  |
+| メニュー画面   | 〇     | 〇     | 〇    |http://aws-infra-meron.com:8080                         | 権限ごとの画面リンクが表示される       |
+| ユーザ登録画面  | 〇     | -     | -    |http://aws-infra-meron.com:8080/users/creationForm      | ADMINのみユーザーの登録ができる     |
+| ユーザー一覧画面 | 〇     | -     | -    |http://aws-infra-meron.com:8080/users?limit=10&offset=0 | ADMINのみユーザー一覧画面の閲覧ができる |
+| ユーザー編集画面 | 〇     | -     | -    |http://aws-infra-meron.com:8080/users/update/1          | ADMINのみユーザーの編集ができる     |
+| 商品登録画面   | -     | 〇     | -    |http://aws-infra-meron.com:8080/items/creationForm      | MAKERのみ商品の登録ができる       |
+| 商品一覧画面   | 〇     | 〇     | 〇    |http://aws-infra-meron.com:8080/items?limit=10&offset=0 | 商品の一覧画面が閲覧できる          |
+| 商品詳細画面   | 〇     | -     | -    |http://aws-infra-meron.com:8080/items/discription/1     | ADMINのみ商品の詳細が閲覧できる     |
+| 商品編集画面   | -     | 〇     | -    |http://aws-infra-meron.com:8080/items/update/1          | MAKERのみ商品の編集ができる       | 
+| 商品購入画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/buy/1             | SHOPのみ商品の購入ができる        |
+| 購入確認画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/confirm/1         | SHOPのみ商品の購入確認画面が閲覧できる  |
+| 購入完了画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/complete/1        | SHOPのみ商品の購入完了画面が閲覧できる  |
 
 ## アプリケーションの終了
 1. アプリケーションを停止するには、ターミナルまたはコマンドプロンプトでCtrl + Cを入力します。

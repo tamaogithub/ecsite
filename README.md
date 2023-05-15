@@ -61,6 +61,7 @@
 ソースコード以外の納品物は下記とする
 - [要件定義](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/要件定義.docx)
 - [ユースケース図](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/UseCaseDiagram/ユースケース図.pdf)
+- [ネットワーク構成図](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/BasicDesign/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E6%A7%8B%E6%88%90%E5%9B%B3.png)
 - シーケンス図は、NotionAIを使用してMarmed.jsで自動生成されました。<br>
   [シーケンス図(3層アーキテクチャ)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/3層アーキテクチャのシーケンス図.jpg)<br>
   [シーケンス図(ADMIN権限)](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/DetailDesign/SequenceDiagram/ADMIN権限でログインした場合のシーケンス図.jpg)<br>

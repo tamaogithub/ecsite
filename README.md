@@ -46,16 +46,14 @@
 + jacoco 0.8.8
 + lombok 1.18.26
 
-## Webサーバ
+## インフラ
 + AWS
   + IAM 
   + Route 53
-  + EC2
+  + EC2（Webサーバ）
     + Tomcat 9.0.60
     + Apache
-
-## DBサーバ
-  + RDS
+  + RDS（DBサーバ）
     + MySQL
 
 # 認証権限について

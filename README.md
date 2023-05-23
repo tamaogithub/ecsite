@@ -36,7 +36,7 @@
 + mybatis 2.2.0
 + Junit 4.13.2
 + dbunit 2.7.3
-+ Mockito 4.0.0
++ Mockito 4.2.0
 + jacoco 0.8.8
 + lombok 1.18.26
 
@@ -83,6 +83,9 @@
 | 商品購入画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/buy/1             | SHOPのみ商品の購入ができる        |
 | 購入確認画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/confirm/1         | SHOPのみ商品の購入確認画面が閲覧できる  |
 | 購入完了画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/complete/1        | SHOPのみ商品の購入完了画面が閲覧できる  |
+
+# インフラ構成図
+![sample](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/2.Design/BasicDesign/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E6%A7%8B%E6%88%90%E5%9B%B3.png)
 
 # ECサイト作成を経て学んだこと
 + アプリケーションの設計能力(画面設計、DB設計)

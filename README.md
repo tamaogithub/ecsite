@@ -53,7 +53,8 @@
 
 ## インフラ
 + AWS
-  + IAM 
+  + Amazon CloudWatch
+  + IAM
   + Elastic IP
   + Route 53
   + EC2（Webサーバ）

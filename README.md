@@ -40,6 +40,7 @@
   + Spring Security
   + Spring Validation
 + mybatis 2.2.0
++ OpenAPI Generator 6.2.1 
 + Junit 4.13.2
 + dbunit 2.7.3
 + Mockito 4.2.0

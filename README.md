@@ -36,6 +36,7 @@
 ## バッグエンド
 + Java 17
 + Spring boot 2.7.1
+  + Spring Web
   + Spring Security
   + Spring Validation
   + Spring Data JPA
@@ -45,7 +46,7 @@
 + dbunit 2.7.3
 + Mockito 4.2.0
 + jacoco 0.8.8
-+ lombok 1.18.26
++ Lombok 1.18.26
 
 ## ビルドツール
 + Gradle

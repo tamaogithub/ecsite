@@ -36,6 +36,7 @@
 ## バッグエンド
 + Java 17
 + Spring boot 2.7.1
+　+ Spring Data JPA
   + Spring Security
   + Spring Validation
 + mybatis 2.2.0
@@ -50,6 +51,8 @@
   + EC2
     + Tomcat 9.0.60
     + Apache
+　+ Route 53
+
 
 ## DBサーバ
   + RDS

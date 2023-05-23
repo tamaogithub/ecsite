@@ -48,6 +48,7 @@
 
 ## Webサーバ
 + AWS
+  + IAM 
   + Route 53
   + EC2
     + Tomcat 9.0.60

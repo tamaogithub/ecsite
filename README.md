@@ -67,7 +67,8 @@
 + 共通認可
   + 管理者、メーカー、店舗は、メニュー画面を閲覧できる。
   + 管理者、メーカー、店舗は、メーカーが登録（出品）した商品を閲覧できる。
-![use case](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/UseCaseDiagram/ユースケース図.pdf)
+## ユースケース図
+![usecase](https://github.com/tamaogithub/ecsite/blob/master/src/main/resources/static/docs/1.RequirementsDefinition/UseCaseDiagram/ユースケース図.pdf)
 
 ## 権限ごとの仕入れ業務の表示画面一覧
 

@@ -21,7 +21,6 @@
 
 # 技術スタック
 ## フロントエンド
-+ HTML5、CSS、JavaScript、jQuery、BootStrap、Thymeleaf
 + HTML5
   + Thymeleaf
 + CSS

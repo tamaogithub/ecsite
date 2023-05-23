@@ -54,6 +54,7 @@
 ## インフラ
 + AWS
   + IAM 
+  + Elastic IP
   + Route 53
   + EC2（Webサーバ）
     + Tomcat 9.0.60

@@ -38,7 +38,7 @@
 + Spring boot 2.7.1
   + Spring Security
   + Spring Validation
-　+ Spring Data JPA
+  + Spring Data JPA
 + mybatis 2.2.0
 + OpenAPI Generator 6.2.1 
 + Junit 4.13.2

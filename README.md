@@ -3,6 +3,7 @@
 
 # 概要
 このアプリケーションは、企業間の商品の仕入れ業務に必要な機能を提供しています。主な機能には、以下が含まれます。
+- ユーザーのログイン
 - ユーザーの登録、閲覧、編集
 - 商品の登録、閲覧、編集、購入
 - 注文の管理
@@ -19,9 +20,36 @@
 - 商品の購入後の決済処理、購入取り消し、税額計算は対象外とする。
 
 # 技術スタック
-- フロントエンド：HTML5、CSS、JavaScript、jQuery、BootStrap、Thymeleaf
-- バックエンド：Java17、SpringBoot、SpringSecurity、Mybatis、MySQL、lombok、Validation、JUnit、DbUnit ...etc<br>
-※ その他技術スタックは、[build.gradle](https://github.com/tamaogithub/ecsite/blob/master/build.gradle) 参照
+## フロントエンド
++ HTML5、CSS、JavaScript、jQuery、BootStrap、Thymeleaf
++ HTML5
+  + Thymeleaf
++ CSS
+  + BootStrap 5.2.3
++ JavaScript
+  + jQuery 3.6.4
+
+## バッグエンド
++ Java 17
++ Spring boot 2.7.1
+  + Spring Security
+  + Spring Validation
++ mybatis 2.2.0
++ Junit 4.13.2
++ dbunit 2.7.3
++ Mockito 4.0.0
++ jacoco 0.8.8
++ lombok 1.18.26
+
+## Webサーバ
++ AWS
+  + EC2
+    + Tomcat 9.0.60
+    + Apache
+
+## DBサーバ
+  + RDS
+    + MySQL  
 
 # 使用方法
 このアプリケーションを実行するためには、以下の手順に従ってください。
@@ -56,6 +84,23 @@
 | 商品購入画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/buy/1             | SHOPのみ商品の購入ができる        |
 | 購入確認画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/confirm/1         | SHOPのみ商品の購入確認画面が閲覧できる  |
 | 購入完了画面   | -     | -     | 〇    |http://aws-infra-meron.com:8080/items/complete/1        | SHOPのみ商品の購入完了画面が閲覧できる  |
+
+# ECサイト作成を経て学んだこと
++ アプリケーションの設計能力(画面設計、DB設計)
++ バリデーションを伴うCRUD機能の実装
++ 画像ファイルのアップロード機能の実装
++ JUnit,Mockitoを用いた単体テストの実施
++ AWSを使ったwebサーバ、DBサーバの構築
+
+# 今後の課題
++ 機能の追加
+  + 商品検索機能
+  + 商品削除機能
+  + 商品購入完了時の決算処理
++ コードのリファクタリング
+  + 複数のクラスに記述している同じ処理を一つにまとめる
++ Dockerを用いた環境構築
++ CircleCIを用いたCI/CDパイプラインの構築
 
 # 納品物
 ソースコード以外の納品物は下記とする

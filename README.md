@@ -46,6 +46,9 @@
 + jacoco 0.8.8
 + lombok 1.18.26
 
+## ビルドツール
++ Gradle
+
 ## インフラ
 + AWS
   + IAM 

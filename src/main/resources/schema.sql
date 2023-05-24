@@ -1,4 +1,4 @@
-
+CREATE DATABASE ecsite_db DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE users(
      id INT(10) NOT NULL  PRIMARY KEY AUTO_INCREMENT,
@@ -14,80 +14,79 @@ CREATE TABLE users(
 --     updated_user VARCHAR(100)  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- password1234
+
 insert into users (username, password, authority, campany, address, phone) values
-("bob","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("bob","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
 
-("bob1","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag1","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy1","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson1","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin1","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim1","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom1","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan1","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("bob1","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag1","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy1","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson1","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin1","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim1","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom1","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan1","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
 
-("bob2","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag2","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy2","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson2","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin2","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim2","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom2","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan2","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999");
+("bob2","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag2","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy2","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson2","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin2","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim2","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom2","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan2","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
 
-("bob3","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag3","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy3","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson3","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin3","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim3","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom3","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan3","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999");
+("bob3","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag3","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy3","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson3","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin3","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim3","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom3","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan3","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
 
-("bob4","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag4","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy4","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson4","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin4","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim4","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom4","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan4","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999");
+("bob4","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag4","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy4","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson4","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin4","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim4","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom4","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan4","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
 
-("bob5","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag5","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy5","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson5","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin5","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim5","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom5","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan5","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999");
+("bob5","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag5","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy5","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson5","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin5","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim5","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom5","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan5","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
 
-("bob6","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag6","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy6","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson6","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin6","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim6","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom6","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan6","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("bob6","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag6","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy6","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson6","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin6","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim6","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom6","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan6","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
 
-("bob7","4c7b56cfed81c2b0d13ac766a79981adbf0fc1dd7caba700b3ed02a40312a1ed51bca03ccd6456ad","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("dag7","70de9abf34908101fb061aaf0b3d3207bc9d1f084e525c81845ead98842b695684e384d953275520","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jimmy7","6cc187be45b3238fd776dace9fe9e7dcc9edbd3794cac4b346d026b99a4506cf55b662d8277d7d1e","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("jonson7","e07de513e77e028bf23751d276c479ce35fb52b428929df628de7c39936173e5b537d3154edf1f3b","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("kebin7","b6d76e742ac510ee22140393e1518ee00b15721ee17a2454efbf914bc4033bb31a2cfbc093a7b6f2","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tim7","6f4ba7701f65779cc594fdb6c22e8fd454d90165b5b494e8af828528b226fcc89c7bfb819f59bcc5","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("tom7","28ee1e646cbe4b4d19fce560683c31411b5073be0092b62975219025f273800b30fdab6520c06343","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-("yan7","c74afd2a794ba6766558d3c6f27276afc849db8cc784584920d2c857ea21099984fa731ca0a04320","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
-
+("bob7","9e7d2dd05832011de87fd4b5ecf0e32dc6759a3b12be01d9b49c91ff2c8038b8e27d6f0ece11c86f","MAKER","ecシステム","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("dag7","0adf569b4a6f43cde80a2c301171d0da1d63f7f47b1654169ca05824ba6e2256b72c5824cbf77985","SHOP","LION","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jimmy7","e925a6b23a110a5d81bc7daca7c0f02475d3f16efd1e4c83de305b3680efabffbf7ab4eb62c3b8de","MAKER","ダイソー","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("jonson7","45c02cb55e70d3eb0d7948a2d6258336f898b7276ffe0b4e8989440b5b78b8bc4fee5f2bbb35cd40","MAKER","丸々工業","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("kebin7","d1bba4d4a4f868494ece912fb4858eab29242d0db6e455701a69ed0ec527038ca33aebbeedcaf02d","SHOP","ヤマダ電機","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tim7","c87b4bcb9c2c1cc75dbf200934406cd619d8d909c9cb4f98dd693905261ebcb93d2536af4070bada","MAKER","ELECOM","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("tom7","36367251bb4fc35d3c72e22bec7ba80d1802251706f7d5c1c7856a3ec7bd33af35c6a5327ff2e3e0","ADMIN","無印良品","東京都港区1--1-1 丸々ビル1F","080-9999-9999"),
+("yan7","58f4f3e88c488c08a836882ff4ac813ee5016f4a460d6850a8899a6182f66971374107caeee1ca26","SHOP","丸々硝子","東京都港区1--1-1 丸々ビル1F","080-9999-9999");
 
 
 CREATE TABLE items(
@@ -205,19 +204,19 @@ INSERT INTO items (itemname, description, company, price, stock ) VALUES
 ("財布","黒皮の財布","丸々レザー","9800","1"),
 ("化粧水","保湿力高い","NIVEA","980","5");
 
-CREATE TABLE items(
-        id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '商品ID',
-        itemname VARCHAR(20)  NOT NULL COMMENT '商品名',
-        description VARCHAR(100)  NOT NULL COMMENT '商品詳細',
-        itemimage MEDIUMBLOB  DEFAULT NULL COMMENT '商品画像',
-        company VARCHAR(100)  NOT NULL,
-        price INT(10) NOT NULL DEFAULT 0,
-        stock INT(10) NOT NULL DEFAULT 1
---        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
---        created_user VARCHAR(100) DEFAULT NULL,
---        updated_user VARCHAR(100) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+--CREATE TABLE items(
+--        id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '商品ID',
+--        itemname VARCHAR(20)  NOT NULL COMMENT '商品名',
+--        description VARCHAR(100)  NOT NULL COMMENT '商品詳細',
+--        itemimage MEDIUMBLOB  DEFAULT NULL COMMENT '商品画像',
+--        company VARCHAR(100)  NOT NULL,
+--        price INT(10) NOT NULL DEFAULT 0,
+--        stock INT(10) NOT NULL DEFAULT 1
+----        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+----        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+----        created_user VARCHAR(100) DEFAULT NULL,
+----        updated_user VARCHAR(100) DEFAULT NULL
+--) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE items(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '商品ID',
@@ -235,16 +234,7 @@ CREATE TABLE items(
 --        updated_user VARCHAR(100) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-
-insert into blog values(1, load_file('/ProgramData/MySQL/MySQL Server 5.7/Uploads/blog.txt'));
-
-create table blog2(id int, image MEDIUMBLOB) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-insert into blog2 values(2, load_file('/ProgramData/MySQL/MySQL Server 5.7/Uploads/noImage.png'));
-
-INSERT INTO items (itemname, description, itemimage, company, price, stock ) VALUES
-("歯ブラシ","歯ブラシ（極細）", load_file("c:\\tmp\\noImage.png"),"LION","198","3");
-
-SELECT CAST(itemname,itemimage AS CHAR(10000) CHARACTER SET utf8) FROM ecsite_db.items;
+insert into users (username, password, authority, campany, address, phone) values
 
 INSERT INTO items (itemname, description, filename, itemimage, company, price, stock, payment) VALUES
 ("歯ブラシ","歯ブラシ（極細）",NULL,NULL ,"LION","198","3",NULL),
@@ -256,7 +246,8 @@ INSERT INTO items (itemname, description, filename, itemimage, company, price, s
 ("コップ","ガラス製コップ",NULL,NULL,"丸々硝子","980","6",NULL),
 ("イヤホン","ノイズキャンセリング対応",NULL,NULL,"SONY","1800","7",NULL),
 ("財布","黒皮の財布",NULL,NULL,"丸々レザー","9800","1",NULL),
-("化粧水","保湿力高い",NULL,NULL,"NIVEA","980","5",NULL),
+("化粧水","保湿力高い",NULL,NULL,"NIVEA","980","5",NULL);
+
 ("歯ブラシ","歯ブラシ（極細）",NULL,NULL,"LION","198","3",NULL),
 ("歯磨き粉","フッ素配合歯磨き粉",NULL,NULL,"サンスター","198","3",NULL),
 ("櫛","プラスチック加工の櫛",NULL,NULL,"丸々工業","198","40",NULL),

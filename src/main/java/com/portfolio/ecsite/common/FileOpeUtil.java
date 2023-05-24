@@ -50,7 +50,7 @@ public class FileOpeUtil {
      */
     static public String noImageFileToBase64Data(){
         //画像ファイルの指定
-        File fileImg = new File("c:\\tmp\\noImage.png");
+        File fileImg = new File("/opt/tomcat-9/webapps/noImage.png");
         try {
             byte[] byteImg = Files.readAllBytes(fileImg.toPath());
             base64Data = Base64.getEncoder().encodeToString(byteImg);

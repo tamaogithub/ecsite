@@ -1,5 +1,5 @@
 
-# 概要
+# ECサイトアプリケーション概要
 このアプリケーションは、企業間の商品の仕入れ業務に必要な機能を提供しています。<br>
 このアプリケーションを実行するためには下記のURLにアクセスして下さい。<br>
 [http://aws-infra-meron.com:8080/login](http://aws-infra-meron.com:8080/login) <br>

@@ -57,10 +57,10 @@
   + IAM
   + Elastic IP
   + Route 53
-  + EC2（Webサーバ）
+  + EC2
     + Tomcat 9.0.60
     + Apache
-  + RDS（DBサーバ）
+  + RDS
     + MySQL
 
 # 認証権限について

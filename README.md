@@ -58,10 +58,10 @@
   + Elastic IP
   + Route 53
   + EC2
-    + Tomcat 9.0.60
-    + Apache
+    + Tomcat 9.0.10
+    + Apache 2.4.57
   + RDS
-    + MySQL
+    + MySQL 8.0.32
 
 # 認証権限について
 ログイン機能にて、認証権限に合わせて認可された操作を行う。

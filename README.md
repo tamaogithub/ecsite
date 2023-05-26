@@ -49,7 +49,7 @@
 + Lombok 1.18.26
 
 ## ビルドツール
-+ Gradle
++ Gradle 7.6
 
 ## インフラ
 + AWS

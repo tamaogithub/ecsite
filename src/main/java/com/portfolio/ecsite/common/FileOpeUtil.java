@@ -49,8 +49,14 @@ public class FileOpeUtil {
      * @return base64Data
      */
     static public String noImageFileToBase64Data(){
+        File fileImg;
         //画像ファイルの指定
-        File fileImg = new File("/opt/tomcat-9/webapps/noImage.png");
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("win")) {
+            fileImg = new File("C:/tmp/noImage.png");
+        } else {
+            fileImg = new File("/opt/tomcat-9/webapps/noImage.png");
+        }
         try {
             byte[] byteImg = Files.readAllBytes(fileImg.toPath());
             base64Data = Base64.getEncoder().encodeToString(byteImg);
